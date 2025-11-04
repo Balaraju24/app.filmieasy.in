@@ -1,0 +1,234 @@
+import { useState, useEffect, useRef } from "react";
+import DataTable from "@/components/core/DataTable";
+import Pagination from "@/components/core/Pagination";
+import ProjectsBg from "@/assets/ProjectsBg.webp"; // Assuming a background image for projects
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { Button } from "@/components/ui/button";
+import { ProjectsTableProps } from "@/lib/interfaces/Project";
+import createProjectColumns from "@/components/columns/getProjectColumn";
+import {
+  ChevronDown,
+  Download,
+  Plus,
+  Search,
+  Upload,
+  Calendar as CalendarIcon,
+  X,
+} from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
+
+function ProjectsTable({
+  data,
+  paginationInfo,
+  page,
+  pageSize,
+  setPage,
+  setPageSize,
+  searchValue,
+  setSearchValue,
+  selectedDate,
+  setSelectedDate,
+  selectedStatus,
+  setSelectedStatus,
+  sorting,
+  setSorting,
+  isLoading,
+}: ProjectsTableProps & {
+  selectedStatus: string;
+  setSelectedStatus: (status: string) => void;
+}) {
+  const [tableBodyHeight, setTableBodyHeight] = useState('100%');
+  const navigate = useNavigate();
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const paginationRef = useRef<HTMLDivElement>(null);
+
+  const columns = createProjectColumns();
+
+  const handleStatusSelect = (status: string) => {
+    setSelectedStatus(status === "all" ? "" : status);
+  };
+
+  useEffect(() => {
+    const calculateHeight = () => {
+      if (!containerRef.current) return;
+
+      requestAnimationFrame(() => {
+        const containerRect = containerRef.current!.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        let aboveHeight = 0;
+        let bottomHeight = 0;
+
+        if (headerRef.current) {
+          aboveHeight += headerRef.current.getBoundingClientRect().height;
+        }
+
+        if (paginationRef.current) {
+          bottomHeight += paginationRef.current.getBoundingClientRect().height;
+        }
+
+        const containerStyle = window.getComputedStyle(containerRef.current as HTMLDivElement);
+        const containerPadding = parseFloat(containerStyle.paddingTop) + parseFloat(containerStyle.paddingBottom);
+        const containerMargin = parseFloat(containerStyle.marginTop) + parseFloat(containerStyle.marginBottom);
+
+        const offsets = containerPadding + containerMargin + 32;
+
+        const availableHeight = viewportHeight - containerRect.top - aboveHeight - bottomHeight - offsets;
+        if (location.pathname === '/projects') {
+          setTableBodyHeight(Math.max(availableHeight - 80, 200) + 'px');
+        } else {
+          setTableBodyHeight(Math.max(availableHeight, 200) + 'px');
+        }
+      });
+    };
+
+    calculateHeight();
+    window.addEventListener('resize', calculateHeight);
+    return () => window.removeEventListener('resize', calculateHeight);
+  }, [data?.length]);
+
+  return (
+    <>
+      <div className="h-full relative text-white p-0 overflow-hidden" ref={containerRef}>
+        <img
+          src={ProjectsBg}
+          alt="Background"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="relative z-10 h-full flex p-4 flex flex-col">
+          <div className="flex-1 flex flex-col bg-black">
+            <div ref={headerRef} className="h-[52px] border-b border-zinc-800/30 px-6 flex items-center justify-between bg-[#0a0a0a] flex-shrink-0">
+              <div className="flex items-center">
+                <span className="text-sm font-normal text-white">Projects</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="relative">
+                  <Select
+                    value={selectedStatus || "all"}
+                    onValueChange={handleStatusSelect}
+                  >
+                    <SelectTrigger className="w-[160px] h-8 bg-zinc-900/50 border-2 border-zinc-700 text-xs">
+                      <SelectValue placeholder="Select Status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All</SelectItem>
+                      <SelectItem value="ongoing">ONGOING</SelectItem>
+                      <SelectItem value="completed">COMPLETED</SelectItem>
+                      <SelectItem value="paused">TODO</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="relative">
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "w-[160px] h-8 justify-start text-left font-normal bg-zinc-900/50 border-2 border-zinc-700 text-xs",
+                          !selectedDate && "text-zinc-600"
+                        )}
+                      >
+                        {selectedDate ? (
+                          <div className="flex items-center justify-between w-full">
+                            <span className="truncate">{format(new Date(selectedDate), "MMM dd, yyyy")}</span>
+                            <div className="flex items-center gap-1">
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setSelectedDate("");
+                                }}
+                                className="h-3.5 w-3.5 p-0"
+                              >
+                                <X className="h-2.5 w-2.5 text-zinc-600 hover:text-white" />
+                              </Button>
+                              <CalendarIcon className="h-3.5 w-3.5 opacity-50" />
+                            </div>
+                          </div>
+                        ) : (
+                          <>
+                            <span>Pick a date</span>
+                            <CalendarIcon className="ml-auto h-3.5 w-3.5 opacity-50" />
+                          </>
+                        )}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={selectedDate ? new Date(selectedDate) : undefined}
+                        onSelect={(date) => {
+                          setSelectedDate(date ? format(date, "yyyy-MM-dd") : "");
+                        }}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+                <div className="relative">
+                  <Search className="absolute left-2.5 top-1/2 transform -translate-y-1/2 w-3 h-3 text-zinc-600" />
+                  <Input
+                    type="text"
+                    placeholder="Search Projects"
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    className="h-8 pl-8 pr-2.5 bg-zinc-900/50 border-2 border-zinc-700 rounded-lg text-xs text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-zinc-700 focus:border-zinc-700 w-[160px]"
+                  />
+                </div>
+                 <button className="h-8 flex items-center gap-1.5 px-3 bg-(--an-import-bg) border border-zinc-800/50 rounded-lg text-xs font-normal text-white hover:bg-zinc-800  cursor-pointer">
+                  <Upload className="w-3 h-3" />
+                  Import
+                </button>
+                <button className="h-8 flex items-center gap-1.5 px-3 bg-(--an-import-bg) border border-zinc-800/50 rounded-lg text-xs font-normal text-white hover:bg-zinc-800  cursor-pointer">
+                  <Download className="w-3 h-3" />
+                  Download
+                </button>
+                <button onClick={()=>{navigate({to:"/projects/add-project"})}} className="h-8 flex items-center gap-1.5 px-3 bg-(--add-btn-bg) cursor-pointer hover:bg-blue-700 rounded-lg text-xs font-medium text-white ">
+                  <Plus className="w-3 h-3" />
+                  Add New Project
+                </button>
+              </div>
+            </div>
+            <div className="flex-1 bg-[#0a0a0a] overflow-hidden p-2">
+              <DataTable
+                data={data}
+                columns={columns}
+                sorting={sorting}
+                setSorting={setSorting}
+                isLoading={isLoading}
+                maxHeight={tableBodyHeight}
+              />
+            </div>
+            <div ref={paginationRef} className="h-[60px] px-6 border-t border-zinc-800/30 flex items-center bg-[#0a0a0a] flex-shrink-0">
+              <Pagination
+                paginationInfo={paginationInfo}
+                pageSize={pageSize}
+                setPage={setPage}
+                setPageSize={setPageSize}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default ProjectsTable;

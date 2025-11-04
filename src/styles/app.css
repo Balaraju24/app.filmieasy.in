@@ -1,10 +1,12 @@
 @import "tailwindcss" source("../");
 @import "tw-animate-css";
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 
 @custom-variant dark (&:is(.dark *));
 
 html, body {
   @apply bg-black text-white;
+  font-family: 'DM Sans', sans-serif;
 }
 
 @theme inline {
@@ -86,6 +88,8 @@ html, body {
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
+  --popup:oklch(0.205 0 0);
+  --popup-text:oklch(0.985 0 0);
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.922 0 0);
   --primary-foreground: oklch(0.205 0 0);
@@ -115,6 +119,7 @@ html, body {
 }
 
 
+
 @layer base {
   :root {
     --sidebar: oklch(0.985 0 0);
@@ -139,6 +144,14 @@ html, body {
   }
 }
 
+@theme color {
+  --an-card-error-color: #d02b20;
+  --an-table-header-bg: #ffffff2e;
+  --an-import-bg: #ffffff4d;
+  --add-btn-bg: #4a90e2;
+  --an-dark-bg: #4f4f4f;
+  --input-bg: #2b2b2b;
+}
 @layer base {
   * {
     @apply border-border outline-ring/50;
