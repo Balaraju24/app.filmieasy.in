@@ -5,3 +5,5 @@ package-lock.json
 .nitro
 .tanstack
 
+# Environment variables (do not commit sensitive data)
+.env
