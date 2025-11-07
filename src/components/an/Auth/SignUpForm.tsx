@@ -50,28 +50,28 @@ function SignupForm({
         className="absolute inset-0 w-full h-full object-cover"
       />
       <div className="w-full max-w-md space-y-4 relative z-20">
-        <div className="text-center space-y-1">
+        <div className="text-center space-y-0">
           <div className="flex justify-center w-full">
             <div className="">
               <FilmEasy />
             </div>
           </div>
-          <p className="text-[10px] sm:text-xs text-gray-300 max-w-xs sm:max-w-sm mx-auto px-2">
+          <p className="text-[10px] sm:text-xs mt-2 text-gray-300 max-w-xs sm:max-w-sm mx-auto px-2">
             Complete production management platform for filmmakers. From script
             to screen, manage every aspect of your production.
           </p>
         </div>
-        <Card className="backdrop-blur-xl bg-white/5 border-white/10 shadow-2xl">
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl text-white">Sign Up</CardTitle>
+        <Card className="backdrop-blur-[16px] space-y-2 py-4 gap-4 bg-white/30 border-white/10 shadow-2xl">
+          <CardHeader className="text-center gap-0">
+            <CardTitle className="text-2xl font-normal text-white">Sign Up</CardTitle>
             <CardDescription className="text-gray-300">
               Create your account to get started.
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="fullName" className="text-white">
+            <div className="space-y-2">
+              <div className="space-y-0">
+                <Label htmlFor="fullName" className="text-gray-300 font-normal text-[14px]">
                   Full Name
                   <span className="text-(--an-card-error-color)"> *</span>
                 </Label>
@@ -84,15 +84,15 @@ function SignupForm({
                     onFullNameChange(e.target.value);
                     if (fullNameError) setFullNameError("");
                   }}
-                  className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:bg-white/15 focus:border-white/30 transition-all"
+                  className="bg-white/10 border border-[#00000026] focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 text-white placeholder:text-gray-400  transition-all"
                 />
                 {fullNameError && (
                   <p className="text-red-500 text-xs">{fullNameError}</p>
                 )}
               </div>
-              <div className="flex gap-4">
-                <div className="flex-1 space-y-2">
-                  <Label htmlFor="email" className="text-white">
+              <div className="flex gap-2">
+                <div className="flex-1 space-y-0">
+                  <Label htmlFor="email" className="text-gray-300 font-normal text-[14px]">
                     Email
                     <span className="text-(--an-card-error-color)"> *</span>
                   </Label>
@@ -105,14 +105,14 @@ function SignupForm({
                       onEmailChange(e.target.value);
                       if (emailError) setEmailError("");
                     }}
-                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:bg-white/15 focus:border-white/30 transition-all"
+                    className="bg-white/10 border border-[#00000026] focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 text-white placeholder:text-gray-400  transition-all"
                   />
                   {emailError && (
                     <p className="text-red-500 text-xs">{emailError}</p>
                   )}
                 </div>
-                <div className="flex-1 space-y-2">
-                  <Label htmlFor="phone" className="text-white">
+                <div className="flex-1 space-y-0">
+                  <Label htmlFor="phone" className="text-gray-300 font-normal text-[14px]">
                     Phone
                     <span className="text-(--an-card-error-color)"> *</span>
                   </Label>
@@ -129,15 +129,15 @@ function SignupForm({
                         if (phoneError) setPhoneError("");
                       }
                     }}
-                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:bg-white/15 focus:border-white/30 transition-all"
+                    className="bg-white/10 border border-[#00000026] focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 text-white placeholder:text-gray-400  transition-all"
                   />
                   {phoneError && (
                     <p className="text-red-500 text-xs">{phoneError}</p>
                   )}
                 </div>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="password" className="text-white">
+              <div className="space-y-0">
+                <Label htmlFor="password" className="text-gray-300 font-normal text-[14px]">
                   Password
                   <span className="text-(--an-card-error-color)"> *</span>
                 </Label>
@@ -151,7 +151,7 @@ function SignupForm({
                       onPasswordChange(e.target.value);
                       if (passwordError) setPasswordError("");
                     }}
-                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 pr-10 focus:bg-white/15 focus:border-white/30 transition-all"
+                    className="bg-white/10 border border-[#00000026] focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 text-white placeholder:text-gray-400  transition-all"
                   />
                   <button
                     type="button"
@@ -169,8 +169,8 @@ function SignupForm({
                   <p className="text-red-500 text-xs">{passwordError}</p>
                 )}
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword" className="text-white">
+              <div className="space-y-0">
+                <Label htmlFor="confirmPassword" className="text-gray-300 font-normal text-[14px]">
                   Confirm Password
                   <span className="text-(--an-card-error-color)"> *</span>
                 </Label>
@@ -184,7 +184,7 @@ function SignupForm({
                       onConfirmPasswordChange(e.target.value);
                       if (confirmPasswordError) setConfirmPasswordError("");
                     }}
-                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 pr-10 focus:bg-white/15 focus:border-white/30 transition-all"
+                    className="bg-white/10 border border-[#00000026] focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 text-white placeholder:text-gray-400  transition-all"
                   />
                   <button
                     type="button"
@@ -205,16 +205,16 @@ function SignupForm({
               <Button
                 onClick={onSignup}
                 disabled={isLoading}
-                className="w-full bg-blue-500 hover:bg-blue-600 text-white  cursor-pointer disabled:opacity-50"
+                className="w-full bg-[#4A90E2] hover:bg-blue-600 text-white mt-2 cursor-pointer disabled:opacity-50"
                 size="lg"
               >
                 {isLoading ? "Signing Up..." : "Sign Up"}
               </Button>
-              <p className="text-center text-sm text-gray-300">
+              <p className="text-center text-sm text-gray-800">
                 Already have an account?{" "}
                 <button
                   onClick={onLogin}
-                  className="text-orange-400 hover:text-orange-300  font-medium cursor-pointer"
+                  className="text-[#F2994A] hover:text-orange-400  font-normal cursor-pointer"
                 >
                   Login here.
                 </button>

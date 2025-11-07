@@ -37,8 +37,8 @@ function LoginForm({
         className="absolute inset-0 w-full h-full object-cover"
       />
 
-      <div className="w-full max-w-sm space-y-4 relative z-20">
-        <div className="text-center space-y-1">
+      <div className="w-full max-w-sm space-y-6 relative z-20">
+        <div className="text-center space-y-2">
           <div className="flex justify-center w-full">
             <div className="">
               <FilmEasy />
@@ -49,18 +49,18 @@ function LoginForm({
             to screen, manage every aspect of your production.
           </p>
         </div>
-        <Card className="backdrop-blur-xl bg-white/5 border-white/10 shadow-2xl">
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl text-white">Login</CardTitle>
-            <CardDescription className="text-gray-300">
+        <Card className="backdrop-blur-[16px] py-4 bg-white/30 border-white/10 shadow-2xl">
+          <CardHeader className="text-center gap-0">
+            <CardTitle className="text-2xl font-normal text-white">Login</CardTitle>
+            <CardDescription className="text-gray-300 font-light text-[16px]">
               Greetings! Kindly enter your credentials.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-white">
-                  Email <span className="text-(--an-card-error-color)"> *</span>
+              <div className="space-y-0">
+                <Label htmlFor="email" className="text-gray-300 font-normal text-[14px]">
+                  Email<span className="text-(--an-card-error-color)">*</span>
                 </Label>
                 <Input
                   id="email"
@@ -71,16 +71,16 @@ function LoginForm({
                     setEmail(e.target.value);
                     if (emailError) setemailError("");
                   }}
-                  className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:bg-white/15 focus:border-white/30 transition-all"
+                  className="bg-white/10 border border-[#00000026] focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 text-white placeholder:text-gray-400  transition-all"
                 />
                 {emailError && (
                   <p className="text-red-500 text-xs">{emailError}</p>
                 )}
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="password" className="text-white">
+              <div className="space-y-0">
+                <Label htmlFor="password" className="text-gray-300 font-normal text-[14px]">
                   Password{" "}
-                  <span className="text-(--an-card-error-color)"> *</span>
+                  <span className="text-(--an-card-error-color)">*</span>
                 </Label>
                 <div className="relative">
                   <Input
@@ -92,7 +92,7 @@ function LoginForm({
                       setPassword(e.target.value);
                       if (passwordError) setpasswordError("");
                     }}
-                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 pr-10 focus:bg-white/15 focus:border-white/30 transition-all"
+                    className="bg-white/10 border border-[#00000026]  text-white placeholder:text-gray-400 pr-10 focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 transition-all"
                   />
                   <button
                     type="button"
@@ -120,7 +120,7 @@ function LoginForm({
               </div>
               <Button
                 onClick={onLogin}
-                className="w-full bg-blue-500 hover:bg-blue-600 text-white  cursor-pointer"
+                className="w-full bg-[#4A90E2] rounded-sm hover:bg-blue-600 text-white  cursor-pointer"
                 size="lg"
               >
                 Login
@@ -129,7 +129,7 @@ function LoginForm({
                 New to Filmeasey?{" "}
                 <button
                   onClick={() => navigate({ to: "/signup" })}
-                  className="text-orange-400 hover:text-orange-300  font-medium cursor-pointer"
+                  className="text-[#F2994A] hover:text-orange-400  font-normal cursor-pointer"
                 >
                   Sign Up here.
                 </button>
