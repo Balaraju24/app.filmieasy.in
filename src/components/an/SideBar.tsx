@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import React from "react";
 import Logo from "../Icons/Logo";
 import DashLogo from "../Icons/Dashboard/DashLogo";
@@ -22,6 +22,9 @@ import {
 } from "../ui/sidebar";
 
 function SideBar() {
+    const router = useRouterState();
+  const currentPath = router.location.pathname;
+  
   return (
     <Sidebar className=" text-white p-3 !border-r-0" collapsible="icon">
       <SidebarHeader className="flex items-center justify-center">
@@ -32,89 +35,111 @@ function SideBar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              <div className="flex flex-col p-3">
+              <div className="flex flex-col py-3">
                 <Link
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10  group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
                   to="/dashboard"
-                >
-                  <div className="flex items-center gap-3 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-0.5">
-                    <DashLogo  className="w-6 h-6"/>
-                    <span className="text-[10px]">
-                      Dashboard
-                    </span>
-                  </div>
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors 
+                    group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 
+                    group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2
+                    ${
+                      currentPath === "/dashboard"
+                        ? "bg-white/20 text-white"
+                        : "hover:bg-white/10"
+                    }`} >
+                  <DashLogo />
+                  <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
+                    Dashboard
+                  </span>
                 </Link>
                 <Link
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10  group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
                   to="/projects"
-                >
-                  <div className="flex items-center gap-3 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-0.5">
-                    <ProjLogo  className="w-6 h-6"/>
-                    <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
-                      Projects
-                    </span>
-                  </div>
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors 
+                    group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 
+                    group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2
+                    ${
+                      currentPath === "/projects"
+                        ? "bg-white/20 text-white"
+                        : "hover:bg-white/10"
+                    }`} >
+                  <ProjLogo />
+                  <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
+                    Projects
+                  </span>
                 </Link>
-
                 <Link
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10  group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
                   to="/expenses"
-                >
-                  <div className="flex items-center gap-3 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-0.5">
-                    <ExpLogo />
-                    <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
-                      Expenses
-                    </span>
-                  </div>
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors 
+                    group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 
+                    group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2
+                    ${
+                      currentPath === "/expenses"
+                        ? "bg-white/20 text-white"
+                        : "hover:bg-white/10"
+                    }`} >
+                  <ExpLogo />
+                  <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
+                    Expenses
+                  </span>
                 </Link>
                 <Link
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10  group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
                   to="/team"
-                >
-                  <div className="flex items-center gap-3 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-0.5">
-                    <TeamLogo />
-                    <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
-                      Team
-                    </span>
-                  </div>
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors 
+                    group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 
+                    group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2
+                    ${
+                      currentPath === "/team"
+                        ? "bg-white/20 text-white"
+                        : "hover:bg-white/10"
+                    }`} >
+                  <TeamLogo />
+                  <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
+                    Team
+                  </span>
                 </Link>
-
-
                 <Link
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10  group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
                   to="/location"
-                >
-                  <div className="flex items-center gap-3 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-0.5">
-                    <LocationLogo />
-                    <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
-                      Location
-                    </span>
-                  </div>
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors 
+                    group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 
+                    group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2
+                    ${
+                      currentPath === "/location"
+                        ? "bg-white/20 text-white"
+                        : "hover:bg-white/10"
+                    }`} >
+                  <LocationLogo />
+                  <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
+                    Location
+                  </span>
                 </Link>
-
-
                 <Link
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10  group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
                   to="/distrbution"
-                >
-                  <div className="flex items-center gap-3 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-0.5">
-                    <DistLogo />
-                    <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
-                      Distribution
-                    </span>
-                  </div>
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors 
+                    group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 
+                    group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2
+                    ${
+                      currentPath === "/distrbution"
+                        ? "bg-white/20 text-white"
+                        : "hover:bg-white/10"
+                    }`} >
+                  <DistLogo />
+                  <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
+                    distrbution
+                  </span>
                 </Link>
-
-                <Link
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10  group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
+<Link
                   to="/settings"
-                >
-                  <div className="flex items-center gap-3 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-0.5">
-                    <SettingsLogo />
-                    <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
-                      Settings
-                    </span>
-                  </div>
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors 
+                    group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 
+                    group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2
+                    ${
+                      currentPath === "/settings"
+                        ? "bg-white/20 text-white"
+                        : "hover:bg-white/10"
+                    }`} >
+                  <SettingsLogo />
+                  <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
+                    Settings
+                  </span>
                 </Link>
               </div>
             </SidebarMenu>

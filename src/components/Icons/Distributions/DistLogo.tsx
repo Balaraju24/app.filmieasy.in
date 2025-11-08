@@ -2,7 +2,7 @@ import React from 'react'
 
 function DistLogo() {
   return (
-    <div><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M16.011 15.1212L20.4959 12.5328L16.011 9.94336L11.5259 12.5328L16.011 15.1212Z" fill="#BDBDBD"/>
 <path d="M21.2581 13.8521L16.7729 16.4405V21.621L21.2581 19.0314V13.8521Z" fill="#BDBDBD"/>
 <path d="M15.2495 16.4405L10.7642 13.8521V19.0315L15.2495 21.6211V16.4405Z" fill="#BDBDBD"/>

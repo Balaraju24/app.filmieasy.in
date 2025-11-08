@@ -6,7 +6,7 @@ function DashLogo({className}:{className?:string}) {
       <svg
        className={className}
         viewBox="0 0 32 32"
-        fill="none"
+        fill="none" width="28" height="28"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
