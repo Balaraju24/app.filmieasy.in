@@ -24,9 +24,9 @@ function LoginForm({
   onForgotPassword,
   onSignUp,
   emailError,
-  setemailError,
+  setEmailError,
   passwordError,
-  setpasswordError,
+  setPasswordError,
 }: LoginFormProps) {
   const navigate = useNavigate();
   return (
@@ -69,7 +69,7 @@ function LoginForm({
                   value={email}
                   onChange={(e) => {
                     setEmail(e.target.value);
-                    if (emailError) setemailError("");
+                    if (emailError) setEmailError("");
                   }}
                   className="bg-white/10 border border-[#00000026] focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 text-white placeholder:text-gray-400  transition-all"
                 />
@@ -90,7 +90,7 @@ function LoginForm({
                     value={password}
                     onChange={(e) => {
                       setPassword(e.target.value);
-                      if (passwordError) setpasswordError("");
+                      if (passwordError) setPasswordError("");
                     }}
                     className="bg-white/10 border border-[#00000026]  text-white placeholder:text-gray-400 pr-10 focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 transition-all"
                   />
@@ -126,7 +126,7 @@ function LoginForm({
                 Login
               </Button>
               <p className="text-center text-sm text-gray-300">
-                New to Filmeasey?{" "}
+                New to Filmieasy?{" "}
                 <button
                   onClick={() => navigate({ to: "/signup" })}
                   className="text-[#F2994A] hover:text-orange-400  font-normal cursor-pointer"

@@ -9,9 +9,9 @@ export interface  LoginFormProps {
   onForgotPassword: () => void;
   onSignUp: () => void;
   emailError: string;
-  setemailError: (emailError: string) => void;
+  setEmailError: (emailError: string) => void;
   passwordError: string;
-  setpasswordError: (passwordError: string) => void;
+  setPasswordError: (passwordError: string) => void;
 }
 
 export interface UserDetails {

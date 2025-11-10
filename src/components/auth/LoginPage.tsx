@@ -9,7 +9,7 @@ import { LoginResponse } from "@/lib/interfaces/Auth";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [emailError, setemailError] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -27,14 +27,14 @@ export default function LoginPage() {
       const errData = error.data?.errData;
       const msg = error.data?.message?.toLowerCase() || "";
 
-      setemailError("");
+      setEmailError("");
       setPasswordError("");
 
       if (errData) {
-        setemailError(errData.email || "");
+        setEmailError(errData.email || "");
         setPasswordError(errData.password || "");
       } else if (msg.includes("email")) {
-        setemailError(error.data.message);
+        setEmailError(error.data.message);
       } else if (msg.includes("password")) {
         setPasswordError(error.data.message);
       } else if (msg) {
@@ -71,9 +71,9 @@ export default function LoginPage() {
       onForgotPassword={handleForgotPassword}
       onSignUp={handleSignUp}
       emailError={emailError}
-      setemailError={setemailError}
+      setEmailError={setEmailError}
       passwordError={passwordError}
-      setpasswordError={setPasswordError}
+      setPasswordError={setPasswordError}
     />
   );
 }
