@@ -199,7 +199,7 @@ function UsersTable({
         </div>
         <span className="text-sm font-normal text-white">Departments</span>
       </div>
-      <ChevronDown className="w-4 h-4 text-zinc-600" />
+      <ChevronDown className="w-4 h-4 text-[#ddd] border border-[#ddd] p-[1px] rounded-[4px]" />
     </div>
 
     <div className="flex-1 flex flex-col">
@@ -262,7 +262,7 @@ function UsersTable({
                         value={selectedStatus || "all"}
                         onValueChange={handleStatusSelect}
                       >
-                        <SelectTrigger className="w-[160px] h-8 bg-zinc-900/50 border-2 border-zinc-700 text-xs">
+                        <SelectTrigger className="w-[160px] h-8 bg-zinc-900/50 border-2 border-zinc-700 text-xs ">
                           <SelectValue placeholder="Select Status" />
                         </SelectTrigger>
                         <SelectContent className="bg-zinc-900 border-zinc-700">
@@ -302,13 +302,13 @@ function UsersTable({
                                   >
                                     <X className="h-2.5 w-2.5 text-zinc-600 hover:text-white" />
                                   </Button>
-                                  <CalendarIcon className="h-3.5 w-3.5 opacity-50" />
+                                  <CalendarIcon className="size-4 opacity-50 !text-[#00FFAB]" />
                                 </div>
                               </div>
                             ) : (
                               <>
                                 <span>Pick a date</span>
-                                <CalendarIcon className="ml-auto h-3.5 w-3.5 opacity-50" />
+                                <CalendarIcon className="ml-auto opacity-50 size-4  !text-[#00FFAB]" />
                               </>
                             )}
                           </Button>
@@ -331,13 +331,13 @@ function UsersTable({
                       </Popover>
                     </div>
                     <div className="relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-3 h-3 text-zinc-600" />
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 size-4 opacity-50 !text-[#00FFAB]" />
                       <Input
                         type="text"
                         placeholder="Search Users"
                         value={localSearchValue}
                         onChange={(e) => setLocalSearchValue(e.target.value)}
-                        className="h-8 pl-9 pr-3 bg-zinc-900/50 border-2 border-zinc-700 rounded-lg text-xs text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-zinc-700 focus:border-zinc-700 w-[160px]"
+                        className="h-8 pl-9 pr-3 bg-zinc-900/50 border-2 border-zinc-700 rounded-lg text-xs text-white placeholder-zinc-600 focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-shadow-none focus-visible:border-zinc-700 focus-visible:shadow-none w-[160px]"
                       />
                     </div>
                     <button className="h-8 flex items-center gap-1.5 px-3 bg-zinc-900 border border-zinc-800/50 rounded-lg text-xs font-normal text-white hover:bg-zinc-800  cursor-pointer min-w-[72px]">
