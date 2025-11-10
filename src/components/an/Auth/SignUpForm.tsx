@@ -56,12 +56,12 @@ function SignupForm({
               <FilmEasy />
             </div>
           </div>
-          <p className="lg:text-[16px] sm:text-xs mt-2 text-gray-300 max-w-xs sm:max-w-lg mx-auto px-2">
+          <p className="text-sm lg:text-[16px] sm:text-xs mt-2 text-gray-300 max-w-xs sm:max-w-lg mx-auto px-2">
             Complete production management platform for filmmakers. From script
             to screen, manage every aspect of your production.
           </p>
         </div>
-        <Card className="backdrop-blur-[16px] space-y-2 py-4 gap-4 bg-white/30 border-white/10 shadow-2xl">
+        <Card className="backdrop-blur-[16px] space-y-2 py-4 gap-4 bg-white/30 border-white/10 shadow-2xl max-w-[95%] mx-auto lg:max-w-full">
           <CardHeader className="text-center gap-0">
             <CardTitle className="text-2xl font-normal text-white">Sign Up</CardTitle>
             <CardDescription className="text-gray-300 text-[16px]">
@@ -70,11 +70,12 @@ function SignupForm({
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              <div className="space-y-0">
+              <div className="space-y-0 relative mb-5">
                 <Label htmlFor="fullName" className="text-gray-300 !gap-1 font-normal text-[14px]">
                   Full Name
                   <span className="text-(--an-card-error-color)"> *</span>
                 </Label>
+                <div className="relative">
                 <Input
                   id="fullName"
                   type="text"
@@ -87,15 +88,27 @@ function SignupForm({
                   className="bg-white/10 border border-[#00000026] focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 text-white placeholder:text-gray-400  transition-all"
                 />
                 {fullNameError && (
-                  <p className="text-red-500 text-xs">{fullNameError}</p>
+                                                          <div
+                      className="absolute left-0/2 -translate-x-0/2 top-full mt-0 
+                                bg-red-600 text-white text-[10px] px-2 py-1 rounded-[4px] w-full
+                                shadow-lg  whitespace-normal break-words"
+                    >
+                      {fullNameError.charAt(0).toUpperCase() + fullNameError.slice(1)}
+                      <div
+                        className="absolute top-[-6px] left-1/2 -translate-x-1/2 
+                                  w-0 h-0 border-4 border-transparent border-b-red-600"
+                      ></div>
+                    </div>
                 )}
+                </div>
               </div>
               <div className="flex gap-2">
-                <div className="flex-1 space-y-0">
+                <div className="flex-1 space-y-0 relative mb-3">
                   <Label htmlFor="email" className="text-gray-300 !gap-1 font-normal text-[14px]">
                     Email
                     <span className="text-(--an-card-error-color)"> *</span>
                   </Label>
+                  <div className="relative">
                   <Input
                     id="email"
                     type="email"
@@ -108,14 +121,26 @@ function SignupForm({
                     className="bg-white/10 border border-[#00000026] focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 text-white placeholder:text-gray-400  transition-all"
                   />
                   {emailError && (
-                    <p className="text-red-500 text-xs">{emailError}</p>
+                                        <div
+                      className="absolute left-0/2 -translate-x-0/2 top-full mt-0 
+                                bg-red-600 text-white text-[10px] px-2 py-1 rounded-[4px] w-full 
+                                shadow-lg text-left whitespace-normal break-words"
+                    >
+                      {emailError.charAt(0).toUpperCase() + emailError.slice(1)}
+                      <div
+                        className="absolute top-[-6px] left-1/2 -translate-x-1/2 
+                                  w-0 h-0 border-4 border-transparent border-b-red-600"
+                      ></div>
+                    </div>
                   )}
                 </div>
-                <div className="flex-1 space-y-0">
+                </div>
+                <div className="flex-1 space-y-0 relative">
                   <Label htmlFor="phone" className="text-gray-300 !gap-1 font-normal text-[14px]">
                     Phone
                     <span className="text-(--an-card-error-color)"> *</span>
                   </Label>
+                  <div className="relative">
                   <Input
                     id="phone"
                     type="tel"
@@ -132,11 +157,22 @@ function SignupForm({
                     className="bg-white/10 border border-[#00000026] focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 text-white placeholder:text-gray-400  transition-all"
                   />
                   {phoneError && (
-                    <p className="text-red-500 text-xs">{phoneError}</p>
+                    <div
+                      className="absolute left-0/2 -translate-x-                                                                                          /2 top-full mt-0 
+                                bg-red-600 text-white text-[10px] px-2 py-1 rounded-[4px] 
+                                shadow-lg text-left whitespace-normal break-words w-full"
+                    >
+                      {phoneError.charAt(0).toUpperCase() + phoneError.slice(1)}
+                      <div
+                        className="absolute top-[-6px] left-1/2 -translate-x-1/2 
+                                  w-0 h-0 border-4 border-transparent border-b-red-600"
+                      ></div>
+                    </div>
                   )}
                 </div>
+                </div>
               </div>
-              <div className="space-y-0">
+              <div className="space-y-0 relative mb-5">
                 <Label htmlFor="password" className="text-gray-300  !gap-1 font-normal text-[14px]">
                   Password
                   <span className="text-(--an-card-error-color)"> *</span>
@@ -166,7 +202,17 @@ function SignupForm({
                   </button>
                 </div>
                 {passwordError && (
-                  <p className="text-red-500 text-xs">{passwordError}</p>
+                     <div
+                      className="absolute left-1/2 -translate-x-1/2 top-full mt-0 
+                                bg-red-600 text-white text-[10px] px-2 py-1 rounded-[4px] 
+                                shadow-lg text-left whitespace-normal break-words w-full"
+                    >
+                      {passwordError.charAt(0).toUpperCase() + passwordError.slice(1)}
+                      <div
+                        className="absolute top-[-6px] left-1/2 -translate-x-1/2 
+                                  w-0 h-0 border-4 border-transparent border-b-red-600"
+                      ></div>
+                    </div>
                 )}
               </div>
               <div className="space-y-0">
@@ -199,7 +245,17 @@ function SignupForm({
                   </button>
                 </div>
                 {confirmPasswordError && (
-                  <p className="text-red-500 text-xs">{confirmPasswordError}</p>
+                                       <div
+                      className="absolute left-1/2 -translate-x-1/2 top-full mt-0 
+                                bg-red-600 text-white text-[10px] px-2 py-1 rounded-[4px] 
+                                shadow-lg text-center whitespace-normal break-words w-full"
+                    >
+                      {confirmPasswordError.charAt(0).toUpperCase() + confirmPasswordError.slice(1)}
+                      <div
+                        className="absolute top-[-6px] left-1/2 -translate-x-1/2 
+                                  w-0 h-0 border-4 border-transparent border-b-red-600"
+                      ></div>
+                    </div>
                 )}
               </div>
               <Button
@@ -210,7 +266,7 @@ function SignupForm({
               >
                 {isLoading ? "Signing Up..." : "Sign Up"}
               </Button>
-              <p className="text-center text-sm text-gray-800">
+              <p className="text-center text-sm text-white lg:text-gray-300">
                 Already have an account?{" "}
                 <button
                   onClick={onLogin}
