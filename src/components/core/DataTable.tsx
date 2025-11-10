@@ -43,7 +43,7 @@ function DataTable({ data, columns, sorting, setSorting, isLoading, maxHeight }:
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="px-2 py-2 text-left text-zinc-300 font-semibold uppercase tracking-wider whitespace-nowrap"
+                    className="px-2 py-2 text-left text-zinc-300 text-sm font-normal tracking-wider whitespace-nowrap"
                   >
                     {header.isPlaceholder ? null : (
                       <div
