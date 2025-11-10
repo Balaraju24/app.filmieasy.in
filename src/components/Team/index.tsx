@@ -80,14 +80,14 @@ function UserTableContainer({ users: projectUsers, isProjectView = false }: User
 
   const createDepartmentMutation = useMutation({
     mutationFn: createDepartmentAPI,
-    onSuccess: () => {
+    onSuccess: (response:any) => {
       setDepartmentError(null);
       setDepartmentSuccess(true);
       queryClient.invalidateQueries({ queryKey: ["departments"] });
-      toast.success("Department added successfully");
+      toast.success(response.data?.message);
     },
     onError: (error: any) => {
-      const errorMessage = error.data?.message || 'Failed to create department';
+      const errorMessage = error.data?.message;
       setDepartmentError(errorMessage);
       if (error.data?.status === 422 || error.data?.status === 409) {
         toast.error(error.data.message);

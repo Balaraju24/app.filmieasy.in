@@ -83,12 +83,20 @@ function AddUserContainer() {
     },
   });
 
-  const departments = (departmentsData || []).map((dept: any) => ({ ...dept, count: 0 }));
+  const departments = (departmentsData || []).map((dept: any) => ({
+    ...dept,
+    count: 0,
+  }));
 
   const mutation = useMutation({
     mutationFn: async (data: any) => {
       const isEmpty = (value: any): boolean => {
-        return value === undefined || value === null || value === '' || (Array.isArray(value) && value.length === 0);
+        return (
+          value === undefined ||
+          value === null ||
+          value === "" ||
+          (Array.isArray(value) && value.length === 0)
+        );
       };
 
       const dobFormatted = !isEmpty(data.personal?.dob)
@@ -108,47 +116,52 @@ function AddUserContainer() {
       const payload = {
         email: isEmpty(data.personal?.email) ? null : data.personal.email,
         phone: isEmpty(data.personal?.phone) ? null : data.personal.phone,
-        full_name: isEmpty(data.personal?.fullName) ? null : data.personal.fullName,
+        full_name: isEmpty(data.personal?.fullName)
+          ? null
+          : data.personal.fullName,
         gender: isEmpty(data.personal?.gender) ? null : data.personal.gender,
-        role_type: isEmpty(data.professional?.roleType) ? null : data.professional.roleType,
-        department_id: isNaN(data.professional?.department) ? null : departmentId,
+        role_type: isEmpty(data.professional?.roleType)
+          ? null
+          : data.professional.roleType,
+        department_id: isNaN(data.professional?.department)
+          ? null
+          : departmentId,
         DOB: dobFormatted,
-        languages: isEmpty(languages) ? null : languages,
+        languages: isEmpty(languages) ? undefined : languages,
       };
 
       return createUserAPI(payload);
     },
-    onSuccess: () => {
+    onSuccess: (response: any) => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
       setCurrentStep(1);
-      toast.success("User created successfully");
+      toast.success(response?.data?.message);
       setFormData(initialFormData);
       setErrors({});
       navigate({ to: "/team" });
     },
     onError: (error: any) => {
       setCurrentStep(1);
-      toast.error("Failed to create user");
       if (error?.data?.status === 422) {
         const errData = error.data.errData;
         const transformedErrors: Record<string, string> = {};
         Object.entries(errData).forEach(([key, message]) => {
           let fieldKey: string;
           switch (key) {
-            case 'full_name':
-              fieldKey = 'fullName';
+            case "full_name":
+              fieldKey = "fullName";
               break;
-            case 'role_type':
-              fieldKey = 'roleType';
+            case "role_type":
+              fieldKey = "roleType";
               break;
-            case 'department_id':
-              fieldKey = 'department';
+            case "department_id":
+              fieldKey = "department";
               break;
-            case 'DOB':
-              fieldKey = 'dob';
+            case "DOB":
+              fieldKey = "dob";
               break;
-            case 'languages':
-              fieldKey = 'languages';
+            case "languages":
+              fieldKey = "languages";
               break;
             default:
               fieldKey = key;
@@ -157,7 +170,7 @@ function AddUserContainer() {
         });
         setErrors(transformedErrors);
       } else {
-        setErrors({ general: error.message || 'An error occurred' });
+        toast.error(error?.data?.message);
       }
     },
   });
@@ -168,7 +181,7 @@ function AddUserContainer() {
 
   const clearFieldErrors = (fieldKeys: string[]) => {
     const newErrors = { ...errors };
-    fieldKeys.forEach(key => {
+    fieldKeys.forEach((key) => {
       delete newErrors[key];
     });
     setErrors(newErrors);
@@ -181,7 +194,9 @@ function AddUserContainer() {
   };
 
   const updateProfessional = (updates: Partial<FormData["professional"]>) => {
-    const fieldKeys = Object.keys(updates) as (keyof FormData["professional"])[];
+    const fieldKeys = Object.keys(
+      updates
+    ) as (keyof FormData["professional"])[];
     clearFieldErrors(fieldKeys);
     updateFormData({ professional: { ...formData.professional, ...updates } });
   };
@@ -193,26 +208,25 @@ function AddUserContainer() {
   };
 
   const addSpecificLanguage = (name: string) => {
-    clearFieldErrors(['languages']);
+    clearFieldErrors(["languages"]);
     updatePersonal({ languages: [...formData.personal.languages, { name }] });
   };
 
   const removeLanguage = (index: number) => {
-    clearFieldErrors(['languages']);
+    clearFieldErrors(["languages"]);
     const languages = formData.personal.languages.filter((_, i) => i !== index);
     updatePersonal({ languages });
   };
 
-  const updateLanguage = (index: number, name: string) => {
-  };
+  const updateLanguage = (index: number, name: string) => {};
 
   const addDocument = (file: File) => {
-    clearFieldErrors(['documents']);
+    clearFieldErrors(["documents"]);
     updatePayment({ documents: [...formData.payment.documents, file] });
   };
 
   const removeDocument = (index: number) => {
-    clearFieldErrors(['documents']);
+    clearFieldErrors(["documents"]);
     const documents = formData.payment.documents.filter((_, i) => i !== index);
     updatePayment({ documents });
   };

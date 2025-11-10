@@ -8,11 +8,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { LoginFormProps } from "@/lib/interfaces/Auth";
 import FilmEasy from "@/components/Icons/Auth/FilmEasy";
 import { useNavigate } from "@tanstack/react-router";
-import loginBg from "@/assets/login-bg.webp"; 
+import loginBg from "@/assets/login-bg.webp";
 function LoginForm({
   email,
   setEmail,
@@ -27,12 +27,13 @@ function LoginForm({
   setEmailError,
   passwordError,
   setPasswordError,
+  isLoading,
 }: LoginFormProps) {
   const navigate = useNavigate();
   return (
     <div className="relative min-h-screen flex items-center justify-center gap-2 overflow-hidden">
       <img
-        src={loginBg} 
+        src={loginBg}
         alt="Background"
         className="absolute inset-0 w-full h-full object-cover"
       />
@@ -51,7 +52,9 @@ function LoginForm({
         </div>
         <Card className="backdrop-blur-[16px] py-4 bg-white/30 border-white/10 shadow-2xl">
           <CardHeader className="text-center gap-0">
-            <CardTitle className="text-2xl font-normal text-white">Login</CardTitle>
+            <CardTitle className="text-2xl font-normal text-white">
+              Login
+            </CardTitle>
             <CardDescription className="text-gray-300 font-light text-[16px]">
               Greetings! Kindly enter your credentials.
             </CardDescription>
@@ -59,7 +62,10 @@ function LoginForm({
           <CardContent>
             <div className="space-y-4">
               <div className="space-y-0">
-                <Label htmlFor="email" className="text-gray-300 !gap-1 font-normal text-[14px]">
+                <Label
+                  htmlFor="email"
+                  className="text-gray-300 !gap-1 font-normal text-[14px]"
+                >
                   Email<span className="text-(--an-card-error-color)">*</span>
                 </Label>
                 <Input
@@ -78,7 +84,10 @@ function LoginForm({
                 )}
               </div>
               <div className="space-y-0">
-                <Label htmlFor="password" className="text-gray-300 !gap-1 font-normal text-[14px]">
+                <Label
+                  htmlFor="password"
+                  className="text-gray-300 !gap-1 font-normal text-[14px]"
+                >
                   Password{" "}
                   <span className="text-(--an-card-error-color)">*</span>
                 </Label>
@@ -120,10 +129,18 @@ function LoginForm({
               </div>
               <Button
                 onClick={onLogin}
+                disabled={isLoading}
                 className="w-full bg-[#4A90E2] rounded-sm hover:bg-blue-600 text-white  cursor-pointer"
                 size="lg"
               >
-                Login
+                {isLoading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin mr-1" />
+                    Logging in
+                  </>
+                ) : (
+                  "Login"
+                )}
               </Button>
               <p className="text-center text-sm text-gray-300">
                 New to Filmieasy?{" "}

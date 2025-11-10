@@ -12,6 +12,7 @@ export interface  LoginFormProps {
   setEmailError: (emailError: string) => void;
   passwordError: string;
   setPasswordError: (passwordError: string) => void;
+  isLoading: boolean;
 }
 
 export interface UserDetails {
@@ -32,6 +33,7 @@ export interface LoginResponseData {
   userDetails: UserDetails;
   access_token: string;
   refresh_token: string;
+  message: string;
 }
 
 export interface LoginResponse {
