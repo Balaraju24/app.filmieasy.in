@@ -216,7 +216,7 @@ function UsersTable({
                     Departments
                   </span>
                 </div>
-                <ChevronDown className="w-4 h-4 text-zinc-600" />
+                <ChevronDown className="w-4 h-4 text-zinc-600 border border-zinc-600 rounded-[4px]" />
               </div>
 
               <div className="flex-1 flex flex-col">
