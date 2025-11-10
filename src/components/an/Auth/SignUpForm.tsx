@@ -49,14 +49,14 @@ function SignupForm({
         alt="Background"
         className="absolute inset-0 w-full h-full object-cover"
       />
-      <div className="w-full max-w-md space-y-4 relative z-20">
+      <div className="w-full max-w-lg space-y-4 relative z-20">
         <div className="text-center space-y-0">
           <div className="flex justify-center w-full">
             <div className="">
               <FilmEasy />
             </div>
           </div>
-          <p className="text-[10px] sm:text-xs mt-2 text-gray-300 max-w-xs sm:max-w-sm mx-auto px-2">
+          <p className="lg:text-[16px] sm:text-xs mt-2 text-gray-300 max-w-xs sm:max-w-lg mx-auto px-2">
             Complete production management platform for filmmakers. From script
             to screen, manage every aspect of your production.
           </p>
@@ -64,14 +64,14 @@ function SignupForm({
         <Card className="backdrop-blur-[16px] space-y-2 py-4 gap-4 bg-white/30 border-white/10 shadow-2xl">
           <CardHeader className="text-center gap-0">
             <CardTitle className="text-2xl font-normal text-white">Sign Up</CardTitle>
-            <CardDescription className="text-gray-300">
+            <CardDescription className="text-gray-300 text-[16px]">
               Create your account to get started.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
               <div className="space-y-0">
-                <Label htmlFor="fullName" className="text-gray-300 font-normal text-[14px]">
+                <Label htmlFor="fullName" className="text-gray-300 !gap-1 font-normal text-[14px]">
                   Full Name
                   <span className="text-(--an-card-error-color)"> *</span>
                 </Label>
@@ -92,7 +92,7 @@ function SignupForm({
               </div>
               <div className="flex gap-2">
                 <div className="flex-1 space-y-0">
-                  <Label htmlFor="email" className="text-gray-300 font-normal text-[14px]">
+                  <Label htmlFor="email" className="text-gray-300 !gap-1 font-normal text-[14px]">
                     Email
                     <span className="text-(--an-card-error-color)"> *</span>
                   </Label>
@@ -112,7 +112,7 @@ function SignupForm({
                   )}
                 </div>
                 <div className="flex-1 space-y-0">
-                  <Label htmlFor="phone" className="text-gray-300 font-normal text-[14px]">
+                  <Label htmlFor="phone" className="text-gray-300 !gap-1 font-normal text-[14px]">
                     Phone
                     <span className="text-(--an-card-error-color)"> *</span>
                   </Label>
@@ -137,7 +137,7 @@ function SignupForm({
                 </div>
               </div>
               <div className="space-y-0">
-                <Label htmlFor="password" className="text-gray-300 font-normal text-[14px]">
+                <Label htmlFor="password" className="text-gray-300  !gap-1 font-normal text-[14px]">
                   Password
                   <span className="text-(--an-card-error-color)"> *</span>
                 </Label>
@@ -170,7 +170,7 @@ function SignupForm({
                 )}
               </div>
               <div className="space-y-0">
-                <Label htmlFor="confirmPassword" className="text-gray-300 font-normal text-[14px]">
+                <Label htmlFor="confirmPassword" className="text-gray-300  !gap-1 font-normal text-[14px]">
                   Confirm Password
                   <span className="text-(--an-card-error-color)"> *</span>
                 </Label>
