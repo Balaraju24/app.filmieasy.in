@@ -37,14 +37,14 @@ function LoginForm({
         className="absolute inset-0 w-full h-full object-cover"
       />
 
-      <div className="w-full max-w-sm space-y-6 relative z-20">
+      <div className="w-full max-w-lg space-y-6 relative z-20">
         <div className="text-center space-y-2">
           <div className="flex justify-center w-full">
             <div className="">
               <FilmEasy />
             </div>
           </div>
-          <p className="text-[10px] sm:text-xs text-gray-300 max-w-xs sm:max-w-sm mx-auto px-2">
+          <p className="lg:text-[16px] sm:text-xs text-gray-300 max-w-xs sm:max-w-lg mx-auto px-2">
             Complete production management platform for filmmakers. From script
             to screen, manage every aspect of your production.
           </p>
@@ -59,7 +59,7 @@ function LoginForm({
           <CardContent>
             <div className="space-y-4">
               <div className="space-y-0">
-                <Label htmlFor="email" className="text-gray-300 font-normal text-[14px]">
+                <Label htmlFor="email" className="text-gray-300 !gap-1 font-normal text-[14px]">
                   Email<span className="text-(--an-card-error-color)">*</span>
                 </Label>
                 <Input
@@ -78,7 +78,7 @@ function LoginForm({
                 )}
               </div>
               <div className="space-y-0">
-                <Label htmlFor="password" className="text-gray-300 font-normal text-[14px]">
+                <Label htmlFor="password" className="text-gray-300 !gap-1 font-normal text-[14px]">
                   Password{" "}
                   <span className="text-(--an-card-error-color)">*</span>
                 </Label>
