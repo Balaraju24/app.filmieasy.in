@@ -52,7 +52,7 @@ function SideBar() {
                   </span>
                 </Link>
                 <Link
-                  to="/projects"
+                  to="/projects" 
                   className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors 
                     group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 
                     group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2
@@ -112,18 +112,18 @@ function SideBar() {
                   </span>
                 </Link>
                 <Link
-                  to="/distrbution"
+                  to="/distribution"
                   className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors 
                     group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 
                     group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2
                     ${
-                      currentPath === "/distrbution"
+                      currentPath === "/distribution"
                         ? "bg-white/20 text-white"
                         : "hover:bg-white/10"
                     }`} >
                   <DistLogo />
                   <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
-                    distrbution
+                    distribution
                   </span>
                 </Link>
 <Link

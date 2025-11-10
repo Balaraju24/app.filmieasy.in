@@ -29,13 +29,11 @@ function ProjectView() {
 
   if(isError){
     toast.error(projectError?.message);
-    console.log(projectError);
     return <div>Error Loading Project</div>
   }
 
   if(projectUsersIsError){
     toast.error(projectUsersError?.message);
-    console.log(projectUsersError);
     return <div>Error Loading Project Users</div>
   }
   

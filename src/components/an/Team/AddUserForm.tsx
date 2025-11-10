@@ -62,7 +62,7 @@ function AddUserForm({
                 </Button>
               ) : (
                 <Button onClick={onSubmit} disabled={isLoading} className="h-8 px-4 text-sm">
-                  {isLoading ? "Submitting..." : "Submit"}
+                  {isLoading ? <><span className="w-4 h-4 animate spin mr-2">Submitting</span></> : "Submit"}
                 </Button>
               )}
             </div>

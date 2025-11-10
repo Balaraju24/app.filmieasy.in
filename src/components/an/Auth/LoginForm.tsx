@@ -8,11 +8,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { LoginFormProps } from "@/lib/interfaces/Auth";
 import FilmEasy from "@/components/Icons/Auth/FilmEasy";
 import { useNavigate } from "@tanstack/react-router";
-import loginBg from "@/assets/login-bg.webp"; 
+import loginBg from "@/assets/login-bg.webp";
 function LoginForm({
   email,
   setEmail,
@@ -24,15 +24,16 @@ function LoginForm({
   onForgotPassword,
   onSignUp,
   emailError,
-  setemailError,
+  setEmailError,
   passwordError,
-  setpasswordError,
+  setPasswordError,
+  isLoading,
 }: LoginFormProps) {
   const navigate = useNavigate();
   return (
     <div className="relative min-h-screen flex items-center justify-center gap-2 overflow-hidden">
       <img
-        src={loginBg} 
+        src={loginBg}
         alt="Background"
         className="absolute inset-0 w-full h-full object-cover"
       />
@@ -51,7 +52,9 @@ function LoginForm({
         </div>
         <Card className="backdrop-blur-[16px] py-4 bg-white/30 border-white/10 shadow-2xl max-w-[95%] mx-auto lg:max-w-full">
           <CardHeader className="text-center gap-0">
-            <CardTitle className="text-2xl font-normal text-white">Login</CardTitle>
+            <CardTitle className="text-2xl font-normal text-white">
+              Login
+            </CardTitle>
             <CardDescription className="text-gray-300 font-light text-[16px]">
               Greetings! Kindly enter your credentials.
             </CardDescription>
@@ -70,7 +73,7 @@ function LoginForm({
                   value={email}
                   onChange={(e) => {
                     setEmail(e.target.value);
-                    if (emailError) setemailError("");
+                    if (emailError) setEmailError("");
                   }}
                   className="bg-white/10 border border-[#00000026] focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 text-white placeholder:text-gray-400  transition-all"
                 />
@@ -114,7 +117,7 @@ function LoginForm({
                     value={password}
                     onChange={(e) => {
                       setPassword(e.target.value);
-                      if (passwordError) setpasswordError("");
+                      if (passwordError) setPasswordError("");
                     }}
                     className="bg-white/10 border border-[#00000026]  text-white placeholder:text-gray-400 pr-10 focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 transition-all"
                   />
@@ -165,13 +168,21 @@ function LoginForm({
               </div>
               <Button
                 onClick={onLogin}
+                disabled={isLoading}
                 className="w-full bg-[#4A90E2] rounded-sm hover:bg-blue-600 text-white  cursor-pointer"
                 size="lg"
               >
-                Login
+                {isLoading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin mr-1" />
+                    Logging in
+                  </>
+                ) : (
+                  "Login"
+                )}
               </Button>
               <p className="text-center text-sm text-gray-300">
-                New to Filmeasey?{" "}
+                New to Filmieasy?{" "}
                 <button
                   onClick={() => navigate({ to: "/signup" })}
                   className="text-[#F2994A] hover:text-orange-400  font-normal cursor-pointer"
