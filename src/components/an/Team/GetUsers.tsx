@@ -173,7 +173,7 @@ function UsersTable({
           <img
             src={TeamBg}
             alt="Background"
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full "
           />
         )}
         <div
@@ -184,7 +184,7 @@ function UsersTable({
          {showSidebar && !isProjectView && (
   <div
     ref={sidebarRef}
-    className="w-64 border-r border-zinc-800/30 bg-black/20 backdrop-blur-sm flex flex-col"
+    className="w-64 flex flex-col"
   >
     <div className="h-[52px] px-4 border-b border-zinc-800/30 flex items-center justify-between">
       <div className="flex items-center gap-2.5">
@@ -214,8 +214,8 @@ function UsersTable({
                   }
                   className={`w-full text-left h-[36px] px-2.5 rounded-lg text-[13px] flex justify-between items-center transition-all ${
                     isDepartmentSelected(dept.id.toString())
-                      ? "bg-zinc-900 text-zinc-300 hover:bg-zinc-600"
-                      : "text-white hover:bg-zinc-900/50 hover:text-zinc-400"
+                      ? "bg-[#0674B733] text-zinc-300 hover:bg-[#0674B733]"
+                      : "text-white hover:bg-[#0674B733] hover:text-zinc-400"
                   }`}
                 >
                   <div className="flex items-center gap-3">
