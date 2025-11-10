@@ -155,17 +155,16 @@ function AddProject() {
       });
       return createProjectAPI(payload);
     },
-    onSuccess: () => {
+    onSuccess: (response: any) => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
-      toast.success("Project created successfully");
       setCurrentStep(1);
       setFormData(initialFormData);
       setErrors({});
       navigate({ to: "/projects" });
+      toast.success(response?.data?.message);
     },
     onError: (error: any) => {
       setCurrentStep(1);
-      toast.error("Failed to create project");
       if (error?.data?.status === 422) {
         const errData = error?.data?.errData;
         if (!errData) return;
@@ -196,7 +195,7 @@ function AddProject() {
         });
         setErrors(transformedErrors);
       } else {
-        setErrors({ general: error?.message || "An error occurred" });
+      toast.error(error?.data?.message);
       }
     },
   });
@@ -226,11 +225,10 @@ function AddProject() {
       if (!signedUrl) throw new Error("Failed to get signed upload URL");
       await uploadToPresignedUrl(signedUrl, file);
       const resp = await getFileAPI(fileKey);
-      console.log(resp.data.data,"resp");
+      console.log(resp.data.data, "resp");
       return resp?.data?.path || resp?.data?.fileKey || fileKey;
-
     } catch (error: any) {
-      toast.error(error.message || "File upload failed");
+      toast.error(error.message );
       return null;
     }
   };

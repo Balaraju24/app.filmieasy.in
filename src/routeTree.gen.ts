@@ -17,7 +17,7 @@ import { Route as LayoutSettingsIndexRouteImport } from './routes/_layout/settin
 import { Route as LayoutProjectsIndexRouteImport } from './routes/_layout/projects/index'
 import { Route as LayoutLocationIndexRouteImport } from './routes/_layout/location/index'
 import { Route as LayoutExpensesIndexRouteImport } from './routes/_layout/expenses/index'
-import { Route as LayoutDistrbutionIndexRouteImport } from './routes/_layout/distrbution/index'
+import { Route as LayoutDistributionIndexRouteImport } from './routes/_layout/distribution/index'
 import { Route as LayoutDashboardIndexRouteImport } from './routes/_layout/dashboard/index'
 import { Route as LayoutTeamAddUserRouteImport } from './routes/_layout/team/add-user'
 import { Route as LayoutTeamIdRouteImport } from './routes/_layout/team/$id'
@@ -64,9 +64,9 @@ const LayoutExpensesIndexRoute = LayoutExpensesIndexRouteImport.update({
   path: '/expenses/',
   getParentRoute: () => LayoutRoute,
 } as any)
-const LayoutDistrbutionIndexRoute = LayoutDistrbutionIndexRouteImport.update({
-  id: '/distrbution/',
-  path: '/distrbution/',
+const LayoutDistributionIndexRoute = LayoutDistributionIndexRouteImport.update({
+  id: '/distribution/',
+  path: '/distribution/',
   getParentRoute: () => LayoutRoute,
 } as any)
 const LayoutDashboardIndexRoute = LayoutDashboardIndexRouteImport.update({
@@ -110,7 +110,7 @@ export interface FileRoutesByFullPath {
   '/team/$id': typeof LayoutTeamIdRoute
   '/team/add-user': typeof LayoutTeamAddUserRoute
   '/dashboard': typeof LayoutDashboardIndexRoute
-  '/distrbution': typeof LayoutDistrbutionIndexRoute
+  '/distribution': typeof LayoutDistributionIndexRoute
   '/expenses': typeof LayoutExpensesIndexRoute
   '/location': typeof LayoutLocationIndexRoute
   '/projects': typeof LayoutProjectsIndexRoute
@@ -126,7 +126,7 @@ export interface FileRoutesByTo {
   '/team/$id': typeof LayoutTeamIdRoute
   '/team/add-user': typeof LayoutTeamAddUserRoute
   '/dashboard': typeof LayoutDashboardIndexRoute
-  '/distrbution': typeof LayoutDistrbutionIndexRoute
+  '/distribution': typeof LayoutDistributionIndexRoute
   '/expenses': typeof LayoutExpensesIndexRoute
   '/location': typeof LayoutLocationIndexRoute
   '/projects': typeof LayoutProjectsIndexRoute
@@ -144,7 +144,7 @@ export interface FileRoutesById {
   '/_layout/team/$id': typeof LayoutTeamIdRoute
   '/_layout/team/add-user': typeof LayoutTeamAddUserRoute
   '/_layout/dashboard/': typeof LayoutDashboardIndexRoute
-  '/_layout/distrbution/': typeof LayoutDistrbutionIndexRoute
+  '/_layout/distribution/': typeof LayoutDistributionIndexRoute
   '/_layout/expenses/': typeof LayoutExpensesIndexRoute
   '/_layout/location/': typeof LayoutLocationIndexRoute
   '/_layout/projects/': typeof LayoutProjectsIndexRoute
@@ -162,7 +162,7 @@ export interface FileRouteTypes {
     | '/team/$id'
     | '/team/add-user'
     | '/dashboard'
-    | '/distrbution'
+    | '/distribution'
     | '/expenses'
     | '/location'
     | '/projects'
@@ -178,7 +178,7 @@ export interface FileRouteTypes {
     | '/team/$id'
     | '/team/add-user'
     | '/dashboard'
-    | '/distrbution'
+    | '/distribution'
     | '/expenses'
     | '/location'
     | '/projects'
@@ -195,7 +195,7 @@ export interface FileRouteTypes {
     | '/_layout/team/$id'
     | '/_layout/team/add-user'
     | '/_layout/dashboard/'
-    | '/_layout/distrbution/'
+    | '/_layout/distribution/'
     | '/_layout/expenses/'
     | '/_layout/location/'
     | '/_layout/projects/'
@@ -268,11 +268,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutExpensesIndexRouteImport
       parentRoute: typeof LayoutRoute
     }
-    '/_layout/distrbution/': {
-      id: '/_layout/distrbution/'
-      path: '/distrbution'
-      fullPath: '/distrbution'
-      preLoaderRoute: typeof LayoutDistrbutionIndexRouteImport
+    '/_layout/distribution/': {
+      id: '/_layout/distribution/'
+      path: '/distribution'
+      fullPath: '/distribution'
+      preLoaderRoute: typeof LayoutDistributionIndexRouteImport
       parentRoute: typeof LayoutRoute
     }
     '/_layout/dashboard/': {
@@ -326,7 +326,7 @@ interface LayoutRouteChildren {
   LayoutTeamIdRoute: typeof LayoutTeamIdRoute
   LayoutTeamAddUserRoute: typeof LayoutTeamAddUserRoute
   LayoutDashboardIndexRoute: typeof LayoutDashboardIndexRoute
-  LayoutDistrbutionIndexRoute: typeof LayoutDistrbutionIndexRoute
+  LayoutDistributionIndexRoute: typeof LayoutDistributionIndexRoute
   LayoutExpensesIndexRoute: typeof LayoutExpensesIndexRoute
   LayoutLocationIndexRoute: typeof LayoutLocationIndexRoute
   LayoutProjectsIndexRoute: typeof LayoutProjectsIndexRoute
@@ -341,7 +341,7 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutTeamIdRoute: LayoutTeamIdRoute,
   LayoutTeamAddUserRoute: LayoutTeamAddUserRoute,
   LayoutDashboardIndexRoute: LayoutDashboardIndexRoute,
-  LayoutDistrbutionIndexRoute: LayoutDistrbutionIndexRoute,
+  LayoutDistributionIndexRoute: LayoutDistributionIndexRoute,
   LayoutExpensesIndexRoute: LayoutExpensesIndexRoute,
   LayoutLocationIndexRoute: LayoutLocationIndexRoute,
   LayoutProjectsIndexRoute: LayoutProjectsIndexRoute,
