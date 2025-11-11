@@ -169,7 +169,7 @@ function UsersTable({
           bottomHeight -
           offsets;
         if (location.pathname === "/team") {
-          setTableBodyHeight(Math.max(availableHeight - 60, 200) + "px");
+          setTableBodyHeight(Math.max(availableHeight - 10, 200) + "px");
         } else {
           setTableBodyHeight(Math.max(availableHeight, 200) + "px");
         }
