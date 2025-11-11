@@ -123,7 +123,7 @@ export default function createProjectColumns(): ColumnDef<Project>[] {
           <Button className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer ">
             <EditIcon />
           </Button>
-          <Button onClick={()=>{console.log(row.original.id, "jjjjjj"); navigate({to:`/projects/${row.original.id}/users`})}} className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer ">
+          <Button onClick={()=>{ navigate({to:`/projects/${row.original.id}/users`})}} className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer ">
            <ViewIcon  />
           </Button>
           <Button className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer ">

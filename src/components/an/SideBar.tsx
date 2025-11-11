@@ -21,131 +21,77 @@ import {
   SidebarTrigger,
 } from "../ui/sidebar";
 
-function SideBar() {
-    const router = useRouterState();
-  const currentPath = router.location.pathname;
-  
+const SidebarItem = ({
+  to,
+  label,
+  icon,
+  currentPath,
+}: {
+  to: string;
+  label: string;
+  icon: React.ReactNode;
+  currentPath: string;
+}) => {
+  const isActive = currentPath === to;
+
   return (
-    <Sidebar className=" text-white p-3 !border-r-0" collapsible="icon">
+    <Link
+      to={to}
+      className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors
+        group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 
+        group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2
+        ${isActive ? "bg-white/20 text-white" : "hover:bg-white/10"}`}
+    >
+      {icon}
+      <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
+        {label}
+      </span>
+    </Link>
+  );
+};
+
+const menuItems = [
+  { to: "/dashboard", label: "Dashboard", icon: <DashLogo /> },
+  { to: "/projects", label: "Projects", icon: <ProjLogo /> },
+  { to: "/expenses", label: "Expenses", icon: <ExpLogo /> },
+  { to: "/team", label: "Team", icon: <TeamLogo /> },
+  { to: "/location", label: "Location", icon: <LocationLogo /> },
+  { to: "/distribution", label: "Distribution", icon: <DistLogo /> },
+  { to: "/settings", label: "Settings", icon: <SettingsLogo /> },
+];
+
+function SideBar() {
+  const router = useRouterState();
+  const currentPath = router.location.pathname;
+
+  return (
+    <Sidebar className="text-white p-3 !border-r-0" collapsible="icon">
       <SidebarHeader className="flex items-center justify-center">
         <Logo />
-        
       </SidebarHeader>
+
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
               <div className="flex flex-col py-3">
-                <Link
-                  to="/dashboard"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors 
-                    group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 
-                    group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2
-                    ${
-                      currentPath === "/dashboard"
-                        ? "bg-white/20 text-white"
-                        : "hover:bg-white/10"
-                    }`} >
-                  <DashLogo />
-                  <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
-                    Dashboard
-                  </span>
-                </Link>
-                <Link
-                  to="/projects" 
-                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors 
-                    group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 
-                    group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2
-                    ${
-                      currentPath === "/projects"
-                        ? "bg-white/20 text-white"
-                        : "hover:bg-white/10"
-                    }`} >
-                  <ProjLogo />
-                  <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
-                    Projects
-                  </span>
-                </Link>
-                <Link
-                  to="/expenses"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors 
-                    group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 
-                    group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2
-                    ${
-                      currentPath === "/expenses"
-                        ? "bg-white/20 text-white"
-                        : "hover:bg-white/10"
-                    }`} >
-                  <ExpLogo />
-                  <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
-                    Expenses
-                  </span>
-                </Link>
-                <Link
-                  to="/team"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors 
-                    group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 
-                    group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2
-                    ${
-                      currentPath === "/team"
-                        ? "bg-white/20 text-white"
-                        : "hover:bg-white/10"
-                    }`} >
-                  <TeamLogo />
-                  <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
-                    Team
-                  </span>
-                </Link>
-                <Link
-                  to="/location"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors 
-                    group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 
-                    group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2
-                    ${
-                      currentPath === "/location"
-                        ? "bg-white/20 text-white"
-                        : "hover:bg-white/10"
-                    }`} >
-                  <LocationLogo />
-                  <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
-                    Location
-                  </span>
-                </Link>
-                <Link
-                  to="/distribution"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors 
-                    group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 
-                    group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2
-                    ${
-                      currentPath === "/distribution"
-                        ? "bg-white/20 text-white"
-                        : "hover:bg-white/10"
-                    }`} >
-                  <DistLogo />
-                  <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
-                    distribution
-                  </span>
-                </Link>
-<Link
-                  to="/settings"
-                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors 
-                    group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 
-                    group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2
-                    ${
-                      currentPath === "/settings"
-                        ? "bg-white/20 text-white"
-                        : "hover:bg-white/10"
-                    }`} >
-                  <SettingsLogo />
-                  <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
-                    Settings
-                  </span>
-                </Link>
+
+                {menuItems.map((item) => (
+                  <SidebarItem
+                    key={item.to}
+                    to={item.to}
+                    label={item.label}
+                    icon={item.icon}
+                    currentPath={currentPath}
+                  />
+                ))}
+
               </div>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      
       <SidebarFooter className="flex items-center justify-center">
         <SidebarTrigger className="-ml-1" />
         <Link
@@ -157,7 +103,6 @@ function SideBar() {
           </span>
         </Link>
       </SidebarFooter>
-      
     </Sidebar>
   );
 }
