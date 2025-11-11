@@ -15,7 +15,7 @@ interface UserProfile {
   languages?: string[];
   roleType?: string;
   talentTags?: string[];
-  experience?: string;
+  experience?: number;
   association?: string;
 }
 

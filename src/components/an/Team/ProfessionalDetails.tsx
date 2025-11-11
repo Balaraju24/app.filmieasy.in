@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
 interface ProfessionalFormData {
   department: string;
   roleType: string;
-  experience: string;
+  experience: number;
   unionMembership: string;
   status: string;
   blockFrom: string;
@@ -96,7 +96,7 @@ function ProfessionalDetails({
                 <Input
                   type="number"
                   value={formData.experience}
-                  onChange={(e) => onUpdate({ experience: e.target.value })}
+                  onChange={(e) => onUpdate({ experience: Number(e.target.value) })}
                   className="flex-1 bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300"
                   placeholder="Enter Experience"
                 />

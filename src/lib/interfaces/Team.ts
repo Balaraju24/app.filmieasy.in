@@ -84,7 +84,7 @@ export interface ArtistData {
   address: string | null;
   role_type: string;
   languages: string[];
-  experience: string | null;
+  experience: number | null;
   department_id: number;
 }
 
@@ -102,7 +102,7 @@ export interface UserProfile {
   languages: string[];
   roleType: string;
   talentTags: string[];
-  experience: string;
+  experience: number;
   association: string;
 }
 
@@ -144,7 +144,7 @@ export interface FormData {
   professional: {
     department: string;
     roleType: string;
-    experience: string;
+    experience: number;
     unionMembership: string;
     status: string;
     blockFrom: string;
