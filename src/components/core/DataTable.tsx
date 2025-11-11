@@ -57,7 +57,7 @@ function DataTable({
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="px-2 py-2 text-left text-zinc-300 text-sm font-normal tracking-wider whitespace-nowrap"
+                    className="px-2 py-2 text-left text-zinc-300 text-xs font-normal tracking-wider whitespace-nowrap"
                   >
                     {header.isPlaceholder ? null : (
                       <div
@@ -95,9 +95,14 @@ function DataTable({
               >
                 {row.getVisibleCells().map((cell) => (
                   <td
-                    key={cell.id}
-                    className="px-2 py-1 text-white text-[11px] whitespace-nowrap"
+                      key={cell.id}
+                      className={`px-2 py-1 text-white text-[11px] ${
+                        cell.column.id === "address"
+                          ? "whitespace-normal break-words max-w-[250px]"
+                          : "whitespace-nowrap"
+                      }`}
                   >
+
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
