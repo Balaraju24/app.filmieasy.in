@@ -350,13 +350,13 @@ function UsersTable({
                                   >
                                     <X className="h-2.5 w-2.5 text-zinc-600 hover:text-white" />
                                   </Button>
-                                  <CalendarIcon className="size-4 opacity-50 !text-[#00FFAB]" />
+                                  <CalendarIcon className="size-4 !text-[#00FFAB]" />
                                 </div>
                               </div>
                             ) : (
                               <>
                                 <span>Pick a date</span>
-                                <CalendarIcon className="ml-auto opacity-50 size-4  !text-[#00FFAB]" />
+                                <CalendarIcon className="ml-auto size-4 !text-[#00FFAB]" />
                               </>
                             )}
                           </Button>
@@ -382,7 +382,7 @@ function UsersTable({
                       </Popover>
                     </div>
                     <div className="relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 size-4 opacity-50 !text-[#00FFAB]" />
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 size-4 !text-[#00FFAB]" />
                       <Input
                         type="text"
                         placeholder="Search Users"
