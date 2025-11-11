@@ -21,8 +21,12 @@ function ProjectsTableContainer() {
   const [selectedDate, setSelectedDate] = useState(initialDate);
   const [sorting, setSorting] = useState<any[]>([]);
 
-
-  const { data: projectsResponse, isLoading: projectsLoading, error: projectsError, isError } = useQuery({
+  const {
+    data: projectsResponse,
+    isLoading: projectsLoading,
+    error: projectsError,
+    isError,
+  } = useQuery({
     queryKey: [
       "projects",
       page,
@@ -51,12 +55,12 @@ function ProjectsTableContainer() {
       name: project.name,
       description: project.description || null,
       timeline:
-      project.start_date && project.end_date
-      ? `${project.start_date} - ${project.end_date}`
-      : null,
+        project.start_date && project.end_date
+          ? `${project.start_date} - ${project.end_date}`
+          : null,
       budget: project.estimated_budget
-      ? `${project.estimated_budget}/100CR`
-      : null,
+        ? `${project.estimated_budget}/100CR`
+        : null,
       members:
         project.membersCount !== undefined
           ? `${project.membersCount} Members`
@@ -76,7 +80,7 @@ function ProjectsTableContainer() {
     next_page: null,
     prev_page: null,
   };
-  
+
   useEffect(() => {
     const params: Record<string, any> = {
       page,
@@ -88,11 +92,11 @@ function ProjectsTableContainer() {
     navigate({ to: "/projects", search: params });
   }, [page, pageSize, searchValue, selectedStatus, selectedDate]);
 
-    const handleSetStatus = useCallback((value: string) => {
+  const handleSetStatus = useCallback((value: string) => {
     setSelectedStatus(value);
     setPage(1);
   }, []);
-  
+
   const handleSetDate = useCallback((value: string) => {
     setSelectedDate(value);
     setPage(1);
@@ -102,18 +106,29 @@ function ProjectsTableContainer() {
     setSearchInput(value);
     setPage(1);
   }, []);
-  
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setSearchValue(searchInput);
     }, 300);
     return () => clearTimeout(timer);
   }, [searchInput]);
-  if(projectsLoading) return <div>Loading...</div>;
+  if (projectsLoading)
+    return (
+      <div className="min-h-screen flex items-center justify-center h-full">
+        <div className="text-center">
+          <div className="inline-block w-8 h-8 border-4 border-zinc-600 border-t-white rounded-full animate-spin mb-4" />
+          <div className="text-zinc-500">Loading...</div>
+        </div>
+      </div>
+    );
 
-  if(isError) return <div>
-    <div>Error : {projectsError?.message} </div>
-  </div>;
+  if (isError)
+    return (
+      <div>
+        <div>Error : {projectsError?.message} </div>
+      </div>
+    );
 
   return (
     <ProjectsTable

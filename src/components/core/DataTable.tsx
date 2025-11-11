@@ -1,12 +1,24 @@
-import { DataTableProps } from '@/lib/interfaces/core';
-import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
-import { ScrollArea } from '../ui/scroll-area';
+import { DataTableProps } from "@/lib/interfaces/core";
+import {
+  flexRender,
+  getCoreRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import { ScrollArea } from "../ui/scroll-area";
 
 interface DataTableWithHeightProps extends DataTableProps {
   maxHeight?: string;
 }
 
-function DataTable({ data, columns, sorting, setSorting, isLoading, maxHeight }: DataTableWithHeightProps) {
+function DataTable({
+  data,
+  columns,
+  sorting,
+  setSorting,
+  isLoading,
+  maxHeight,
+}: DataTableWithHeightProps) {
   const table = useReactTable({
     data,
     columns,
@@ -21,23 +33,25 @@ function DataTable({ data, columns, sorting, setSorting, isLoading, maxHeight }:
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-full p-2">
-        <div className="text-zinc-500">Loading...</div>
+        <div className="text-center">
+          <div className="inline-block w-8 h-8 border-4 border-zinc-600 border-t-white rounded-full animate-spin mb-4" />
+          <div className="text-zinc-500">Loading...</div>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="h-full p-2 border border-zinc-800/30 rounded-lg overflow-hidden flex flex-col">
-      <ScrollArea 
-        className="flex-1" 
-        style={{ 
-          height: maxHeight || undefined, 
-          maxHeight: maxHeight || undefined 
+      <ScrollArea
+        className="flex-1"
+        style={{
+          height: maxHeight || undefined,
+          maxHeight: maxHeight || undefined,
         }}
       >
         <table className="w-full text-[11px] relative">
-<thead className="sticky top-0 z-10 bg-[#FFFFFF2E] backdrop-blur-2xl border-b border-zinc-800">
-
+          <thead className="sticky top-0 z-10 bg-[#FFFFFF2E] backdrop-blur-2xl border-b border-zinc-800">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
@@ -48,7 +62,9 @@ function DataTable({ data, columns, sorting, setSorting, isLoading, maxHeight }:
                     {header.isPlaceholder ? null : (
                       <div
                         className={`flex items-center gap-2 ${
-                          header.column.getCanSort() ? 'cursor-pointer select-none' : ''
+                          header.column.getCanSort()
+                            ? "cursor-pointer select-none"
+                            : ""
                         }`}
                         onClick={header.column.getToggleSortingHandler()}
                       >
@@ -59,8 +75,8 @@ function DataTable({ data, columns, sorting, setSorting, isLoading, maxHeight }:
                         {header.column.getCanSort() && (
                           <span className="text-xs">
                             {{
-                              asc: '▲',
-                              desc: '▼',
+                              asc: "▲",
+                              desc: "▼",
                             }[header.column.getIsSorted() as string] ?? null}
                           </span>
                         )}
@@ -73,9 +89,15 @@ function DataTable({ data, columns, sorting, setSorting, isLoading, maxHeight }:
           </thead>
           <tbody className="divide-y divide-zinc-800">
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="hover:bg-zinc-900/50 border-b border-zinc-800/30 ">
+              <tr
+                key={row.id}
+                className="hover:bg-zinc-900/50 border-b border-zinc-800/30 "
+              >
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="px-2 py-1 text-white text-[11px] whitespace-nowrap">
+                  <td
+                    key={cell.id}
+                    className="px-2 py-1 text-white text-[11px] whitespace-nowrap"
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
