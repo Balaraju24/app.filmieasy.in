@@ -38,6 +38,9 @@ import createUserColumns from "@/components/columns/getUsersColumn";
 import DataTable from "@/components/core/DataTable";
 import Pagination from "@/components/core/Pagination";
 import TeamBg from "@/assets/TeamBg.webp";
+import ImportIcon from "@/components/Icons/Team/ImportIcon1";
+import DownloadStorageIcon from "@/components/Icons/Team/DownloadStorage";
+import AddUserIcon from "@/components/Icons/Team/AddUserIcon";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useNavigate } from "@tanstack/react-router";
 
@@ -389,18 +392,18 @@ function UsersTable({
                       />
                     </div>
                     <button className="h-8 flex items-center gap-1.5 px-3 bg-zinc-900 border border-zinc-800/50 rounded-lg text-xs font-normal text-white hover:bg-zinc-800  cursor-pointer min-w-[72px]">
-                      <Upload className="w-3 h-3" />
+                      <ImportIcon />
                       Import
                     </button>
                     <button className="h-8 flex items-center gap-1.5 px-3 bg-zinc-900 border border-zinc-800/50 rounded-lg text-xs font-normal text-white hover:bg-zinc-800  cursor-pointer min-w-[72px]">
-                      <Download className="w-3 h-3" />
+                      <DownloadStorageIcon />
                       Download
                     </button>
                     <button
                       onClick={() => navigate({ to: "/team/add-user" })}
                       className="h-8 flex items-center gap-1.5 px-3.5 bg-blue-600 cursor-pointer hover:bg-blue-700 rounded-lg text-xs font-medium text-white  min-w-[100px]"
                     >
-                      <Plus className="w-3 h-3" />
+                      <AddUserIcon />
                       Add User
                     </button>
                   </div>
