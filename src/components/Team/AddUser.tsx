@@ -18,11 +18,12 @@ interface FormData {
     email: string;
     profileImage?: string;
     languages: { name: string }[];
+
   };
   professional: {
     department: string;
     roleType: string;
-    experience: string;
+    experience: number;
     unionMembership: string;
     status: string;
     blockFrom: string;
@@ -52,7 +53,7 @@ const initialFormData: FormData = {
   professional: {
     department: "",
     roleType: "",
-    experience: "",
+    experience:0,
     unionMembership: "",
     status: "",
     blockFrom: "",
@@ -128,6 +129,10 @@ function AddUserContainer() {
           : departmentId,
         DOB: dobFormatted,
         languages: isEmpty(languages) ? undefined : languages,
+        address: isEmpty(data.personal?.address)
+          ? null
+          : data.personal.address,
+        experience:isNaN(data.professional?.experience)?null:Number(data.professional?.experience),
       };
 
       return createUserAPI(payload);
