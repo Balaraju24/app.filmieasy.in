@@ -46,18 +46,18 @@ interface UserProfileViewProps {
   isLoading: boolean;
 }
 
-function UserProfileView({ 
-  profile, 
-  projects, 
-  activeTab, 
-  setActiveTab, 
-  isLoading 
+function UserProfileView({
+  profile,
+  projects,
+  activeTab,
+  setActiveTab,
+  isLoading,
 }: UserProfileViewProps) {
   if (isLoading || !profile) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block w-8 h-8 border-4 border-zinc-600 border-t-white rounded-full animate-spin mb-4"></div>
+          <div className="inline-block w-8 h-8 border-4 border-zinc-600 border-t-white rounded-full animate-spin mb-4" />
           <div className="text-zinc-500">Loading user profile...</div>
         </div>
       </div>
@@ -65,25 +65,22 @@ function UserProfileView({
   }
 
   return (
-<div className="relative min-h-screen bg-black text-white overflow-hidden">
-  {/* Background image */}
-  <img
-    src={screen1}
-    alt="Background"
- className="absolute inset-0 w-full h-full object-cover brightness-100"
-  />
+    <div className="relative min-h-screen bg-black text-white overflow-hidden">
+      <img
+        src={screen1}
+        alt="Background"
+        className="absolute inset-0 w-full h-full object-cover brightness-100"
+      />
 
-  {/* Overlay content */}
-  <div className="relative flex flex-col lg:flex-row min-h-screen">
-    <UserProfileSidebar profile={profile} />
-    <UserProfileContent 
-      projects={projects} 
-      activeTab={activeTab} 
-      setActiveTab={setActiveTab} 
-    />
-  </div>
-</div>
-
+      <div className="relative flex flex-col lg:flex-row min-h-screen">
+        <UserProfileSidebar profile={profile} />
+        <UserProfileContent
+          projects={projects}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
+      </div>
+    </div>
   );
 }
 
