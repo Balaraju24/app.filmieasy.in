@@ -6,10 +6,11 @@ import {
   RadioGroup,
   RadioGroupItem,
 } from "@/components/ui/radio-group";
-import { Card } from "@/components/ui/card";
 import OthersIcon from "@/components/Icons/Team/OthersIcon";
 import FemaleIcon from "@/components/Icons/Team/FemaleIcon";
 import MaleIcon from "@/components/Icons/Team/MaleIcon";
+import { useState } from "react";
+import DateInput from "@/components/core/DateInput";
 
 interface PersonalFormData {
   fullName: string;
@@ -37,6 +38,7 @@ function PersonalDetails({
   onRemoveLanguage,
   errors,
 }: PersonalDetailsProps) {
+  const[dob,setDob]=useState("");
 return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-7xl mx-auto">
       <div className="space-y-4">
@@ -89,7 +91,7 @@ return (
                 Date of Birth
               </Label>
               <div className="flex items-center gap-2">
-                <Input
+                {/* <Input
                   type="text"
                   maxLength={2}
                   value={formData.dob.slice(0, 2)}
@@ -127,7 +129,8 @@ return (
                   }}
                   placeholder="YYYY"
                   className="w-24 bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm text-center placeholder:text-zinc-300"
-                />
+                /> */}
+                <DateInput value={dob} onChange={setDob}/>
               </div>
               {errors.dob && <p className="text-red-500 text-xs mt-1">{errors.dob}</p>}
             </div>

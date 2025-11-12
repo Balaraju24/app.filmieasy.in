@@ -164,7 +164,7 @@ function ProjectDetails({
                         <Calendar
                           mode="single"
                           selected={formData.startDate ? new Date(formData.startDate) : undefined}
-                          onSelect={(date) => onUpdate({ startDate: date ? date.toISOString().split('T')[0] : "" })}
+                          onSelect={(date) => onUpdate({ startDate: date ? date.toLocaleDateString() : "" })}
                           initialFocus
                           className="bg-zinc-900 text-white"
                         />
@@ -191,7 +191,7 @@ function ProjectDetails({
                         <Calendar
                           mode="single"
                           selected={formData.endDate ? new Date(formData.endDate) : undefined}
-                          onSelect={(date) => onUpdate({ endDate: date ? date.toISOString().split('T')[0] : "" })}
+                          onSelect={(date) => onUpdate({ endDate: date ? date.toLocaleDateString() : "" })}
                           initialFocus
                           className="bg-zinc-900 text-white"
                         />
