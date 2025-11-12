@@ -215,7 +215,7 @@ function ProjectDetailsUi({
             onValueChange={setActiveTab}
             className="w-full"
           >
-            <TabsList className="bg-black border-0 h-12 lg:h-14 px-4 lg:px-6 inline-flex min-w-fit w-max gap-6 shadow-sm">
+            <TabsList className="bg-black border-0 h-10 p-[0px] lg:h-10 px-4 lg:px-6 inline-flex min-w-fit w-max gap-6 shadow-sm">
               <TabsTrigger
                 value="crew"
                 className="relative data-[state=active]:bg-transparent data-[state=active]:text-blue-500 data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-blue-500 rounded-none px-0 text-zinc-400 text-sm whitespace-nowrap border-0 hover:text-zinc-300 "
