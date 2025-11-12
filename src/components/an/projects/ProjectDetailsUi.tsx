@@ -38,6 +38,9 @@ import { Input } from "@/components/ui/input";
 import { useNavigate } from "@tanstack/react-router";
 import ScriptTab from "./ScriptTab";
 import PaymentInfo from "./PaymentInfo";
+import Schedule from "./CallSheet";
+import FileUpload from "./FileUploadDocument";
+import Notes from "./Notes";
 
 
 function ProjectDetailsUi({
@@ -373,13 +376,13 @@ function ProjectDetailsUi({
             <EmptyState message="Expenses & Inventory content goes here" />
           )}
           {activeTab === "schedule" && (
-            <EmptyState message="Call Sheet & Scheduling content goes here" />
+            <Schedule />
           )}
           {activeTab === "documents" && (
-            <EmptyState message="Documents & Files content goes here" />
+            <FileUpload />
           )}
           {activeTab === "notes" && (
-            <EmptyState message="Notes content goes here" />
+            <Notes />
           )}
         </div>
       </div>
