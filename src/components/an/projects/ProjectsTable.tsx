@@ -170,7 +170,7 @@ function ProjectsTable({
                           </div>
                         ) : (
                           <>
-                            <span>Pick a date</span>
+                            <span>Select a date</span>
                             <CalendarIcon className="ml-auto size-4 !text-[#00FFAB]" />
                           </>
                         )}

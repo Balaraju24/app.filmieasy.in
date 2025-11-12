@@ -10,6 +10,8 @@ import {
 import appCss from "@/styles/app.css?url";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/sonner";
+import favicon from "@/assets/favicon.svg"; // or .ico / .png as per your file
+
 const queryclient = new QueryClient();
 export const Route = createRootRoute({
   head: () => ({
@@ -29,6 +31,10 @@ export const Route = createRootRoute({
       {
         rel: "stylesheet",
         href: appCss,
+      },
+      {
+        rel: "icon",
+        href: favicon,
       },
     ],
   }),

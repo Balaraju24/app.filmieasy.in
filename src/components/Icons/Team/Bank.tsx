@@ -4,7 +4,7 @@ function Bank() {
   return (
     <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect width="24" height="24" rx="4.8" fill="#00962A"/>
-<g clip-path="url(#clip0_1587_9089)">
+<g clipPath="url(#clip0_1587_9089)">
 <mask id="mask0_1587_9089" maskUnits="userSpaceOnUse" x="4" y="4" width="16" height="16">
 <path d="M5.29102 4.34021L19.6596 5.29121L18.7086 19.6598L4.34002 18.7088L5.29102 4.34021Z" fill="white"/>
 </mask>

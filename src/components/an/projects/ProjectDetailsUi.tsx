@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -17,14 +17,55 @@ import {
 import {
   Thermometer,
   Droplets,
+  CalendarIcon,
+  X,
+  Search,
 } from "lucide-react";
 import UserTableContainer from "../../Team";
 import backgroundImage from "@/assets/TeamBg.webp";
 import Cloud from "@/components/Icons/Projects/Cloud";
 import { Props } from "@/lib/interfaces/Project";
+import AddUserIcon from "@/components/Icons/Team/AddUserIcon";
+import DownloadStorageIcon from "@/components/Icons/Team/DownloadStorage";
+import ImportIcon from "@/components/Icons/Team/ImportIcon1";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { Button } from "@/components/ui/button";
+import { format } from "date-fns";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { useNavigate } from "@tanstack/react-router";
 
-function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
+
+function ProjectDetailsUi({
+  projectData,
+  projectUsersData,
+  selectedDate,
+  setSelectedDate,
+  selectedStatus,
+  setSelectedStatus,
+  searchValue,
+  setSearchValue,
+}: {
+  projectData: any;
+  projectUsersData: any;
+  selectedDate: any;
+  setSelectedDate: (date: any) => void;
+  selectedStatus: string;
+  setSelectedStatus: (status: string) => void;
+  searchValue: string;
+  setSearchValue: (value: string) => void;
+}) {
   const [activeTab, setActiveTab] = useState("crew");
+  const [tableBodyHeight, setTableBodyHeight] = useState('100%');
+  const navigate = useNavigate();
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const handleStatusSelect = (status: string) => {
+    setSelectedStatus(status === "all" ? "" : status);
+  };
 
   const fullDescription = projectData?.description || "";
   const projectName = projectData?.name || "Untitled Project";
@@ -174,7 +215,7 @@ function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
             onValueChange={setActiveTab}
             className="w-full"
           >
-            <TabsList className="bg-black border-0 h-12 lg:h-14 px-4 lg:px-6 inline-flex min-w-full w-max gap-6 shadow-sm">
+            <TabsList className="bg-black border-0 h-10 p-[0px] lg:h-10 px-4 lg:px-6 inline-flex min-w-fit w-max gap-6 shadow-sm">
               <TabsTrigger
                 value="crew"
                 className="relative data-[state=active]:bg-transparent data-[state=active]:text-blue-500 data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-blue-500 rounded-none px-0 text-zinc-400 text-sm whitespace-nowrap border-0 hover:text-zinc-300 "
@@ -221,8 +262,104 @@ function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
           </Tabs>
         </div>
         <div className="flex-1 bg-black shadow-sm border-t border-gray-800/50 overflow-hidden flex flex-col">
+          
           {activeTab === "crew" && (
+            <div>
+                <div ref={headerRef} className="h-[52px] border-b border-zinc-800/30 px-6 flex items-center justify-between bg-[#0a0a0a] flex-shrink-0">
+              <div className="flex items-center">
+                <span className="text-sm font-normal text-white">All</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="relative">
+                  <Select
+                    value={selectedStatus || "all"}
+                    onValueChange={handleStatusSelect}
+                  >
+                    <SelectTrigger className="w-[160px] !py-1 !px-3 bg-zinc-900/50 border-2 border-zinc-700 text-xs">
+                      <SelectValue placeholder="Select Status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All</SelectItem>
+                      <SelectItem value="ongoing">Ongoing</SelectItem>
+                      <SelectItem value="completed">Completed</SelectItem>
+                      <SelectItem value="paused">Todo</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="relative">
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "w-[160px] h-8 justify-start text-left font-normal bg-zinc-900/50 border-2 border-zinc-700 text-xs",
+                          !selectedDate && "text-zinc-600"
+                        )}
+                      >
+                        {selectedDate ? (
+                          <div className="flex items-center justify-between w-full">
+                            <span className="truncate">{format(new Date(selectedDate), "MMM dd, yyyy")}</span>
+                            <div className="flex items-center gap-1">
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setSelectedDate("");
+                                }}
+                                className="h-3.5 w-3.5 p-0"
+                              >
+                                <X className="h-2.5 w-2.5 text-zinc-600 hover:text-white" />
+                              </Button>
+                              <CalendarIcon className="size-4 !text-[#00FFAB]" />
+                            </div>
+                          </div>
+                        ) : (
+                          <>
+                            <span>Select a date</span>
+                            <CalendarIcon className="ml-auto size-4 !text-[#00FFAB]" />
+                          </>
+                        )}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={selectedDate ? new Date(selectedDate) : undefined}
+                        onSelect={(date) => {
+                          setSelectedDate(date ? format(date, "yyyy-MM-dd") : "");
+                        }}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+                <div className="relative">
+                  <Search className="absolute left-2.5 top-1/2 transform -translate-y-1/2 size-4 !text-[#00FFAB] text-zinc-600" />
+                  <Input
+                    type="text"
+                    placeholder="Search Projects"
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    className="h-8 pl-8 pr-2.5 bg-zinc-900/50 border-2 border-zinc-700 rounded-lg text-xs text-white placeholder-zinc-600 focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-shadow-none focus-visible:border-zinc-700 focus-visible:shadow-none w-[160px]"
+                  />
+                </div>
+                 <button className="h-8 flex items-center gap-1.5 px-3 bg-(--an-import-bg) border border-zinc-800/50 rounded-lg text-xs font-normal text-white hover:bg-zinc-800  cursor-pointer">
+                  <ImportIcon />
+                  Import
+                </button>
+                <button className="h-8 flex items-center gap-1.5 px-3 bg-(--an-import-bg) border border-zinc-800/50 rounded-lg text-xs font-normal text-white hover:bg-zinc-800  cursor-pointer">
+                  <DownloadStorageIcon />
+                  Download
+                </button>
+                <button onClick={()=>{navigate({to:"/projects/add-project"})}} className="h-8 flex items-center gap-1.5 px-3 bg-(--add-btn-bg) cursor-pointer hover:bg-blue-700 rounded-lg text-xs font-medium text-white ">
+                  <AddUserIcon />
+                  Add New Project
+                </button>
+              </div>
+            </div>
             <UserTableContainer users={projectUsersData} isProjectView={true} />
+            </div>
           )}
           {activeTab === "script" && (
             <EmptyState message="Script content goes here" />
