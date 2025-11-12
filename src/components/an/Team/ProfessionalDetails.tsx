@@ -56,47 +56,75 @@ function ProfessionalDetails({
               <Label className="text-xs text-zinc-300 mb-2 block">
                 Department
               </Label>
-              <Select value={formData.department} onValueChange={(v) => onUpdate({ department: v })}>
+              <Select
+                value={formData.department}
+                onValueChange={(v) => onUpdate({ department: v })}
+              >
                 <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm">
                   <SelectValue placeholder="Enter Department" />
                 </SelectTrigger>
                 <SelectContent className="bg-zinc-900 border-zinc-800">
                   {departments.map((dept) => (
-                    <SelectItem key={dept.id} value={dept.id.toString()} className="text-white">
+                    <SelectItem
+                      key={dept.id}
+                      value={dept.id.toString()}
+                      className="text-white"
+                    >
                       {dept.name}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
-              {errors.department && <p className="text-red-500 text-xs mt-1">{errors.department}</p>}
+              {errors.department && (
+                <p className="text-red-500 text-xs mt-1">{errors.department}</p>
+              )}
             </div>
-            
+
             <div>
               <Label className="text-xs text-zinc-300 mb-2 block">
                 Role Type
               </Label>
-              <Select value={formData.roleType} onValueChange={(v) => onUpdate({ roleType: v })}>
+              <Select
+                value={formData.roleType}
+                onValueChange={(v) => onUpdate({ roleType: v })}
+              >
                 <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm">
                   <SelectValue placeholder="Enter Role" />
                 </SelectTrigger>
                 <SelectContent className="bg-zinc-900 border-zinc-800">
-                  <SelectItem value="ACTOR" className="text-white">Actor</SelectItem>
-                  <SelectItem value="ACTRESS" className="text-white">Actress</SelectItem>
-                  <SelectItem value="PRODUCER" className="text-white">Producer</SelectItem>
-                  <SelectItem value="DIRECTOR" className="text-white">Director</SelectItem>
-                  <SelectItem value="COSTUME DESIGNER" className="text-white">Costume Designer</SelectItem>
+                  <SelectItem value="ACTOR" className="text-white">
+                    Actor
+                  </SelectItem>
+                  <SelectItem value="ACTRESS" className="text-white">
+                    Actress
+                  </SelectItem>
+                  <SelectItem value="PRODUCER" className="text-white">
+                    Producer
+                  </SelectItem>
+                  <SelectItem value="DIRECTOR" className="text-white">
+                    Director
+                  </SelectItem>
+                  <SelectItem value="COSTUME DESIGNER" className="text-white">
+                    Costume Designer
+                  </SelectItem>
                 </SelectContent>
               </Select>
-              {errors.roleType && <p className="text-red-500 text-xs mt-1">{errors.roleType}</p>}
+              {errors.roleType && (
+                <p className="text-red-500 text-xs mt-1">{errors.roleType}</p>
+              )}
             </div>
-            
+
             <div>
-              <Label className="text-xs text-zinc-300 mb-2 block">Experience</Label>
+              <Label className="text-xs text-zinc-300 mb-2 block">
+                Experience
+              </Label>
               <div className="flex gap-2">
                 <Input
                   type="number"
                   value={formData.experience}
-                  onChange={(e) => onUpdate({ experience: Number(e.target.value) })}
+                  onChange={(e) =>
+                    onUpdate({ experience: Number(e.target.value) })
+                  }
                   className="flex-1 bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300"
                   placeholder="Enter Experience"
                 />
@@ -105,13 +133,17 @@ function ProfessionalDetails({
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="bg-zinc-900 border-zinc-800">
-                    <SelectItem value="years" className="text-white">Years</SelectItem>
-                    <SelectItem value="months" className="text-white">Months</SelectItem>
+                    <SelectItem value="years" className="text-white">
+                      Years
+                    </SelectItem>
+                    <SelectItem value="months" className="text-white">
+                      Months
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
-            
+
             <div>
               <Label className="text-xs text-zinc-300 mb-2 block">
                 Union/Association Membership
@@ -124,8 +156,12 @@ function ProfessionalDetails({
                   <SelectValue placeholder="Enter Membership" />
                 </SelectTrigger>
                 <SelectContent className="bg-zinc-900 border-zinc-800">
-                  <SelectItem value="yes" className="text-white">Yes</SelectItem>
-                  <SelectItem value="no" className="text-white">No</SelectItem>
+                  <SelectItem value="yes" className="text-white">
+                    Yes
+                  </SelectItem>
+                  <SelectItem value="no" className="text-white">
+                    No
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -143,20 +179,34 @@ function ProfessionalDetails({
           <div className="space-y-3.5">
             <div>
               <Label className="text-xs text-zinc-300 mb-2 block">Status</Label>
-              <Select value={formData.status} onValueChange={(v) => onUpdate({ status: v })}>
+              <Select
+                value={formData.status}
+                onValueChange={(v) => onUpdate({ status: v })}
+              >
                 <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm">
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
                 <SelectContent className="bg-zinc-900 border-zinc-800">
-                  <SelectItem value="available" className="text-white">Available</SelectItem>
-                  <SelectItem value="unavailable" className="text-white">Unavailable</SelectItem>
-                  <SelectItem value="partially-available" className="text-white">Partially Available</SelectItem>
+                  <SelectItem value="available" className="text-white">
+                    Available
+                  </SelectItem>
+                  <SelectItem value="unavailable" className="text-white">
+                    Unavailable
+                  </SelectItem>
+                  <SelectItem
+                    value="partially-available"
+                    className="text-white"
+                  >
+                    Partially Available
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
-            
+
             <div>
-              <Label className="text-xs text-zinc-300 mb-2 block">Block Dates</Label>
+              <Label className="text-xs text-zinc-300 mb-2 block">
+                Block Dates
+              </Label>
               <div className="grid grid-cols-2 gap-3">
                 <Popover>
                   <PopoverTrigger asChild>
@@ -168,14 +218,25 @@ function ProfessionalDetails({
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4 text-teal-400" />
-                      {formData.blockFrom ? format(new Date(formData.blockFrom), "MM/dd/yyyy") : "From"}
+                      {formData.blockFrom || "From"}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0 bg-zinc-900 border-zinc-800" align="start">
+                  <PopoverContent
+                    className="w-auto p-0 bg-zinc-900 border-zinc-800"
+                    align="start"
+                  >
                     <Calendar
                       mode="single"
-                      selected={formData.blockFrom ? new Date(formData.blockFrom) : undefined}
-                      onSelect={(date) => onUpdate({ blockFrom: date ? date.toISOString().split('T')[0] : "" })}
+                      selected={
+                        formData.blockFrom
+                          ? new Date(formData.blockFrom)
+                          : undefined
+                      }
+                      onSelect={(date) =>
+                        onUpdate({
+                          blockFrom: date ? date.toLocaleDateString() : "",
+                        })
+                      }
                       initialFocus
                       className="bg-zinc-900 text-white"
                     />
@@ -192,14 +253,27 @@ function ProfessionalDetails({
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4 text-teal-400" />
-                      {formData.blockTo ? format(new Date(formData.blockTo), "MM/dd/yyyy") : "To"}
+                      {formData.blockTo
+                        ? format(new Date(formData.blockTo), "MM/dd/yyyy")
+                        : "To"}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0 bg-zinc-900 border-zinc-800" align="start">
+                  <PopoverContent
+                    className="w-auto p-0 bg-zinc-900 border-zinc-800"
+                    align="start"
+                  >
                     <Calendar
                       mode="single"
-                      selected={formData.blockTo ? new Date(formData.blockTo) : undefined}
-                      onSelect={(date) => onUpdate({ blockTo: date ? date.toISOString().split('T')[0] : "" })}
+                      selected={
+                        formData.blockTo
+                          ? new Date(formData.blockTo)
+                          : undefined
+                      }
+                      onSelect={(date) =>
+                        onUpdate({
+                          blockTo: date ? date.toLocaleDateString(): "",
+                        })
+                      }
                       initialFocus
                       className="bg-zinc-900 text-white"
                     />

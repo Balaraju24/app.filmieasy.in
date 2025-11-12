@@ -67,6 +67,9 @@ function ProjectsTable({
   const handleStatusSelect = (status: string) => {
     setSelectedStatus(status === "all" ? "" : status);
   };
+  const handleRowClick=(row:any)=>{
+    navigate({to:`/projects/${row.id}/users`})
+  }
 
   useEffect(() => {
     const calculateHeight = () => {
@@ -217,6 +220,7 @@ function ProjectsTable({
                 setSorting={setSorting}
                 isLoading={isLoading}
                 maxHeight={tableBodyHeight}
+                onRowClick={handleRowClick}
               />
             </div>
             <div ref={paginationRef} className="h-[60px] px-6 border-t border-zinc-800/30 flex items-center bg-[#0a0a0a] flex-shrink-0">
