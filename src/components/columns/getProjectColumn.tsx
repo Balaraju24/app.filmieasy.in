@@ -2,7 +2,12 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Project } from "@/lib/interfaces/Project";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import EditIcon from "../Icons/EditIcon";
 import OptionsIcon from "../Icons/OptionsIcon";
 import ViewIcon from "../Icons/ViewIcon";
@@ -26,7 +31,9 @@ export default function createProjectColumns(): ColumnDef<Project>[] {
               />
             ) : (
               <div className="w-8 h-8 bg-gray-700 rounded mr-3 flex items-center justify-center">
-                <span className="text-xs font-medium">{project.name.charAt(0)}</span>
+                <span className="text-xs font-medium">
+                  {project.name.charAt(0)}
+                </span>
               </div>
             )}
             <span className="font-medium">{project.name}</span>
@@ -108,25 +115,40 @@ export default function createProjectColumns(): ColumnDef<Project>[] {
           return <span className="text-sm text-zinc-400">-</span>;
         }
         return (
-          <Badge variant={status === "ongoing" ? "default" : "secondary"} className="text-xs">
+          <Badge
+            variant={status === "ongoing" ? "default" : "secondary"}
+            className="text-xs"
+          >
             {status.charAt(0).toUpperCase() + status.slice(1)}
           </Badge>
         );
       },
     },
     {
-      id: 'actions',
-      header: 'Actions',
+      id: "actions",
+      header: "Actions",
       enableSorting: false,
       cell: ({ row }) => (
         <div className="flex items-center gap-2">
-          <Button className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer ">
+          <Button
+            className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer "
+            onClick={(e) => e.stopPropagation()}
+          >
             <EditIcon />
           </Button>
-          <Button onClick={()=>{ navigate({to:`/projects/${row.original.id}/users`})}} className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer ">
-           <ViewIcon  />
+          <Button
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate({ to: `/projects/${row.original.id}/users` });
+            }}
+            className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer "
+          >
+            <ViewIcon />
           </Button>
-          <Button className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer ">
+          <Button
+            className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer "
+            onClick={(e) => e.stopPropagation()}
+          >
             <OptionsIcon />
           </Button>
         </div>
