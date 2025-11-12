@@ -36,6 +36,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { useNavigate } from "@tanstack/react-router";
+import ScriptTab from "./ScriptTab";
 
 
 function ProjectDetailsUi({
@@ -362,7 +363,7 @@ function ProjectDetailsUi({
             </div>
           )}
           {activeTab === "script" && (
-            <EmptyState message="Script content goes here" />
+            <ScriptTab />
           )}
           {activeTab === "payment" && (
             <EmptyState message="Payment Info Snapshot content goes here" />
