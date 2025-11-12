@@ -145,18 +145,25 @@ function createUserColumns(): ColumnDef<User>[] {
       enableSorting: false,
       cell: ({ row }) => (
         <div className="flex items-center gap-2">
-          <Button className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer">
+          <Button
+            className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer"
+            onClick={(e) => e.stopPropagation()}
+          >
             <EditIcon />
           </Button>
           <Button
             className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer"
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               navigate({ to: `/team/${row.original.id}` });
             }}
           >
             <ViewIcon />
           </Button>
-          <Button className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer">
+          <Button
+            className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer"
+            onClick={(e) => e.stopPropagation()}
+          >
             <OptionsIcon />
           </Button>
         </div>

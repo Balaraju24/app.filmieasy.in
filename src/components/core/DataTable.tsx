@@ -9,6 +9,7 @@ import { ScrollArea } from "../ui/scroll-area";
 
 interface DataTableWithHeightProps extends DataTableProps {
   maxHeight?: string;
+  onRowClick?: (rowData: any) => void;
 }
 
 function DataTable({
@@ -18,6 +19,7 @@ function DataTable({
   setSorting,
   isLoading,
   maxHeight,
+  onRowClick,
 }: DataTableWithHeightProps) {
   const table = useReactTable({
     data,
@@ -91,6 +93,7 @@ function DataTable({
             {table.getRowModel().rows.map((row) => (
               <tr
                 key={row.id}
+                onClick={() => onRowClick?.(row.original)}
                 className="hover:bg-zinc-900/50 border-b border-zinc-800/30 "
               >
                 {row.getVisibleCells().map((cell) => (

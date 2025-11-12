@@ -4,6 +4,7 @@ export interface DataTableProps {
     sorting: any
     setSorting: any
     isLoading: boolean
+    onRowClick?:any
 }
 
 export interface PaginationProps {

@@ -62,50 +62,34 @@ function LoginForm({
           <CardContent>
             <div className="space-y-5">
               <div className="space-y-0 relative">
-                <Label htmlFor="email" className="text-gray-300 !gap-1 font-normal text-[14px]">
+                <Label
+                  htmlFor="email"
+                  className="text-gray-300 !gap-1 font-normal text-[14px]"
+                >
                   Email<span className="text-(--an-card-error-color)">*</span>
                 </Label>
                 <div className="relative">
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter email"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    if (emailError) setEmailError("");
-                  }}
-                  className="bg-white/10 border border-[#00000026] focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 text-white placeholder:text-gray-400  transition-all"
-                />
-                {emailError && (
-                              <div
-                        className="
-                          absolute 
-                          left-0/2 -translate-x-0/2 top-full mt-0
-                          bg-red-600 text-white text-xs px-2 py-[2px] rounded-[4px] w-full
-                          shadow-lg whitespace-nowrap
-                          flex items-left justify-left
-                          transition-all
-                        "
-                      >
-                        {emailError.charAt(0).toUpperCase() + emailError.slice(1)}
-                        <div
-                          className="
-                            absolute 
-                            top-[-6px] left-1/2 -translate-x-1/2
-                            w-0 h-0
-                            border-4 
-                            border-transparent 
-                            border-b-red-600
-                          "
-                        ></div>
-                      </div>
-
-                )}
-              </div>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="Enter email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (emailError) setEmailError("");
+                    }}
+                    className="bg-white/10 border border-[#00000026] focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 text-white placeholder:text-gray-400  transition-all"
+                  />
+                  {emailError && (
+                    <p className="text-red-600 text-xs">{emailError}</p>
+                  )}
+                </div>
               </div>
               <div className="space-y-0 relative">
-                <Label htmlFor="password" className="text-gray-300 !gap-1 font-normal text-[14px]">
+                <Label
+                  htmlFor="password"
+                  className="text-gray-300 !gap-1 font-normal text-[14px]"
+                >
                   Password{" "}
                   <span className="text-(--an-card-error-color)">*</span>
                 </Label>
@@ -134,28 +118,7 @@ function LoginForm({
                   </button>
                 </div>
                 {passwordError && (
-                  <div
-                        className="
-                          absolute 
-                          left-0/2 -translate-x-0/2 top-full mt-0
-                          bg-red-600 text-white text-xs px-2 py-[2px] rounded-[4px]
-                          shadow-lg whitespace-nowrap
-                          flex items-left justify-left w-full
-                          transition-all
-                        "
-                      >
-                        {passwordError.charAt(0).toUpperCase() + passwordError.slice(1)}
-                        <div
-                          className="
-                            absolute 
-                            top-[-6px] left-1/2 -translate-x-1/2
-                            w-0 h-0
-                            border-4 
-                            border-transparent 
-                            border-b-red-600
-                          "
-                        ></div>
-                      </div>
+                  <p className="text-red-600 text-xs">{passwordError}</p>
                 )}
               </div>
               <div className="text-right">

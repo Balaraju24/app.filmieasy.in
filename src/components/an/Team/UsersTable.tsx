@@ -21,15 +21,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-import {
-  ChevronDown,
-  Download,
-  Loader2,
-  Plus,
-  Search,
-  Upload,
-  X,
-} from "lucide-react";
+import { ChevronDown, Loader2, Plus, Search, X } from "lucide-react";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -104,6 +96,9 @@ function UsersTable({
     if (newDepartmentName.trim()) {
       onCreateDepartment(newDepartmentName.trim());
     }
+  };
+  const handleRowClick = (row: any) => {
+    navigate({ to: `/team/${row.id}` });
   };
 
   useEffect(() => {
@@ -416,6 +411,7 @@ function UsersTable({
                     setSorting={setSorting}
                     isLoading={isLoading}
                     maxHeight={tableBodyHeight}
+                    onRowClick={handleRowClick}
                   />
                 </div>
                 <div

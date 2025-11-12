@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "@tanstack/react-router";
-import UsersTable from "../an/Team/GetUsers";
+import UsersTable from "../an/Team/UsersTable";
 import { getAllDepartmentsAPI, createDepartmentAPI, getAllUsersAPI } from "@/http/services/team";
 import { toast } from "sonner";
 
@@ -58,6 +58,7 @@ function UserTableContainer({ users: projectUsers, isProjectView = false }: User
       const response = await getAllDepartmentsAPI();
       return response?.data?.data?.records;
     },
+    enabled:true,
   });
 
   const { data: usersResponse, isLoading: usersLoading } = useQuery({
