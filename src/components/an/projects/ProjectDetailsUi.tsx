@@ -37,6 +37,7 @@ import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { useNavigate } from "@tanstack/react-router";
 import ScriptTab from "./ScriptTab";
+import PaymentInfo from "./PaymentInfo";
 
 
 function ProjectDetailsUi({
@@ -366,7 +367,7 @@ function ProjectDetailsUi({
             <ScriptTab />
           )}
           {activeTab === "payment" && (
-            <EmptyState message="Payment Info Snapshot content goes here" />
+            <PaymentInfo />
           )}
           {activeTab === "expenses" && (
             <EmptyState message="Expenses & Inventory content goes here" />
