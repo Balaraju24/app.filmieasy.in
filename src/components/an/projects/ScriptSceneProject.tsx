@@ -78,9 +78,9 @@ const SceneEditor = () => {
               </div>
             </div>
             <div className="relative">
-                <input
-                  type="time"
-                  className="
+              <input
+                type="time"
+                className="
                     w-full bg-[#212121] p-2 pl-3 rounded-md 
                     text-white text-sm
                     focus:outline-none focus:ring-2 focus:ring-blue-500 
@@ -91,22 +91,48 @@ const SceneEditor = () => {
                     [&::-webkit-calendar-picker-indicator]:opacity-0
                     [&::-webkit-calendar-picker-indicator]:pointer-events-none
                   "
-                />
-                <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                  <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
+              />
+              <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
               </div>
+            </div>
           </div>
         </div>
 
-        {/* <div className="flex gap-2">
-          <button className="w-1/2 bg-[#212121] py-2 rounded-md">Indoor 
-          <input type="radio" /></button>
-          <button className="w-1/2 bg-[#212121] py-2 rounded-md">Outdoor</button>
-        </div> */}
-        
+        <div className="space-y-1">
+          <label className="text-xs text-gray-400">Location Type</label>
+          <div className="flex gap-2">
+            <div className="flex items-center justify-between w-32 px-4 py-2 bg-neutral-800 rounded-md">
+              <label className="text-white text-sm">Indoor</label>
+
+              <input
+                id="option1"
+                type="radio"
+                name="choice"
+                className="appearance-none w-4 h-4 border border-gray-400 rounded-full relative cursor-pointer
+                    checked:border-white checked:before:content-[''] checked:before:absolute
+                    checked:before:top-1/2 checked:before:left-1/2 checked:before:-translate-x-1/2 checked:before:-translate-y-1/2
+                    checked:before:w-2 checked:before:h-2 checked:before:bg-white checked:before:rounded-full"
+              />
+            </div>
+            <div className="flex items-center justify-between w-32 px-4 bg-neutral-800 rounded-md">
+              <label className="text-white text-sm">Outdoor</label>
+
+              <input
+                id="option1"
+                type="radio"
+                name="choice"
+                className="appearance-none w-4 h-4 border border-gray-400 rounded-full relative cursor-pointer
+                    checked:border-white checked:before:content-[''] checked:before:absolute
+                    checked:before:top-1/2 checked:before:left-1/2 checked:before:-translate-x-1/2 checked:before:-translate-y-1/2
+                    checked:before:w-2 checked:before:h-2 checked:before:bg-white checked:before:rounded-full"
+              />
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <div className="flex-1 bg-black flex flex-col">
