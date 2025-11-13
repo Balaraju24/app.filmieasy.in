@@ -9,6 +9,11 @@ import screen1 from "@/assets/s-1.webp";
 import screen2 from "@/assets/s-2.webp";
 import screen3 from "@/assets/s-3.webp";
 import { AddUserFormProps } from "@/lib/interfaces/Team";
+import ArrowLeft from "@/assets/arrow-left.png";
+import Prev from "@/assets/prev.png";
+import Next from "@/assets/next.png";
+import DoubleArrow from "@/components/Icons/Projects/DoubleArrow";
+
 
 function AddUserForm({
   currentStep,
@@ -49,45 +54,35 @@ function AddUserForm({
               variant="ghost"
               className="text-white h-8 px-3 text-sm"
             >
-              ← Back
+              <img src={ArrowLeft} alt="Project" className="w-full h-full" /> Add User
             </Button>
             <div className="flex items-center space-x-2 flex-wrap gap-2">
               {currentStep > 1 && (
-                <Button
-                  onClick={onPrev}
-                  disabled={isLoading}
-                  className="h-8 px-4 text-sm"
-                >
-                  Previous
+                <Button onClick={onPrev} disabled={isLoading} className="h-8 px-4 text-sm  flex items-center">
+                 <img src={Prev} alt="arrow" className="" /> Previous
                 </Button>
               )}
               {currentStep < 3 ? (
-                <Button
-                  onClick={onNext}
-                  disabled={isLoading}
-                  className="h-8 px-4 text-sm"
-                >
-                  Next
+                <Button onClick={onNext} disabled={isLoading} className="h-8 px-4 text-sm">
+                  Next<img src={Next} alt="arrow" className="" />
                 </Button>
               ) : (
-                <Button
-                  onClick={onSubmit}
-                  disabled={isLoading}
-                  className="h-8 px-4 text-sm"
-                >
-                  {isLoading
-                    ? isEditMode
-                      ? "Updating..."
-                      : "Submitting..."
-                    : isEditMode
-                      ? "Update User"
-                      : "Create User"}
+                <Button onClick={onSubmit} disabled={isLoading} className="h-8 px-4 text-sm bg-[#4A90E2] hover:bg-blue-700 flex items-center gap-2">
+                  {isLoading ? (<>  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                    Submitting...
+                  </>
+                  ) : (
+                    <>
+                      Submit
+                      <DoubleArrow className="h-[8px]" />
+                    </>
+                  )}
                 </Button>
               )}
             </div>
           </div>
-
-          <div className="flex justify-center mb-2 overflow-x-auto pb-1 gap-3">
+          
+          <div className="flex justify-center mb-3 py-3 border-t border-b border-[#363636]  overflow-x-auto  gap-3">
             {[1, 2, 3].map((step) => (
               <div
                 key={step}
