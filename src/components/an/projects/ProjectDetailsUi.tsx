@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState,  useRef, useEffect } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -20,11 +20,11 @@ import {
   CalendarIcon,
   X,
   Search,
+  ActivitySquareIcon,
 } from "lucide-react";
 import UserTableContainer from "../../Team";
 import backgroundImage from "@/assets/TeamBg.webp";
 import Cloud from "@/components/Icons/Projects/Cloud";
-import { Props } from "@/lib/interfaces/Project";
 import AddUserIcon from "@/components/Icons/Team/AddUserIcon";
 import DownloadStorageIcon from "@/components/Icons/Team/DownloadStorage";
 import ImportIcon from "@/components/Icons/Team/ImportIcon1";
@@ -35,8 +35,8 @@ import { format } from "date-fns";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
-import { useNavigate } from "@tanstack/react-router";
-import ScriptTab from "./ScriptTab";
+import { useNavigate, useParams } from "@tanstack/react-router";
+import ScriptTab from "@/components/Projects/ScriptTab";
 
 
 function ProjectDetailsUi({
@@ -58,11 +58,9 @@ function ProjectDetailsUi({
   searchValue: string;
   setSearchValue: (value: string) => void;
 }) {
-  const [activeTab, setActiveTab] = useState("crew");
-  const [tableBodyHeight, setTableBodyHeight] = useState('100%');
+  const {tab}=useParams({strict:false})
+  const [activeTab, setActiveTab] = useState(tab ||"crew");
   const navigate = useNavigate();
-
-  const containerRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const handleStatusSelect = (status: string) => {
     setSelectedStatus(status === "all" ? "" : status);
@@ -103,6 +101,14 @@ function ProjectDetailsUi({
       <p className="text-sm text-gray-400">{message}</p>
     </div>
   );
+ useEffect(() => {
+  if (!activeTab) return;
+  navigate({
+    search: (prev) => ({ ...prev, tab: activeTab }),
+    replace: true, 
+  });
+}, [activeTab, navigate]);
+
 
   return (
     <div

@@ -20,7 +20,6 @@ function UserProfile() {
     setActiveTab(tab);
   }, [location.search]);
 
-  // Fetch user profile
   const { data: userProfile, isLoading: profileLoading, error: profileError } = useQuery({
     queryKey: ["userProfile", id],
     queryFn: async () => {
@@ -31,7 +30,6 @@ function UserProfile() {
     enabled: !!id,
   });
 
-  // Fetch user projects
   const { data: projectsData, isLoading: projectsLoading, error: projectsError } = useQuery({
     queryKey: ["userProjects", id],
     queryFn: async () => {
@@ -42,7 +40,6 @@ function UserProfile() {
     enabled: !!id,
   });
 
-  // Transform profile data
   const transformedProfile = userProfile ? {
     name: userProfile.full_name,
     status: userProfile.availability_status,

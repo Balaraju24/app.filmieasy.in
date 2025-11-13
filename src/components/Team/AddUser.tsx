@@ -1,12 +1,17 @@
 // AddUserContainer.tsx
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
-import { $fetch } from "@/http/fetch";
-import { createUserAPI, getAllDepartmentsAPI } from "@/http/services/team";
+import {
+  createUserAPI,
+  editUserProfileAPI,
+  getAllDepartmentsAPI,
+  getUserProfileAPI,
+} from "@/http/services/team";
 import AddUserForm from "../an/Team/AddUserForm";
 import { toast } from "sonner";
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, useParams } from "@tanstack/react-router";
+import { formatDateToPayload } from "@/lib/interfaces/core";
 
 interface FormData {
   personal: {
@@ -18,7 +23,6 @@ interface FormData {
     email: string;
     profileImage?: string;
     languages: { name: string }[];
-
   };
   professional: {
     department: string;
@@ -53,7 +57,7 @@ const initialFormData: FormData = {
   professional: {
     department: "",
     roleType: "",
-    experience:0,
+    experience: 0,
     unionMembership: "",
     status: "",
     blockFrom: "",
@@ -71,6 +75,8 @@ const initialFormData: FormData = {
 
 function AddUserContainer() {
   const queryClient = useQueryClient();
+  const { id } = useParams({ strict: false });
+  const isEditMode = Boolean(id);
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -89,97 +95,212 @@ function AddUserContainer() {
     count: 0,
   }));
 
-  const mutation = useMutation({
-    mutationFn: async (data: any) => {
-      const isEmpty = (value: any): boolean => {
-        return (
-          value === undefined ||
-          value === null ||
-          value === "" ||
-          (Array.isArray(value) && value.length === 0)
-        );
-      };
+  const { mutate: createUserProfile, isPending: isCreatePending } = useMutation(
+    {
+      mutationFn: async (data: any) => {
+        const isEmpty = (value: any): boolean => {
+          return (
+            value === undefined ||
+            value === null ||
+            value === "" ||
+            (Array.isArray(value) && value.length === 0)
+          );
+        };
 
-      const dobFormatted = !isEmpty(data.personal?.dob)
-        ? `${data.personal.dob.slice(0, 2)}-${data.personal.dob.slice(2, 4)}-${data.personal.dob.slice(4)}`
-        : null;
+        const dobFormatted =
+          data.personal?.dob && typeof data.personal.dob === "string"
+            ? (() => {
+                const [year, month, day] = data.personal.dob.split("-");
+                return `${day}-${month}-${year}`;
+              })()
+            : null;
 
-      const languages = !isEmpty(data.personal?.languages)
-        ? data.personal.languages
-            .map((lang: any) => lang?.name)
-            .filter((name: any) => !isEmpty(name))
-        : null;
+        const languages = !isEmpty(data.personal?.languages)
+          ? data.personal.languages
+              .map((lang: any) => lang?.name)
+              .filter((name: any) => !isEmpty(name))
+          : null;
 
-      const departmentId = !isEmpty(data.professional?.department)
-        ? parseInt(data.professional.department, 10)
-        : null;
+        const departmentId = !isEmpty(data.professional?.department)
+          ? parseInt(data.professional.department, 10)
+          : null;
 
-      const payload = {
-        email: isEmpty(data.personal?.email) ? null : data.personal.email,
-        phone: isEmpty(data.personal?.phone) ? null : data.personal.phone,
-        full_name: isEmpty(data.personal?.fullName)
-          ? null
-          : data.personal.fullName,
-        gender: isEmpty(data.personal?.gender) ? null : data.personal.gender,
-        role_type: isEmpty(data.professional?.roleType)
-          ? null
-          : data.professional.roleType,
-        department_id: isNaN(data.professional?.department)
-          ? null
-          : departmentId,
-        DOB: dobFormatted,
-        languages: isEmpty(languages) ? undefined : languages,
-        address: isEmpty(data.personal?.address)
-          ? null
-          : data.personal.address,
-        experience:isNaN(data.professional?.experience)?null:Number(data.professional?.experience),
-      };
+        const payload = {
+          email: isEmpty(data.personal?.email) ? null : data.personal.email,
+          phone: isEmpty(data.personal?.phone) ? null : data.personal.phone,
+          full_name: isEmpty(data.personal?.fullName)
+            ? null
+            : data.personal.fullName,
+          gender: isEmpty(data.personal?.gender) ? null : data.personal.gender,
+          role_type: isEmpty(data.professional?.roleType)
+            ? null
+            : data.professional.roleType,
+          department_id: isNaN(data.professional?.department)
+            ? null
+            : departmentId,
+          DOB: dobFormatted,
+          languages: isEmpty(languages) ? undefined : languages,
+          address: isEmpty(data.personal?.address)
+            ? null
+            : data.personal.address,
+          experience: isNaN(data.professional?.experience)
+            ? null
+            : Number(data.professional?.experience),
+        };
 
-      return createUserAPI(payload);
+        return createUserAPI(payload);
+      },
+      onSuccess: (response: any) => {
+        queryClient.invalidateQueries({ queryKey: ["users"] });
+        setCurrentStep(1);
+        toast.success(response?.data?.message);
+        setFormData(initialFormData);
+        setErrors({});
+        navigate({ to: "/team" });
+      },
+      onError: (error: any) => {
+        setCurrentStep(1);
+        if (error?.data?.status === 422) {
+          const errData = error.data.errData;
+          const transformedErrors: Record<string, string> = {};
+          Object.entries(errData).forEach(([key, message]) => {
+            let fieldKey: string;
+            switch (key) {
+              case "full_name":
+                fieldKey = "fullName";
+                break;
+              case "role_type":
+                fieldKey = "roleType";
+                break;
+              case "department_id":
+                fieldKey = "department";
+                break;
+              case "DOB":
+                fieldKey = "dob";
+                break;
+              case "languages":
+                fieldKey = "languages";
+                break;
+              default:
+                fieldKey = key;
+            }
+            transformedErrors[fieldKey] = message as string;
+          });
+          setErrors(transformedErrors);
+        } else {
+          toast.error(error?.data?.message);
+        }
+      },
+    }
+  );
+
+  const { data: userData, isLoading: userLoading } = useQuery({
+    queryKey: ["userProfile", id],
+    queryFn: async () => {
+      if (!id) throw new Error("User ID required");
+      const res = await getUserProfileAPI(id.toString());
+      return res?.data?.data;
     },
-    onSuccess: (response: any) => {
+    enabled: isEditMode,
+  });
+  console.log(userData, "userData");
+
+  useEffect(() => {
+    if (userData && isEditMode) {
+      let formattedDOB = "";
+      if (userData.DOB) {
+        const [year, month, day] = userData.DOB.split("-");
+        formattedDOB = `${day}-${month}-${year}`;
+      }
+      setFormData({
+        personal: {
+          fullName: userData.full_name || "",
+          gender:
+            userData.gender?.toUpperCase() === "MALE"
+              ? "Male"
+              : userData.gender?.toUpperCase() === "FEMALE"
+                ? "Female"
+                : "",
+          dob: userData.DOB || "",
+          address: userData.address || "",
+          phone: userData.phone || "",
+          email: userData.email || "",
+          profileImage: userData.profile_image || "",
+          languages: (userData.languages || []).map((lang: string) => ({
+            name: lang,
+          })),
+        },
+        professional: {
+          department: userData.department_id
+            ? String(userData.department_id)
+            : "",
+
+          roleType: userData.role_type || "",
+          experience: userData.experience || 0,
+          unionMembership: userData.association_membership || "",
+          status: userData.availability_status || "",
+          blockFrom: userData.block_from || "",
+          blockTo: userData.block_to || "",
+        },
+        payment: {
+          rateType: userData.rate_type || "",
+          currency: userData.currency || "",
+          amount: userData.amount?.toString() || "",
+          paymentMethod: userData.payment_method || "",
+          gstPan: userData.gst_pan || "",
+          documents: [],
+        },
+      });
+      console.log(formData, "formData");
+    }
+  }, [userData, isEditMode]);
+
+  const { mutate: editUserProfile, isPending: isEditPending } = useMutation({
+    mutationFn: async (data: any) => {
+      const payload = {
+        email: data.personal.email,
+        phone: data.personal.phone,
+        full_name: data.personal.fullName,
+        gender: data.personal.gender,
+        department_id: parseInt(data.professional.department, 10) || null,
+        role_type: data.professional.roleType,
+        DOB: data.personal.dob,
+        languages: data.personal.languages.map((l: any) => l.name),
+        address: data.personal.address,
+        experience: data.professional.experience,
+        association_membership: data.professional.unionMembership,
+        availability_status: data.professional.status,
+        block_from: data.professional.blockFrom,
+        block_to: data.professional.blockTo,
+        rate_type: data.payment.rateType,
+        currency: data.payment.currency,
+        amount: data.payment.amount,
+        payment_method: data.payment.paymentMethod,
+        gst_pan: data.payment.gstPan,
+      };
+
+      return isEditMode
+        ? editUserProfileAPI(id!.toString(), payload)
+        : createUserAPI(payload);
+    },
+    onSuccess: (res: any) => {
+      toast.success(res?.data?.message || "Saved successfully!");
       queryClient.invalidateQueries({ queryKey: ["users"] });
-      setCurrentStep(1);
-      toast.success(response?.data?.message);
-      setFormData(initialFormData);
-      setErrors({});
       navigate({ to: "/team" });
     },
     onError: (error: any) => {
-      setCurrentStep(1);
-      if (error?.data?.status === 422) {
-        const errData = error.data.errData;
-        const transformedErrors: Record<string, string> = {};
-        Object.entries(errData).forEach(([key, message]) => {
-          let fieldKey: string;
-          switch (key) {
-            case "full_name":
-              fieldKey = "fullName";
-              break;
-            case "role_type":
-              fieldKey = "roleType";
-              break;
-            case "department_id":
-              fieldKey = "department";
-              break;
-            case "DOB":
-              fieldKey = "dob";
-              break;
-            case "languages":
-              fieldKey = "languages";
-              break;
-            default:
-              fieldKey = key;
-          }
-          transformedErrors[fieldKey] = message as string;
-        });
-        setErrors(transformedErrors);
-      } else {
-        toast.error(error?.data?.message);
-      }
+      toast.error(error?.data?.message || "Something went wrong");
     },
   });
 
+  if (userLoading && isEditMode) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <div className="inline-block w-8 h-8 border-4 border-zinc-600 border-t-white rounded-full animate-spin" />
+        <span className="ml-2 text-zinc-400">Loading user...</span>
+      </div>
+    );
+  }
   const updateFormData = (updates: Partial<FormData>) => {
     setFormData((prev) => ({ ...prev, ...updates }));
   };
@@ -244,11 +365,15 @@ function AddUserContainer() {
     setCurrentStep((prev) => prev - 1);
   };
 
-  const handleSubmit = () => {
-    mutation.mutate(formData);
+ const handleSubmit = () => {
+    if (isEditMode) {
+      editUserProfile(formData);
+    } else {
+      createUserProfile(formData);
+    }
   };
 
-  const isLoading = mutation.isPending;
+  const isLoading = isCreatePending || isEditPending;
 
   return (
     <AddUserForm
@@ -268,6 +393,7 @@ function AddUserContainer() {
       onSubmit={handleSubmit}
       isLoading={isLoading}
       errors={errors}
+      isEditMode={isEditMode}
     />
   );
 }

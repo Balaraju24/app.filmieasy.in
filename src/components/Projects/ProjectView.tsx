@@ -39,7 +39,7 @@ function ProjectView() {
 
   if (isError) {
     toast.error(projectError?.message);
-    return <div>Error Loading Project</div>;
+    return <div className="flex items-center justify-between h-full">Error Loading Project</div>;
   }
 
   if (projectUsersIsError) {
@@ -62,6 +62,12 @@ function ProjectView() {
     <ProjectDetailsUi
       projectData={projectData}
       projectUsersData={projectUsersData}
+      selectedDate={null}
+      setSelectedDate={() => {}}
+      selectedStatus={""}
+      setSelectedStatus={() => {}}      
+      searchValue={""}
+      setSearchValue={() => {}}
     />
   );
 }
