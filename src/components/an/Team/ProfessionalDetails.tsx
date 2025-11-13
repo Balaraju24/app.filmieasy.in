@@ -46,9 +46,9 @@ function ProfessionalDetails({
   errors,
 }: ProfessionalDetailsProps) {
   return (
-    <div className="w-[85%] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-7xl mx-auto">
+    <div className="w-[85%] mx-auto flex max-w-7xl mx-auto">
       {/* Professional Details Section */}
-      <div className="space-y-4">
+      <div className="space-y-4 w-[60%]">
         <div className="border-r border-zinc-800/50 p-4">
           <h3 className="text-sm font-medium mb-4 text-zinc-300 flex items-center gap-2">
            <ProfessionalDetailIcon /> Professional Details
@@ -172,8 +172,8 @@ function ProfessionalDetails({
       </div>
 
       {/* Availability Section */}
-      <div className="space-y-4">
-        <div className="bg-zinc-900/40 backdrop-blur-sm p-4">
+      <div className="space-y-4 w-[40%]">
+        <div className=" p-4">
           <h3 className="text-sm font-medium mb-4 text-zinc-300 flex items-center gap-2">
          <AvailabilityIcon/>   Availability
           </h3>

@@ -47,7 +47,7 @@ function PaymentDetails({
   };
 
   return (
-    <div className="w-[85%] mx-auto flex  max-w-7xl mx-auto">
+    <div className="w-[85%] mx-auto flex max-w-7xl mx-auto">
       <div className="space-y-4 w-[60%]">
         <div className="border-r border-zinc-800/50 p-4">
           <h3 className="text-sm font-medium mb-4 text-zinc-300 flex items-center gap-2">

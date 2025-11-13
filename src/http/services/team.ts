@@ -57,3 +57,12 @@ export const getUserProfileAPI = async (userId: string) => {
     throw error;
   }
 };
+
+export const editUserProfileAPI = async (userId: string, formData: any) => {
+  try {
+    const response = await $fetch.put(`/user/${userId}`, formData);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

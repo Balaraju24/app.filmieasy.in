@@ -13,3 +13,10 @@ export interface PaginationProps {
     setPage: (page: number) => void;
     setPageSize: (pageSize: number) => void;
 }
+export  const formatDateToPayload = (dateString: string) => {
+  // Converts "yyyy-mm-dd" to "dd-mm-yyyy"
+  if (!dateString) return "";
+  const [year, month, day] = dateString.split("-");
+  if (!year || !month || !day) return dateString;
+  return `${day}-${month}-${year}`;
+};

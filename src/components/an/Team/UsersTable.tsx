@@ -428,27 +428,30 @@ function UsersTable({
               </div>
             )}
             {isProjectView && (
-              <div className="flex-1 bg-[#0a0a0a] overflow-hidden flex flex-col">
-                <div className="flex-1 overflow-hidden">
-                  <DataTable
-                    data={data}
-                    columns={columns}
-                    sorting={sorting}
-                    setSorting={setSorting}
-                    isLoading={isLoading}
-                    maxHeight={tableBodyHeight}
-                  />
-                </div>
-                <div
-                  ref={paginationRef}
-                  className="h-[60px] px-6 border-t border-zinc-800/30 flex items-center justify-between bg-[#0a0a0a] flex-shrink-0"
-                >
-                  <Pagination
-                    paginationInfo={paginationInfo}
-                    pageSize={pageSize}
-                    setPageSize={setPageSize}
-                    setPage={setPage}
-                  />
+              <div className="flex-1 bg-[#0a0a0a] flex flex-col">
+                <div className="flex flex-col h-[73vh] border border-zinc-800/30 rounded-lg overflow-hidden">
+                  <div className="flex-1 overflow-y-auto">
+                      <DataTable
+                        data={data}
+                        columns={columns}
+                        sorting={sorting}
+                        setSorting={setSorting}
+                        isLoading={isLoading}
+                        maxHeight={tableBodyHeight}
+                      />
+                  </div>
+
+                  <div
+                    ref={paginationRef}
+                    className="h-[50px] px-6 border-t border-zinc-800/30 flex items-center justify-between bg-[#0a0a0a] flex-shrink-0"
+                  >
+                    <Pagination
+                      paginationInfo={paginationInfo}
+                      pageSize={pageSize}
+                      setPageSize={setPageSize}
+                      setPage={setPage}
+                    />
+                  </div>
                 </div>
               </div>
             )}

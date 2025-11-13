@@ -6,7 +6,6 @@ import {
   RadioGroup,
   RadioGroupItem,
 } from "@/components/ui/radio-group";
-import { Card } from "@/components/ui/card";
 import OthersIcon from "@/components/Icons/Team/OthersIcon";
 import FemaleIcon from "@/components/Icons/Team/FemaleIcon";
 import MaleIcon from "@/components/Icons/Team/MaleIcon";
@@ -38,9 +37,9 @@ function PersonalDetails({
   errors,
 }: PersonalDetailsProps) {
   return (
-    <div className="w-[85%] mx-auto  grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-7xl mx-auto">
-      <div className="space-y-4">
-        <div className="border border-zinc-800/50 rounded-lg p-4">
+    <div className="w-[85%] mx-auto flex max-w-7xl mx-auto">
+      <div className="space-y-4 w-[60%]">
+        <div className="p-4">
           <h3 className="text-sm font-medium mb-4 text-zinc-300 flex items-center gap-2">
             <BasicInfo /> Basic Info
           </h3>
@@ -211,8 +210,8 @@ function PersonalDetails({
           </div>
         </div>
       </div>
-      <div className="space-y-4">
-        <div className="bg-zinc-900/40 backdrop-blur-sm border border-zinc-800/50 rounded-lg">
+      <div className="space-y-4 w-[40%]">
+        <div className="border h-full border-zinc-800/50 rounded-lg">
           <h3 className="text-sm font-medium  text-zinc-300 flex items-center gap-2 p-4 border-b border-zinc-800/50">
             # languages Known
           </h3>

@@ -31,7 +31,8 @@ function AddUserForm({
   onSubmit,
   isLoading,
   errors,
-}: AddUserFormProps) {
+  isEditMode,
+}: AddUserFormProps & { isEditMode: boolean }) {
   const navigate = useNavigate();
 
   const backgroundImages = [screen1, screen2, screen3];
@@ -45,7 +46,7 @@ function AddUserForm({
           alt="Background"
           className="absolute inset-0 w-full h-full object-cover rounded-lg brightness-70"
         />
-        
+
         <div className="relative z-10 h-full flex flex-col">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-2 gap-2">
             <Button
@@ -111,7 +112,7 @@ function AddUserForm({
               </div>
             ))}
           </div>
-          
+
           <div className="flex-1 overflow-y-auto pr-1">
             {currentStep === 1 && (
               <PersonalDetails

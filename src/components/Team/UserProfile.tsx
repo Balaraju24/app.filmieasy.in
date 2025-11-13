@@ -8,19 +8,10 @@ function UserProfile() {
   const { id } = useParams({ strict: false });
   const location = useLocation();
   const navigate = useNavigate();
-
   const searchParams = new URLSearchParams(location.search);
   const initialTab = searchParams.get("tab") || "projects";
-
   const [activeTab, setActiveTab] = useState(initialTab);
 
-  // Sync activeTab with URL changes
-  useEffect(() => {
-    const tab = new URLSearchParams(location.search).get("tab") || "projects";
-    setActiveTab(tab);
-  }, [location.search]);
-
-  // Fetch user profile
   const { data: userProfile, isLoading: profileLoading, error: profileError } = useQuery({
     queryKey: ["userProfile", id],
     queryFn: async () => {
@@ -31,7 +22,6 @@ function UserProfile() {
     enabled: !!id,
   });
 
-  // Fetch user projects
   const { data: projectsData, isLoading: projectsLoading, error: projectsError } = useQuery({
     queryKey: ["userProjects", id],
     queryFn: async () => {
@@ -42,7 +32,6 @@ function UserProfile() {
     enabled: !!id,
   });
 
-  // Transform profile data
   const transformedProfile = userProfile ? {
     name: userProfile.full_name,
     status: userProfile.availability_status,
@@ -60,7 +49,6 @@ function UserProfile() {
     association: userProfile.association_membership,
   } : null;
 
-  // Transform projects data
   const transformedProjects = (projectsData || []).map((project: any) => ({
     id: project.id,
     name: project.name,
@@ -80,7 +68,10 @@ function UserProfile() {
       search: (prev)  => ({ ...prev, tab }),
     });
   };
-
+ useEffect(() => {
+    const tab = new URLSearchParams(location.search).get("tab") || "projects";
+    setActiveTab(tab);
+  }, [location.search]);
   
   if (profileError || projectsError) {
     return (
