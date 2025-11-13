@@ -6,8 +6,13 @@ import screen2 from "@/assets/s-2.webp";
 import screen3 from "@/assets/s-3.webp";
 import ProjectDetails from "./ProjectDetails";
 import CrewArtists from "./TeamFormData";
-import ScriptSceneBuilder from "./ScriptSceneBuilder";
+import ScriptSceneProject from "./ScriptSceneProject";
 import { AddProjectFormProps } from "@/lib/interfaces/Project";
+import ArrowLeft from "@/assets/arrow-left.png";
+import Prev from "@/assets/prev.png";
+import Next from "@/assets/next.png";
+import DoubleArrow from "@/components/Icons/Projects/DoubleArrow";
+
 
 function AddProjectForm({
   currentStep,
@@ -38,42 +43,51 @@ function AddProjectForm({
   );
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-black/80">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-black/80">
       <div className="w-full max-w-7xl mx-auto h-[95vh] bg-zinc-900/20 border border-zinc-800 rounded-lg p-4 relative overflow-hidden">
         <img
           src={currentBg}
           alt="Background"
           className="absolute inset-0 w-full h-full object-cover rounded-lg"
         />
-        
+
         <div className="relative z-10 h-full flex flex-col">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-3 gap-2">
             <Button
               onClick={() => navigate({ to: "/projects" })}
               variant="ghost"
-              className="text-white h-8 px-3 text-sm"
+              className="text-white h-8 px-3 text-sm bg-black/30 hover:bg-black hover:text-white"
             >
-              ← Back
+              <img src={ArrowLeft} alt="Project" className="w-full h-full" /> Add Project
             </Button>
             <div className="flex items-center space-x-2 flex-wrap gap-2">
               {currentStep > 1 && (
-                <Button onClick={onPrev} disabled={isLoading} className="h-8 px-4 text-sm">
-                  Previous
+                <Button onClick={onPrev} disabled={isLoading} className="h-8 px-4 pl-2 text-sm border !border-[#4A90E280] flex items-center">
+                  <img src={Prev} alt="arrow" className="" />Previous
                 </Button>
               )}
               {currentStep < 3 ? (
-                <Button onClick={onNext} disabled={isLoading} className="h-8 px-4 text-sm bg-zinc">
-                  Next
+                <Button onClick={onNext} disabled={isLoading} className="h-8 px-3 text-sm !bg-[#4A90E280]">
+                  Next<img src={Next} alt="arrow" className="" />
                 </Button>
               ) : (
-                <Button onClick={onSubmit} disabled={isLoading} className="h-8 px-4 text-sm">
-                  {isLoading ? <><span className="w-4 h-4 animate spin mr-2">Submitting</span></> : "Submit"}
+                <Button onClick={onSubmit} disabled={isLoading} className="h-8 px-4 text-sm bg-[#4A90E2] hover:bg-blue-700 flex items-center gap-2">
+                  {isLoading ? (<>  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                    Submitting...
+                  </>
+                  ) : (
+                    <>
+                      Submit
+                      <DoubleArrow className="h-[8px]" />
+                    </>
+                  )}
                 </Button>
+
               )}
             </div>
           </div>
-         
-          <div className="flex justify-center mb-3 overflow-x-auto pb-2 gap-4">
+
+          <div className="flex justify-center mb-3 py-3 border-t border-b border-[#363636] overflow-x-auto  gap-4">
             {[1, 2, 3].map((step) => (
               <div
                 key={step}
@@ -103,7 +117,7 @@ function AddProjectForm({
               </div>
             ))}
           </div>
-         
+
           <div className={`flex-1 ${currentStep === 2 ? 'overflow-hidden' : 'overflow-y-auto pr-2'}`}>
             {currentStep === 1 && (
               <ProjectDetails
@@ -124,16 +138,7 @@ function AddProjectForm({
               />
             )}
             {currentStep === 3 && (
-              <ScriptSceneBuilder
-                formData={formData.script}
-                availableUsers={teamMembers}
-                onAddScene={onAddScene}
-                onRemoveScene={onRemoveScene}
-                onUpdateScene={onUpdateScene}
-                onUpdateScreenplay={onUpdateScreenplay}
-                onUploadFile={onUploadFile}
-                errors={errors}
-              />
+              <ScriptSceneProject />
             )}
           </div>
         </div>

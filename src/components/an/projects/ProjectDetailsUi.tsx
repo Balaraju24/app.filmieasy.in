@@ -20,7 +20,6 @@ import {
   CalendarIcon,
   X,
   Search,
-  ActivitySquareIcon,
 } from "lucide-react";
 import UserTableContainer from "../../Team";
 import backgroundImage from "@/assets/TeamBg.webp";
@@ -36,7 +35,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { useNavigate, useParams } from "@tanstack/react-router";
-import ScriptTab from "@/components/Projects/ScriptTab";
+import ScriptTab from "src/components/Projects/ScriptTab";
+import PaymentInfo from "./PaymentInfo";
+import Schedule from "./CallSheet";
+import FileUpload from "./FileUploadDocument";
+import Notes from "./Notes";
 
 
 function ProjectDetailsUi({
@@ -372,19 +375,19 @@ function ProjectDetailsUi({
             <ScriptTab />
           )}
           {activeTab === "payment" && (
-            <EmptyState message="Payment Info Snapshot content goes here" />
+            <PaymentInfo />
           )}
           {activeTab === "expenses" && (
             <EmptyState message="Expenses & Inventory content goes here" />
           )}
           {activeTab === "schedule" && (
-            <EmptyState message="Call Sheet & Scheduling content goes here" />
+            <Schedule />
           )}
           {activeTab === "documents" && (
-            <EmptyState message="Documents & Files content goes here" />
+            <FileUpload />
           )}
           {activeTab === "notes" && (
-            <EmptyState message="Notes content goes here" />
+            <Notes />
           )}
         </div>
       </div>

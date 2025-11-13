@@ -88,17 +88,6 @@ import  Member from "../../Icons/Projects/Member.svg";
           </p>
         </div>
 
-        <div className="bg-[#FFFFFF14] rounded-lg p-2 text-xs space-y-1">
-             <p className="flex gap-2"><span>🎭 </span>Main Lead: Meera – Deepika Padukone</p>
-             <p className="flex gap-2"><span>🎭 </span> Antagonist / Kidnapper: [TBD Actor]</p>
-             <p className="flex gap-2"><span>🎭 </span>Stunt Double (for Meera): Priya Nair</p>
-             <p className="flex gap-2"><span>🎥</span> Director: Rohan Mehta</p>
-             <p className="flex gap-2"><span>🎥</span> Director of Photography (DOP): Aarav Kapoor</p>
-             <p className="flex gap-2"><span>🎧</span> Sound Recordist: Sita Iyer</p>
-            <p className="flex gap-2"><span>💡&nbsp;</span>Lighting Crew: Night Rain Lighting Setup Team</p>
-             <p className="flex gap-2"><span>🧑</span> Stunt Coordinator: Raj Malhotra</p>
-        </div>
-
         {selectedScene?.artistScenes?.length > 0 && (
           <div className="bg-[#FFFFFF14] rounded-lg p-2">
             {selectedScene.artistScenes.map((artistScene: any, i: number) => (
