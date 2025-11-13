@@ -105,24 +105,24 @@ export default function ScheduleDashboard() {
           `}</style>
         </div>
 
-        <div className="bg-[#1a1a1a] p-5 rounded-lg w-full lg:w-[65%]">
+        <div className="p-5 rounded-lg w-full lg:w-[65%]">
           <Tabs defaultValue="upcoming">
             <TabsList className="grid grid-cols-3 bg-transparent p-1 rounded-md">
               <TabsTrigger
                 value="upcoming"
-                className="data-[state=active]:bg-white data-[state=active]:text-black text-gray-300 rounded-md"
+                className="data-[state=active]:bg-white data-[state=active]:text-black text-gray-300 rounded-sm"
               >
                 Upcoming Schedules
               </TabsTrigger>
               <TabsTrigger
                 value="completed"
-                className="data-[state=active]:bg-[#22c55e] data-[state=active]:text-white text-gray-300 rounded-md"
+                className="data-[state=active]:bg-[#22c55e] data-[state=active]:text-white text-gray-300 rounded-sm"
               >
                 Completed Schedules
               </TabsTrigger>
               <TabsTrigger
                 value="missed"
-                className="data-[state=active]:bg-[#ef4444] data-[state=active]:text-white text-gray-300 rounded-md"
+                className="data-[state=active]:bg-[#ef4444] data-[state=active]:text-white text-gray-300 rounded-sm"
               >
                 Missed Schedules
               </TabsTrigger>
@@ -136,8 +136,8 @@ export default function ScheduleDashboard() {
                 >
                   <CalendarDays size={18} className="text-orange-400 mt-1" />
                   <div>
-                    <p className="text-sm text-gray-400">{item.date}</p>
-                    <p className="text-lg font-medium">{item.title}</p>
+                    <p className="text-xs text-gray-400">{item.date}</p>
+                    <p className="text-md font-normal">{item.title}</p>
                     <p className="text-xs text-gray-500">{item.note}</p>
                   </div>
                 </div>
