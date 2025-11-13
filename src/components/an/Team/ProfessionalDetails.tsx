@@ -18,6 +18,9 @@ import {
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import ProfessionalDetailIcon from "@/components/Icons/Team/ProfessionalDetails";
+import AvailabilityIcon from "@/components/Icons/Team/AvailabilityIcon";
+
 
 interface ProfessionalFormData {
   department: string;
@@ -43,13 +46,12 @@ function ProfessionalDetails({
   errors,
 }: ProfessionalDetailsProps) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-7xl mx-auto">
+    <div className="w-[85%] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-7xl mx-auto">
       {/* Professional Details Section */}
       <div className="space-y-4">
-        <div className="border border-zinc-800/50 rounded-lg p-4">
+        <div className="border-r border-zinc-800/50 p-4">
           <h3 className="text-sm font-medium mb-4 text-zinc-300 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-            Professional Details
+           <ProfessionalDetailIcon /> Professional Details
           </h3>
           <div className="space-y-3.5">
             <div>
@@ -60,7 +62,7 @@ function ProfessionalDetails({
                 value={formData.department}
                 onValueChange={(v) => onUpdate({ department: v })}
               >
-                <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm">
+                <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm w-full">
                   <SelectValue placeholder="Enter Department" />
                 </SelectTrigger>
                 <SelectContent className="bg-zinc-900 border-zinc-800">
@@ -88,7 +90,7 @@ function ProfessionalDetails({
                 value={formData.roleType}
                 onValueChange={(v) => onUpdate({ roleType: v })}
               >
-                <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm">
+                <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm w-full">
                   <SelectValue placeholder="Enter Role" />
                 </SelectTrigger>
                 <SelectContent className="bg-zinc-900 border-zinc-800">
@@ -114,7 +116,7 @@ function ProfessionalDetails({
               )}
             </div>
 
-            <div>
+            <div className="lg:w-[75%]">
               <Label className="text-xs text-zinc-300 mb-2 block">
                 Experience
               </Label>
@@ -133,10 +135,10 @@ function ProfessionalDetails({
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="bg-zinc-900 border-zinc-800">
-                    <SelectItem value="years" className="text-white">
+                    <SelectItem value="years" className="text-white placeholder:text-zinc-300">
                       Years
                     </SelectItem>
-                    <SelectItem value="months" className="text-white">
+                    <SelectItem value="months" className="text-white placeholder:text-zinc-300">
                       Months
                     </SelectItem>
                   </SelectContent>
@@ -152,7 +154,7 @@ function ProfessionalDetails({
                 value={formData.unionMembership}
                 onValueChange={(v) => onUpdate({ unionMembership: v })}
               >
-                <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm">
+                <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm w-full">
                   <SelectValue placeholder="Enter Membership" />
                 </SelectTrigger>
                 <SelectContent className="bg-zinc-900 border-zinc-800">
@@ -171,10 +173,9 @@ function ProfessionalDetails({
 
       {/* Availability Section */}
       <div className="space-y-4">
-        <div className="bg-zinc-900/40 backdrop-blur-sm border border-zinc-800/50 rounded-lg p-4">
+        <div className="bg-zinc-900/40 backdrop-blur-sm p-4">
           <h3 className="text-sm font-medium mb-4 text-zinc-300 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-            Availability
+         <AvailabilityIcon/>   Availability
           </h3>
           <div className="space-y-3.5">
             <div>
@@ -183,7 +184,7 @@ function ProfessionalDetails({
                 value={formData.status}
                 onValueChange={(v) => onUpdate({ status: v })}
               >
-                <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm">
+                <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm w-full">
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
                 <SelectContent className="bg-zinc-900 border-zinc-800">

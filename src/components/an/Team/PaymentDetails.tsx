@@ -13,6 +13,7 @@ import { Card } from "@/components/ui/card";
 import { Upload } from "lucide-react";
 import UploadIcon from "@/components/Icons/Team/UploadIcon";
 import Bank from "@/components/Icons/Team/Bank";
+import PaymentIcon from "@/components/Icons/Team/PaymentIcon";
 
 interface PaymentFormData {
   rateType: string;
@@ -46,18 +47,17 @@ function PaymentDetails({
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-7xl mx-auto">
-      <div className="space-y-4">
-        <div className="border border-zinc-800/50 rounded-lg p-4">
+    <div className="w-[85%] mx-auto flex  max-w-7xl mx-auto">
+      <div className="space-y-4 w-[60%]">
+        <div className="border-r border-zinc-800/50 p-4">
           <h3 className="text-sm font-medium mb-4 text-zinc-300 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-            Payment & Contract
+          <PaymentIcon />  Payment & Contract
           </h3>
           <div className="space-y-3.5">
             <div>
               <Label className="text-xs text-zinc-300 mb-2 block">Rate Type</Label>
               <Select value={formData.rateType} onValueChange={(v) => onUpdate({ rateType: v })}>
-                <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300">
+                <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300 w-1/2">
                   <SelectValue placeholder="Select Rate Type" />
                 </SelectTrigger>
                 <SelectContent className="bg-zinc-900 border-zinc-800">
@@ -68,11 +68,11 @@ function PaymentDetails({
               </Select>
               {errors.rateType && <p className="text-red-500 text-xs mt-1">{errors.rateType}</p>}
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 w-1/2 gap-2">
               <div>
                 <Label className="text-xs text-zinc-300 mb-2 block">Currency</Label>
                 <Select value={formData.currency} onValueChange={(v) => onUpdate({ currency: v })}>
-                  <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300">
+                  <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300 w-full">
                     <SelectValue placeholder="Currency" />
                   </SelectTrigger>
                   <SelectContent className="bg-zinc-900 border-zinc-800">
@@ -87,7 +87,7 @@ function PaymentDetails({
                   type="number"
                   value={formData.amount}
                   onChange={(e) => onUpdate({ amount: e.target.value })}
-                  className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300"
+                  className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm !placeholder:text-zinc-300"
                   placeholder="Amount"
                 />
                 {errors.amount && <p className="text-red-500 text-xs mt-1">{errors.amount}</p>}
@@ -128,8 +128,8 @@ function PaymentDetails({
           </div>
         </div>
       </div>
-      <div className="space-y-4">
-        <div className="bg-zinc-900/40 backdrop-blur-sm border border-zinc-800/50 rounded-lg p-4">
+      <div className="space-y-4  w-[40%]">
+        <div className="p-4">
           <h3 className="text-sm font-medium mb-4 text-zinc-300 flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
             Documents & Files
@@ -138,7 +138,7 @@ function PaymentDetails({
             <input type="file" onChange={handleFileChange} className="hidden" id="file-upload" />
             <label htmlFor="file-upload" className="cursor-pointer">
               <div className="space-y-2">
-                <div className="w-10 h-10 mx-auto bg-(--input-bg) rounded-full flex items-center justify-center">
+                <div className="w-10 h-10 mx-auto  flex items-center justify-center">
                   <span className="text-xl"><UploadIcon /></span>
                 </div>
                 <p className="text-zinc-400 text-sm">Drop a file or click to browse</p>
