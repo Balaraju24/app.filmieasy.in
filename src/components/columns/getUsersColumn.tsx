@@ -1,4 +1,4 @@
-import { useNavigate, useSearch } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import EditIcon from "../Icons/EditIcon";
 import OptionsIcon from "../Icons/OptionsIcon";
 import ViewIcon from "../Icons/ViewIcon";
@@ -147,7 +147,10 @@ function createUserColumns(): ColumnDef<User>[] {
         <div className="flex items-center gap-2">
           <Button
             className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer"
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate({ to: `/team/${row.original.id}/edit-user/` });
+            }}
           >
             <EditIcon />
           </Button>

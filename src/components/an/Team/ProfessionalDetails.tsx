@@ -44,7 +44,6 @@ function ProfessionalDetails({
 }: ProfessionalDetailsProps) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-7xl mx-auto">
-      {/* Professional Details Section */}
       <div className="space-y-4">
         <div className="border border-zinc-800/50 rounded-lg p-4">
           <h3 className="text-sm font-medium mb-4 text-zinc-300 flex items-center gap-2">

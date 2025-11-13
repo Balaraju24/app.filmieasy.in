@@ -26,7 +26,8 @@ function AddUserForm({
   onSubmit,
   isLoading,
   errors,
-}: AddUserFormProps) {
+  isEditMode,
+}: AddUserFormProps & { isEditMode: boolean }) {
   const navigate = useNavigate();
 
   const backgroundImages = [screen1, screen2, screen3];
@@ -40,7 +41,7 @@ function AddUserForm({
           alt="Background"
           className="absolute inset-0 w-full h-full object-cover rounded-lg brightness-70"
         />
-        
+
         <div className="relative z-10 h-full flex flex-col">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-2 gap-2">
             <Button
@@ -52,22 +53,40 @@ function AddUserForm({
             </Button>
             <div className="flex items-center space-x-2 flex-wrap gap-2">
               {currentStep > 1 && (
-                <Button onClick={onPrev} disabled={isLoading} className="h-8 px-4 text-sm">
+                <Button
+                  onClick={onPrev}
+                  disabled={isLoading}
+                  className="h-8 px-4 text-sm"
+                >
                   Previous
                 </Button>
               )}
               {currentStep < 3 ? (
-                <Button onClick={onNext} disabled={isLoading} className="h-8 px-4 text-sm">
+                <Button
+                  onClick={onNext}
+                  disabled={isLoading}
+                  className="h-8 px-4 text-sm"
+                >
                   Next
                 </Button>
               ) : (
-                <Button onClick={onSubmit} disabled={isLoading} className="h-8 px-4 text-sm">
-                  {isLoading ? <><span className="w-4 h-4 animate spin mr-2">Submitting</span></> : "Submit"}
+                <Button
+                  onClick={onSubmit}
+                  disabled={isLoading}
+                  className="h-8 px-4 text-sm"
+                >
+                  {isLoading
+                    ? isEditMode
+                      ? "Updating..."
+                      : "Submitting..."
+                    : isEditMode
+                      ? "Update User"
+                      : "Create User"}
                 </Button>
               )}
             </div>
           </div>
-          
+
           <div className="flex justify-center mb-2 overflow-x-auto pb-1 gap-3">
             {[1, 2, 3].map((step) => (
               <div
@@ -98,7 +117,7 @@ function AddUserForm({
               </div>
             ))}
           </div>
-          
+
           <div className="flex-1 overflow-y-auto pr-1">
             {currentStep === 1 && (
               <PersonalDetails

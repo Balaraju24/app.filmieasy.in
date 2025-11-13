@@ -35,3 +35,12 @@ export const getProjectUsersAPI = async (projectId: string) => {
     throw error;
   }
 }
+
+export const getProjectScenesAPI=async(projectId: string)=>{
+  try{
+      const response=await $fetch.get(`/project/${projectId}/scenes`);
+      return response;
+  }catch(error){
+    throw error;
+  }
+}
