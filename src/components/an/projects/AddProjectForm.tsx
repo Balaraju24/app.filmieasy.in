@@ -6,8 +6,12 @@ import screen2 from "@/assets/s-2.webp";
 import screen3 from "@/assets/s-3.webp";
 import ProjectDetails from "./ProjectDetails";
 import CrewArtists from "./TeamFormData";
-import ScriptSceneBuilder from "./ScriptSceneBuilder";
+import ScriptSceneProject from "./ScriptSceneProject";
 import { AddProjectFormProps } from "@/lib/interfaces/Project";
+import ArrowLeft from "@/assets/arrow-left.png";
+import Prev from "@/assets/prev.png";
+import Next from "@/assets/next.png";
+
 
 function AddProjectForm({
   currentStep,
@@ -51,19 +55,19 @@ function AddProjectForm({
             <Button
               onClick={() => navigate({ to: "/projects" })}
               variant="ghost"
-              className="text-white h-8 px-3 text-sm"
+              className="text-white h-8 px-3 text-sm bg-black/30 hover:bg-black hover:text-white"
             >
-              ← Back
+              <img src={ArrowLeft} alt="Project" className="w-full h-full" /> Add Project
             </Button>
             <div className="flex items-center space-x-2 flex-wrap gap-2">
               {currentStep > 1 && (
-                <Button onClick={onPrev} disabled={isLoading} className="h-8 px-4 text-sm">
-                  Previous
+                <Button onClick={onPrev} disabled={isLoading} className="h-8 px-4 pl-2 text-sm border !border-[#4A90E280] flex items-center">
+                 <img src={Prev} alt="arrow" className="" />Previous
                 </Button>
               )}
               {currentStep < 3 ? (
-                <Button onClick={onNext} disabled={isLoading} className="h-8 px-4 text-sm bg-zinc">
-                  Next
+                <Button onClick={onNext} disabled={isLoading} className="h-8 px-3 text-sm !bg-[#4A90E280]">
+                  Next<img src={Next} alt="arrow" className="" />
                 </Button>
               ) : (
                 <Button onClick={onSubmit} disabled={isLoading} className="h-8 px-4 text-sm">
@@ -73,7 +77,7 @@ function AddProjectForm({
             </div>
           </div>
          
-          <div className="flex justify-center mb-3 overflow-x-auto pb-2 gap-4">
+          <div className="flex justify-center mb-3 py-3 border-t border-b border-[#363636] overflow-x-auto  gap-4">
             {[1, 2, 3].map((step) => (
               <div
                 key={step}
@@ -124,16 +128,7 @@ function AddProjectForm({
               />
             )}
             {currentStep === 3 && (
-              <ScriptSceneBuilder
-                formData={formData.script}
-                availableUsers={teamMembers}
-                onAddScene={onAddScene}
-                onRemoveScene={onRemoveScene}
-                onUpdateScene={onUpdateScene}
-                onUpdateScreenplay={onUpdateScreenplay}
-                onUploadFile={onUploadFile}
-                errors={errors}
-              />
+              <ScriptSceneProject />
             )}
           </div>
         </div>
