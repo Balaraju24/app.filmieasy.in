@@ -54,7 +54,7 @@ function AddUserForm({
               variant="ghost"
               className="text-white h-8 px-3 text-sm"
             >
-              <img src={ArrowLeft} alt="Project" className="w-full h-full" /> Add User
+              <img src={ArrowLeft} alt="arrow" className="w-full h-full" /> Add User
             </Button>
             <div className="flex items-center space-x-2 flex-wrap gap-2">
               {currentStep > 1 && (
@@ -74,7 +74,7 @@ function AddUserForm({
                   ) : (
                     <>
                       Submit
-                      <DoubleArrow className="h-[8px]" />
+                      <DoubleArrow className="h-[6px]" />
                     </>
                   )}
                 </Button>
