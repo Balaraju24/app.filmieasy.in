@@ -1,4 +1,3 @@
-// PersonalDetails.tsx
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -133,9 +132,6 @@ function PersonalDetails({
               />
             </div>
             <div>
-              {/* <Label className="text-xs text-zinc-300 mb-2 block">
-                Upload User Image
-              </Label> */}
               <div className="relative">
                 <input
                   type="file"

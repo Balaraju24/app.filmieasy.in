@@ -1,4 +1,3 @@
-// AddUserContainer.tsx
 import { useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
@@ -12,6 +11,7 @@ import AddUserForm from "../an/Team/AddUserForm";
 import { toast } from "sonner";
 import { useNavigate, useParams } from "@tanstack/react-router";
 import { formatDateToPayload } from "@/lib/interfaces/core";
+import { profile } from "console";
 
 interface FormData {
   personal: {
@@ -21,7 +21,7 @@ interface FormData {
     address: string;
     phone: string;
     email: string;
-    profileImage?: string;
+    profile_pic?: string;
     languages: { name: string }[];
   };
   professional: {
@@ -51,7 +51,7 @@ const initialFormData: FormData = {
     address: "",
     phone: "",
     email: "",
-    profileImage: "",
+    profile_pic: "",
     languages: [],
   },
   professional: {
@@ -146,6 +146,7 @@ function AddUserContainer() {
           experience: isNaN(data.professional?.experience)
             ? null
             : Number(data.professional?.experience),
+          profile_pic: data.personal.profile_pic||null,
         };
 
         return createUserAPI(payload);
@@ -225,10 +226,10 @@ function AddUserContainer() {
           address: userData.address || "",
           phone: userData.phone || "",
           email: userData.email || "",
-          profileImage: userData.profile_image || "",
           languages: (userData.languages || []).map((lang: string) => ({
             name: lang,
           })),
+          profile_pic: userData.profile_pic || "",
         },
         professional: {
           department: userData.department_id

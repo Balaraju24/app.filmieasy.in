@@ -29,11 +29,9 @@ export default function LoginPage() {
     onError: (error: any) => {
       if (error?.data?.status === 422) {
         const emailErrors =
-          error?.data?.errData.email ||
-          "Something went wrong, Please try again later.";
+          error?.data?.errData.email 
         const passwordErrors =
-          error?.data?.errData.password ||
-          "Something went wrong, Please try again later.";
+          error?.data?.errData.password 
         setEmailError(emailErrors);
         setPasswordError(passwordErrors);
       } else {
