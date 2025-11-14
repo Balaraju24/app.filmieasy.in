@@ -86,6 +86,7 @@ export interface ArtistData {
   languages: string[];
   experience: number | null;
   department_id: number;
+  profile_pic: string | null;
 }
 
 

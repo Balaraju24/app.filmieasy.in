@@ -69,7 +69,7 @@ function UserTableContainer({ users: projectUsers, isProjectView = false }: User
         pageSize: pageSize.toString(),
       };
       if (searchValue) paramObj.searchString = searchValue;
-      if (selectedDepartment) paramObj.department = selectedDepartment;
+      if (selectedDepartment) paramObj.departmentId = selectedDepartment;
       if (selectedStatus) paramObj.status = selectedStatus;
       if (selectedDate) paramObj.date = selectedDate;
       const params = new URLSearchParams(paramObj);
