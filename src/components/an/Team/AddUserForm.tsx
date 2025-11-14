@@ -48,14 +48,14 @@ function AddUserForm({
         <div className="relative z-10 h-full flex flex-col">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-2 gap-2">
             <div className="flex gap-1 items-center">
-            <Button
-              onClick={() => navigate({ to: "/team" })}
-              variant="ghost"
-              className="text-white h-10 px-3 text-sm hover:!bg-black cursor-pointer"
-            >
-              <img src={ArrowLeft} alt="arrow" className="w-full h-full" /> 
-            </Button>
-            <p>Add User</p>
+              <Button
+                onClick={() => navigate({ to: "/team" })}
+                variant="ghost"
+                className="text-white h-10 px-3 text-sm hover:!bg-black cursor-pointer"
+              >
+                <img src={ArrowLeft} alt="arrow" className="w-full h-full" />
+              </Button>
+              <p>{isEditMode ? "Update User" : "Add User"}</p>
             </div>
             <div className="flex items-center space-x-2 flex-wrap gap-2">
               {currentStep > 1 && (
