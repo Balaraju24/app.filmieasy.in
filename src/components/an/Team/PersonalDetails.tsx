@@ -2,14 +2,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/components/ui/radio-group";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import OthersIcon from "@/components/Icons/Team/OthersIcon";
 import FemaleIcon from "@/components/Icons/Team/FemaleIcon";
 import MaleIcon from "@/components/Icons/Team/MaleIcon";
 import BasicInfo from "@/components/Icons/Team/BasicInfo";
+import DateInput from "@/components/core/DateInput";
 interface PersonalFormData {
   fullName: string;
   gender: string;
@@ -54,84 +52,79 @@ function PersonalDetails({
                 className="bg-(--input-bg) border-zinc-800/50 !text-gray-300 h-10 text-sm placeholder:text-zinc-300 focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-shadow-none focus-visible:border-zinc-700 focus-visible:shadow-none"
                 placeholder="Enter full name"
               />
-              {errors.fullName && <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>}
+              {errors.fullName && (
+                <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>
+              )}
             </div>
             <div>
-              <Label className="text-xs text-zinc-300 mb-2 block">
-                Gender
-              </Label>
-              <RadioGroup value={formData.gender} onValueChange={(v) => onUpdate({ gender: v })} className="flex gap-4">
-
+              <Label className="text-xs text-zinc-300 mb-2 block">Gender</Label>
+              <RadioGroup
+                value={formData.gender}
+                onValueChange={(v) => onUpdate({ gender: v })}
+                className="flex gap-4"
+              >
                 <div className="flex flex-1 justify-between items-center gap-2 bg-(--input-bg) border-zinc-800/50 rounded px-3 py-2 w-full">
-                  <Label htmlFor="r2" className="text-xs text-zinc-300 cursor-pointer font-normal flex items-center gap-1.5">
+                  <Label
+                    htmlFor="r2"
+                    className="text-xs text-zinc-300 cursor-pointer font-normal flex items-center gap-1.5"
+                  >
                     <MaleIcon /> Male
                   </Label>
-                  <RadioGroupItem value="Male" id="r2" className="border-zinc-700 data-[state=checked]:bg-white data-[state=checked]:border-white" />
+                  <RadioGroupItem
+                    value="Male"
+                    id="r2"
+                    className="border-zinc-700 data-[state=checked]:bg-white data-[state=checked]:border-white"
+                  />
                 </div>
                 <div className="flex flex-1 justify-between items-center gap-2 bg-(--input-bg) border-zinc-800/50 rounded px-3 py-2">
-                  <Label htmlFor="r1" className="text-xs text-zinc-300 cursor-pointer font-normal flex items-center gap-1.5">
+                  <Label
+                    htmlFor="r1"
+                    className="text-xs text-zinc-300 cursor-pointer font-normal flex items-center gap-1.5"
+                  >
                     <FemaleIcon /> Female
                   </Label>
-                  <RadioGroupItem value="Female" id="r1" className="border-zinc-700 data-[state=checked]:bg-white data-[state=checked]:border-white" />
+                  <RadioGroupItem
+                    value="Female"
+                    id="r1"
+                    className="border-zinc-700 data-[state=checked]:bg-white data-[state=checked]:border-white"
+                  />
                 </div>
                 <div className="flex flex-1 justify-between items-center gap-2 bg-(--input-bg) border-zinc-800/50 rounded px-3 py-2">
-                  <Label htmlFor="r3" className="text-xs text-zinc-300 cursor-pointer font-normal flex items-center gap-1.5">
+                  <Label
+                    htmlFor="r3"
+                    className="text-xs text-zinc-300 cursor-pointer font-normal flex items-center gap-1.5"
+                  >
                     <OthersIcon /> Others
                   </Label>
-                  <RadioGroupItem value="Others" id="r3" className="border-zinc-700 data-[state=checked]:bg-white data-[state=checked]:border-white" />
+                  <RadioGroupItem
+                    value="Others"
+                    id="r3"
+                    className="border-zinc-700 data-[state=checked]:bg-white data-[state=checked]:border-white"
+                  />
                 </div>
               </RadioGroup>
-              {errors.gender && <p className="text-red-500 text-xs mt-1">{errors.gender}</p>}
+              {errors.gender && (
+                <p className="text-red-500 text-xs mt-1">{errors.gender}</p>
+              )}
             </div>
             <div>
               <Label className="text-xs text-zinc-300 mb-2 block">
                 Date of Birth
               </Label>
               <div className="flex items-center gap-2">
-                <Input
-                  type="text"
-                  maxLength={2}
-                  value={formData.dob.slice(0, 2)}
-                  onChange={(e) => {
-                    let val = e.target.value.slice(0, 2);
-                    if (!/^\d*$/.test(val)) val = "";
-                    const newDob = val + formData.dob.slice(2);
-                    onUpdate({ dob: newDob });
-                  }}
-                  placeholder="DD"
-                  className="w-16 bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm text-center !placeholder:text-zinc-300 focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-shadow-none focus-visible:border-zinc-700 focus-visible:shadow-none"
-                />
-                <Input
-                  type="text"
-                  maxLength={2}
-                  value={formData.dob.slice(2, 4)}
-                  onChange={(e) => {
-                    let val = e.target.value.slice(0, 2);
-                    if (!/^\d*$/.test(val)) val = "";
-                    const newDob = formData.dob.slice(0, 2) + val + formData.dob.slice(4);
-                    onUpdate({ dob: newDob });
-                  }}
-                  placeholder="MM"
-                  className="w-16 bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm text-center !placeholder:text-zinc-300 focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-shadow-none focus-visible:border-zinc-700 focus-visible:shadow-none"
-                />
-                <Input
-                  type="text"
-                  maxLength={4}
-                  value={formData.dob.slice(4)}
-                  onChange={(e) => {
-                    let val = e.target.value.slice(0, 4);
-                    if (!/^\d*$/.test(val)) val = "";
-                    const newDob = formData.dob.slice(0, 4) + val;
-                    onUpdate({ dob: newDob });
-                  }}
-                  placeholder="YYYY"
-                  className="w-24 bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm text-center !placeholder:text-zinc-300 focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-shadow-none focus-visible:border-zinc-700 focus-visible:shadow-none"
-                />
+                <DateInput
+                  value={formData.dob}
+                  onChange={(value: string) => onUpdate({ dob: value })}
+                />{" "}
               </div>
-              {errors.dob && <p className="text-red-500 text-xs mt-1">{errors.dob}</p>}
+              {errors.dob && (
+                <p className="text-red-500 text-xs mt-1">{errors.dob}</p>
+              )}
             </div>
             <div>
-              <Label className="text-xs text-zinc-300 mb-2 block">Address</Label>
+              <Label className="text-xs text-zinc-300 mb-2 block">
+                Address
+              </Label>
               <Input
                 value={formData.address}
                 onChange={(e) => onUpdate({ address: e.target.value })}
@@ -165,9 +158,15 @@ function PersonalDetails({
                   className="w-32 h-18 bg-zinc-700/30 rounded-lg border-zinc-800/50 flex items-center justify-center cursor-pointer hover:bg-zinc-700/50 "
                 >
                   {formData.profileImage ? (
-                    <img src={formData.profileImage} alt="Project" className="w-full h-full object-cover rounded-lg" />
+                    <img
+                      src={formData.profileImage}
+                      alt="Project"
+                      className="w-full h-full object-cover rounded-lg"
+                    />
                   ) : (
-                    <span className="text-zinc-400 text-sm text-center justify-center font-medium">+ Upload Image</span>
+                    <span className="text-zinc-400 text-sm text-center justify-center font-medium">
+                      + Upload Image
+                    </span>
                   )}
                 </label>
               </div>
@@ -184,7 +183,9 @@ function PersonalDetails({
                   className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm !placeholder:text-zinc-300 focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-shadow-none focus-visible:border-zinc-700 focus-visible:shadow-none"
                   placeholder="Enter Email Id"
                 />
-                {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+                {errors.email && (
+                  <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                )}
               </div>
               <div>
                 <Label className="text-xs text-zinc-300 mb-2 block">
@@ -204,7 +205,9 @@ function PersonalDetails({
                   }}
                   className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm !placeholder:text-zinc-300 focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-shadow-none focus-visible:border-zinc-700 focus-visible:shadow-none"
                 />
-                {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
+                {errors.phone && (
+                  <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+                )}
               </div>
             </div>
           </div>
@@ -216,7 +219,7 @@ function PersonalDetails({
             # languages Known
           </h3>
           <div className="space-y-1.75 max-h-[420px] overflow-y-auto">
-            {!formData.languages.some(l => l.name === 'English') && (
+            {!formData.languages.some((l) => l.name === "English") && (
               <div className="flex items-center gap-3 px-4 mt-2">
                 <span className="text-zinc-500 text-sm">A</span>
                 <span className="flex-1 text-white text-sm">English</span>
@@ -224,14 +227,14 @@ function PersonalDetails({
                   type="button"
                   variant="ghost"
                   size="sm"
-                  onClick={() => onAddLanguage('English')}
+                  onClick={() => onAddLanguage("English")}
                   className="text-zinc-400 hover:text-white bg-[#FFFFFF1A] hover:bg-[#FFFFFF1A] h-8 px-3 text-xs"
                 >
                   + Add
                 </Button>
               </div>
             )}
-            {!formData.languages.some(l => l.name === 'Hindi') && (
+            {!formData.languages.some((l) => l.name === "Hindi") && (
               <div className="flex items-center gap-3 px-4">
                 <span className="text-zinc-500 text-sm">A</span>
                 <span className="flex-1 text-white text-sm">Hindi</span>
@@ -239,14 +242,14 @@ function PersonalDetails({
                   type="button"
                   variant="ghost"
                   size="sm"
-                  onClick={() => onAddLanguage('Hindi')}
+                  onClick={() => onAddLanguage("Hindi")}
                   className="text-zinc-400 hover:text-white bg-[#FFFFFF1A] hover:bg-[#FFFFFF1A] h-8 px-3 text-xs"
                 >
                   + Add
                 </Button>
               </div>
             )}
-            {!formData.languages.some(l => l.name === 'Telugu') && (
+            {!formData.languages.some((l) => l.name === "Telugu") && (
               <div className="flex items-center gap-3 px-4">
                 <span className="text-zinc-500 text-sm">A</span>
                 <span className="flex-1 text-white text-sm">Telugu</span>
@@ -254,14 +257,14 @@ function PersonalDetails({
                   type="button"
                   variant="ghost"
                   size="sm"
-                  onClick={() => onAddLanguage('Telugu')}
+                  onClick={() => onAddLanguage("Telugu")}
                   className="text-zinc-400 hover:text-white bg-[#FFFFFF1A] hover:bg-[#FFFFFF1A] h-8 px-3 text-xs"
                 >
                   + Add
                 </Button>
               </div>
             )}
-            {!formData.languages.some(l => l.name === 'Tamil') && (
+            {!formData.languages.some((l) => l.name === "Tamil") && (
               <div className="flex items-center gap-3 px-4 mb-2">
                 <span className="text-zinc-500 text-sm">A</span>
                 <span className="flex-1 text-white text-sm">Tamil</span>
@@ -269,7 +272,7 @@ function PersonalDetails({
                   type="button"
                   variant="ghost"
                   size="sm"
-                  onClick={() => onAddLanguage('Tamil')}
+                  onClick={() => onAddLanguage("Tamil")}
                   className="text-zinc-400 hover:text-white bg-[#FFFFFF1A] hover:bg-[#FFFFFF1A] h-8 px-3 text-xs"
                 >
                   + Add
@@ -292,7 +295,9 @@ function PersonalDetails({
               </div>
             ))}
           </div>
-          {errors.languages && <p className="text-red-500 text-xs mt-1">{errors.languages}</p>}
+          {errors.languages && (
+            <p className="text-red-500 text-xs mt-1">{errors.languages}</p>
+          )}
         </div>
       </div>
     </div>
