@@ -1,4 +1,3 @@
-// AddUserForm.tsx
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import PersonalDetails from "./PersonalDetails";
@@ -13,7 +12,6 @@ import ArrowLeft from "@/assets/arrow-left.png";
 import Prev from "@/assets/prev.png";
 import Next from "@/assets/next.png";
 import DoubleArrow from "@/components/Icons/Projects/DoubleArrow";
-
 
 function AddUserForm({
   currentStep,
@@ -50,41 +48,57 @@ function AddUserForm({
         <div className="relative z-10 h-full flex flex-col">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-2 gap-2">
             <div className="flex gap-1 items-center">
-            <Button
-              onClick={() => navigate({ to: "/team" })}
-              variant="ghost"
-              className="text-white h-10 px-3 text-sm hover:!bg-black cursor-pointer"
-            >
-              <img src={ArrowLeft} alt="arrow" className="w-full h-full" /> 
-            </Button>
-            <p>Add User</p>
+              <Button
+                onClick={() => navigate({ to: "/team" })}
+                variant="ghost"
+                className="text-white h-10 px-3 text-sm hover:!bg-black cursor-pointer"
+              >
+                <img src={ArrowLeft} alt="arrow" className="w-full h-full" />
+              </Button>
+              <p>{isEditMode ? "Update User" : "Add User"}</p>
             </div>
             <div className="flex items-center space-x-2 flex-wrap gap-2">
               {currentStep > 1 && (
-                <Button onClick={onPrev} disabled={isLoading} className="h-8 px-4 text-sm  flex items-center">
-                 <img src={Prev} alt="arrow" className="" /> Previous
+                <Button
+                  onClick={onPrev}
+                  disabled={isLoading}
+                  className="h-8 px-4 text-sm  flex items-center"
+                >
+                  <img src={Prev} alt="arrow" className="" /> Previous
                 </Button>
               )}
               {currentStep < 3 ? (
-                <Button onClick={onNext} disabled={isLoading} className="h-8 px-4 text-sm">
-                  Next<img src={Next} alt="arrow" className="" />
+                <Button
+                  onClick={onNext}
+                  disabled={isLoading}
+                  className="h-8 px-4 text-sm"
+                >
+                  Next
+                  <img src={Next} alt="arrow" className="" />
                 </Button>
               ) : (
-                <Button onClick={onSubmit} disabled={isLoading} className="h-8 px-4 text-sm bg-[#4A90E2] hover:bg-blue-700 flex items-center gap-2">
-                  {isLoading ? (<>  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                    Submitting...
-                  </>
+                <Button
+                  onClick={onSubmit}
+                  disabled={isLoading}
+                  className="h-8 px-4 text-sm bg-[#4A90E2] hover:bg-blue-700 flex items-center gap-2"
+                >
+                  {isLoading ? (
+                    isEditMode ? (
+                      "Updating..."
+                    ) : (
+                      "Submitting..."
+                    )
                   ) : (
                     <>
-                      Submit
-                      <DoubleArrow className="h-[6px]" />
+                      {isEditMode ? "Update" : "Submit"}
+                      <DoubleArrow className="w-4 h-4 ml-1" />
                     </>
                   )}
                 </Button>
               )}
             </div>
           </div>
-          
+
           <div className="flex justify-center mb-3 py-3 border-t border-b border-[#363636]  overflow-x-auto  gap-3">
             {[1, 2, 3].map((step) => (
               <div
