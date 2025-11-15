@@ -24,7 +24,7 @@ export default function LoginPage() {
       const { access_token, refresh_token } = response.data;
       Cookies.set("token", access_token);
       Cookies.set("refresh_token", refresh_token);
-      navigate({ to: "/dashboard" });
+      navigate({ to: "/team" });
     },
     onError: (error: any) => {
       if (error?.data?.status === 422) {

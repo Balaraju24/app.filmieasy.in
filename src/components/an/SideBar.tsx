@@ -51,13 +51,13 @@ const SidebarItem = ({
 };
 
 const menuItems = [
-  { to: "/dashboard", label: "Dashboard", icon: <DashLogo /> },
+  { to: "", label: "Dashboard", icon: <DashLogo /> },
   { to: "/projects", label: "Projects", icon: <ProjLogo /> },
-  { to: "/expenses", label: "Expenses", icon: <ExpLogo /> },
+  { to: "", label: "Expenses", icon: <ExpLogo /> },
   { to: "/team", label: "Team", icon: <TeamLogo /> },
-  { to: "/location", label: "Location", icon: <LocationLogo /> },
-  { to: "/distribution", label: "Distribution", icon: <DistLogo /> },
-  { to: "/settings", label: "Settings", icon: <SettingsLogo /> },
+  { to: "", label: "Location", icon: <LocationLogo /> },
+  { to: "", label: "Distribution", icon: <DistLogo /> },
+  { to: "", label: "Settings", icon: <SettingsLogo /> },
 ];
 
 function SideBar() {

@@ -23,11 +23,7 @@ import ImportIcon from "@/components/Icons/Team/ImportIcon1";
 import DownloadStorageIcon from "@/components/Icons/Team/DownloadStorage";
 import AddUserIcon from "@/components/Icons/Team/AddUserIcon";
 import {
-  ChevronDown,
-  Download,
-  Plus,
   Search,
-  Upload,
   Calendar as CalendarIcon,
   X,
 } from "lucide-react";
