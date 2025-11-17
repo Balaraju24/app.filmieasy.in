@@ -20,7 +20,6 @@ import { cn } from "@/lib/utils";
 import ProfessionalDetailIcon from "@/components/Icons/Team/ProfessionalDetails";
 import AvailabilityIcon from "@/components/Icons/Team/AvailabilityIcon";
 
-
 interface ProfessionalFormData {
   department: string;
   roleType: string;
@@ -50,7 +49,7 @@ function ProfessionalDetails({
       <div className="space-y-4 w-[60%]">
         <div className="border-r border-zinc-800/50 p-4">
           <h3 className="text-sm font-medium mb-4 text-zinc-300 flex items-center gap-2">
-           <ProfessionalDetailIcon /> Professional Details
+            <ProfessionalDetailIcon /> Professional Details
           </h3>
           <div className="space-y-3.5">
             <div>
@@ -122,10 +121,35 @@ function ProfessionalDetails({
               <div className="flex gap-2">
                 <Input
                   type="number"
-                  value={formData.experience}
-                  onChange={(e) =>
-                    onUpdate({ experience: Number(e.target.value) })
-                  }
+                  pattern="[0-9]*"
+                  value={formData.experience || ""}
+                  maxLength={2}
+                  onKeyDown={(e) => {
+                    if (
+                      [
+                        "Backspace",
+                        "Delete",
+                        "Tab",
+                        "ArrowLeft",
+                        "ArrowRight",
+                      ].includes(e.key)
+                    ) {
+                      return;
+                    }
+                    if (!/^[0-9]$/.test(e.key)) {
+                      e.preventDefault();
+                    }
+                    if (e.currentTarget.value.length >= 2) {
+                      e.preventDefault();
+                    }
+                  }}
+                  onChange={(e) => {
+                    const raw = e.target.value.replace(/[^0-9]/g, "");
+                    const num = Number(raw);
+                    if (num > 99) return;
+                    if (raw === "0") return;
+                    onUpdate({ experience: raw === "" ? 0 : num });
+                  }}
                   className="flex-1 bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300"
                   placeholder="Enter Experience"
                 />
@@ -134,10 +158,16 @@ function ProfessionalDetails({
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="bg-zinc-900 border-zinc-800">
-                    <SelectItem value="years" className="text-white placeholder:text-zinc-300">
+                    <SelectItem
+                      value="years"
+                      className="text-white placeholder:text-zinc-300"
+                    >
                       Years
                     </SelectItem>
-                    <SelectItem value="months" className="text-white placeholder:text-zinc-300">
+                    <SelectItem
+                      value="months"
+                      className="text-white placeholder:text-zinc-300"
+                    >
                       Months
                     </SelectItem>
                   </SelectContent>
@@ -174,7 +204,7 @@ function ProfessionalDetails({
       <div className="space-y-4 w-[40%]">
         <div className=" p-4">
           <h3 className="text-sm font-medium mb-4 text-zinc-300 flex items-center gap-2">
-         <AvailabilityIcon/>   Availability
+            <AvailabilityIcon /> Availability
           </h3>
           <div className="space-y-3.5">
             <div>
@@ -271,7 +301,7 @@ function ProfessionalDetails({
                       }
                       onSelect={(date) =>
                         onUpdate({
-                          blockTo: date ? date.toLocaleDateString(): "",
+                          blockTo: date ? date.toLocaleDateString() : "",
                         })
                       }
                       initialFocus

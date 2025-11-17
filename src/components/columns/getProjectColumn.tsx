@@ -17,15 +17,15 @@ export default function createProjectColumns(): ColumnDef<Project>[] {
   const navigate = useNavigate();
   return [
     {
-      accessorKey: "image",
+      accessorKey: "project_logo_url",
       header: "Project Name",
       cell: ({ row }) => {
         const project = row.original;
         return (
           <div className="flex items-center">
-            {project.image ? (
+            {project.project_logo_url ? (
               <img
-                src={project.image}
+                src={project.project_logo_url}
                 alt={project.name}
                 className="w-8 h-8 rounded object-cover mr-3"
               />
@@ -41,7 +41,6 @@ export default function createProjectColumns(): ColumnDef<Project>[] {
         );
       },
     },
-
     {
       accessorKey: "description",
       header: "Description",

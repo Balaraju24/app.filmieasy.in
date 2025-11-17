@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import DataTable from "@/components/core/DataTable";
 import Pagination from "@/components/core/Pagination";
-import ProjectsBg from "@/assets/ProjectsBg.webp"; // Assuming a background image for projects
+import ProjectsBg from "@/assets/ProjectsBg.webp"; 
 import { Input } from "@/components/ui/input";
 import {
   Select,
