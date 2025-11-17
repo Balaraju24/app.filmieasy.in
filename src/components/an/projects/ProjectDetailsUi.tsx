@@ -131,7 +131,7 @@ function ProjectDetailsUi({
               <div className="relative">
                 <Avatar className="w-16 h-16 rounded-none">
                   <AvatarImage
-                    src="https://example.com/urban-trial-poster.jpg"
+                    src={projectData?.project_logo_url}
                     alt="Project Avatar"
                   />
                   <AvatarFallback className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center text-3xl font-bold text-white">

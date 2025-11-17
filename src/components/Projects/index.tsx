@@ -68,7 +68,7 @@ function ProjectsTableContainer() {
       scenes: project.scenes ? `Scene ${project.scenes}` : null,
       status: project.status || null,
       address: project.address || null,
-      image: project.image_url || null,
+      project_logo_url: project.project_logo_url|| null,
     })
   );
 

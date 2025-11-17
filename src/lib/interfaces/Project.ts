@@ -8,7 +8,7 @@ export interface Project {
   scenes: string;
   status: string;
   address: string;
-  image?: string;
+  project_logo_url?: string;
 }
 
 export interface ProjectsTableProps {

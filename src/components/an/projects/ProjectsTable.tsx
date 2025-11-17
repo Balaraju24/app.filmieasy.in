@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import DataTable from "@/components/core/DataTable";
 import Pagination from "@/components/core/Pagination";
-import ProjectsBg from "@/assets/ProjectsBg.webp"; // Assuming a background image for projects
+import ProjectsBg from "@/assets/ProjectsBg.webp"; 
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -23,11 +23,7 @@ import ImportIcon from "@/components/Icons/Team/ImportIcon1";
 import DownloadStorageIcon from "@/components/Icons/Team/DownloadStorage";
 import AddUserIcon from "@/components/Icons/Team/AddUserIcon";
 import {
-  ChevronDown,
-  Download,
-  Plus,
   Search,
-  Upload,
   Calendar as CalendarIcon,
   X,
 } from "lucide-react";
