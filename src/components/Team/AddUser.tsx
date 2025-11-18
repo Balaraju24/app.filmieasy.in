@@ -10,8 +10,11 @@ import {
 import AddUserForm from "../an/Team/AddUserForm";
 import { toast } from "sonner";
 import { useNavigate, useParams } from "@tanstack/react-router";
-import { formatDateToPayload } from "@/lib/interfaces/core";
-import { profile } from "console";
+import {
+  getFileAPI,
+  getS3UploadUrl,
+  uploadToPresignedUrl,
+} from "@/http/services/file";
 
 interface FormData {
   personal: {
@@ -146,9 +149,14 @@ function AddUserContainer() {
           experience: isNaN(data.professional?.experience)
             ? null
             : Number(data.professional?.experience),
-          profile_pic: data.personal.profile_pic||null,
+          profile_pic: isEmpty(data.personal?.profile_pic)
+            ? null
+            : data.personal.profile_pic,
+          documents:
+            data.payment.documents.length > 0
+              ? data.payment.documents
+              : undefined,
         };
-
         return createUserAPI(payload);
       },
       onSuccess: (response: any) => {
@@ -245,7 +253,7 @@ function AddUserContainer() {
         },
         payment: {
           rateType: userData.rate_type || "",
-          currency: userData.currency || "",
+          currency: userData.currency || 0,
           amount: userData.amount?.toString() || "",
           paymentMethod: userData.payment_method || "",
           gstPan: userData.gst_pan || "",
@@ -278,6 +286,11 @@ function AddUserContainer() {
         amount: data.payment.amount,
         payment_method: data.payment.paymentMethod,
         gst_pan: data.payment.gstPan,
+        documents:
+          data.payment.documents.length > 0
+            ? data.payment.documents
+            : undefined,
+        profile_pic: data.personal.profile_pic,
       };
 
       return isEditMode
@@ -302,8 +315,53 @@ function AddUserContainer() {
       </div>
     );
   }
+
   const updateFormData = (updates: Partial<FormData>) => {
     setFormData((prev) => ({ ...prev, ...updates }));
+  };
+  const handleFileUpload = async (file: File) => {
+    if (!file) return null;
+    const s3Data = {
+      name: file.name,
+      contentType: file.type,
+    };
+    try {
+      const response = await getS3UploadUrl(s3Data);
+      const signedUrl = response?.data?.data?.uploadUrl;
+      const fileKey = response?.data?.data?.path;
+      if (!signedUrl) throw new Error("Failed to get signed upload URL");
+      await uploadToPresignedUrl(signedUrl, file);
+      const resp = await getFileAPI(fileKey);
+      console.log(resp.data.data, "resp");
+      return resp?.data?.path || resp?.data?.fileKey || fileKey;
+    } catch (error: any) {
+      toast.error(error.message);
+      return null;
+    }
+  };
+  const handleProfilePicUpload = async (file: File) => {
+    const path = await handleFileUpload(file);
+    if (path) {
+      clearFieldErrors(["profile_pic"]);
+      setFormData((prev) => ({
+        ...prev,
+        personal: {
+          ...prev.personal,
+          profile_pic: path,
+        },
+      }));
+    }
+    return path;
+  };
+
+  const handleDocumentUpload = async (file: File) => {
+    const path = await handleFileUpload(file);
+    if (path) {
+      const docList = [...formData.payment.documents, path];
+      updatePayment({ documents: docList });
+      clearFieldErrors(["documents"]);
+    }
+    return path;
   };
 
   const clearFieldErrors = (fieldKeys: string[]) => {
@@ -316,10 +374,15 @@ function AddUserContainer() {
 
   const updatePersonal = (updates: Partial<FormData["personal"]>) => {
     const fieldKeys = Object.keys(updates) as (keyof FormData["personal"])[];
-    clearFieldErrors(fieldKeys);
-    updateFormData({ personal: { ...formData.personal, ...updates } });
+    clearFieldErrors(fieldKeys.map((k) => String(k)));
+    setFormData((prev) => ({
+      ...prev,
+      personal: {
+        ...prev.personal,
+        ...updates,
+      },
+    }));
   };
-
   const updateProfessional = (updates: Partial<FormData["professional"]>) => {
     const fieldKeys = Object.keys(
       updates
@@ -366,7 +429,7 @@ function AddUserContainer() {
     setCurrentStep((prev) => prev - 1);
   };
 
- const handleSubmit = () => {
+  const handleSubmit = () => {
     if (isEditMode) {
       editUserProfile(formData);
     } else {
@@ -387,14 +450,17 @@ function AddUserContainer() {
       onAddLanguage={addSpecificLanguage}
       onRemoveLanguage={removeLanguage}
       onUpdateLanguage={updateLanguage}
-      onAddDocument={addDocument}
+      onAddDocument={(file) => handleDocumentUpload(file)}
       onRemoveDocument={removeDocument}
+      onUploadProfilePic={(file) => handleProfilePicUpload(file)}
       onNext={nextStep}
       onPrev={prevStep}
       onSubmit={handleSubmit}
       isLoading={isLoading}
       errors={errors}
       isEditMode={isEditMode}
+      handleProfilePicUpload={handleProfilePicUpload}
+      handleDocumentUpload={handleDocumentUpload}
     />
   );
 }

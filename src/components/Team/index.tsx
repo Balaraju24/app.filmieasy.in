@@ -116,6 +116,7 @@ function UserTableContainer({ users: projectUsers, isProjectView = false }: User
     address: user.address,
     charges: user.charges,
     status: user.status,
+    user_logo_url: user.user_logo_url
   }));
   
   let filteredUsers = [...allTransformedUsers];

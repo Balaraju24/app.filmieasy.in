@@ -14,7 +14,7 @@ interface PersonalFormData {
   address: string;
   phone: string;
   email: string;
-  profileImage?: string;
+  profileImage?: string ;
   languages: { name: string }[];
 }
 
@@ -24,6 +24,7 @@ interface PersonalDetailsProps {
   onAddLanguage: (name: string) => void;
   onRemoveLanguage: (index: number) => void;
   errors: Record<string, string>;
+  handleProfilePicUpload: (file: File) => void;
 }
 
 function PersonalDetails({
@@ -32,6 +33,7 @@ function PersonalDetails({
   onAddLanguage,
   onRemoveLanguage,
   errors,
+  handleProfilePicUpload,
 }: PersonalDetailsProps) {
   return (
     <div className="w-[85%] mx-auto flex max-w-7xl mx-auto">
@@ -136,17 +138,18 @@ function PersonalDetails({
                 <input
                   type="file"
                   accept="image/*"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      const reader = new FileReader();
-                      reader.onloadend = () => {
-                        onUpdate({ profileImage: reader.result as string });
-                      };
-                      reader.readAsDataURL(file);
-                    }
-                  }}
-                  className="hidden bg-(--input-bg) border-zinc-800/50 text-white text-sm placeholder:text-zinc-300 "
+                  onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onloadend = () => {
+                            onUpdate({ profileImage: reader.result as string });
+                          };
+                          reader.readAsDataURL(file);
+                          await handleProfilePicUpload(file);
+                        }
+                      }}
+                  className="hidden"
                   id="image-upload"
                 />
                 <label

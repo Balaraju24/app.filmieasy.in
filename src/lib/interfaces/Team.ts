@@ -172,10 +172,14 @@ export interface AddUserFormProps {
   onRemoveLanguage: (index: number) => void;
   onUpdateLanguage: (index: number, name: string) => void;
   onAddDocument: (file: File) => void;
+  onUploadProfilePic: (file: File) => void;
   onRemoveDocument: (index: number) => void;
   onNext: () => void;
   onPrev: () => void;
   onSubmit: () => void;
   isLoading: boolean;
   errors: Record<string, string>;
+  handleProfilePicUpload: (file: File) => void;
+  handleDocumentUpload: (file: File) => void;
+
 }
