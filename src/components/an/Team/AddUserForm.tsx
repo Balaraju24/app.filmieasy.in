@@ -30,6 +30,7 @@ function AddUserForm({
   isLoading,
   errors,
   isEditMode,
+  handleProfilePicUpload
 }: AddUserFormProps & { isEditMode: boolean }) {
   const navigate = useNavigate();
 
@@ -138,6 +139,8 @@ function AddUserForm({
                 onAddLanguage={onAddLanguage}
                 onRemoveLanguage={onRemoveLanguage}
                 errors={errors}
+                handleProfilePicUpload={handleProfilePicUpload}
+
               />
             )}
             {currentStep === 2 && (

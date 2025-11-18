@@ -8,7 +8,7 @@ import { ColumnDef } from "@tanstack/react-table";
 export interface User {
   id: string;
   fullName: string;
-  picture?: string;
+  user_logo_url?: string;
   name?: string;
   gender: "MALE" | "FEMALE";
   email: string;
@@ -28,9 +28,9 @@ function createUserColumns(): ColumnDef<User>[] {
       header: "Full Name",
       cell: ({ row }) => (
         <div className="flex items-center gap-3">
-          {row.original?.picture ? (
+          {row.original?.user_logo_url ? (
             <img
-              src={row.original.picture}
+              src={row.original.user_logo_url}
               alt={row.original.name ?? row.original.fullName}
               className="w-8 h-8 rounded object-cover mr-3"
             />
