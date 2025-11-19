@@ -44,3 +44,12 @@ export const getProjectScenesAPI=async(projectId: string)=>{
     throw error;
   }
 }
+
+export const getUsersDropdownAPI = async () => {
+  try {
+    const response = await $fetch.get(`/user/drop-down`);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
-import { createProjectAPI } from "@/http/services/projects";
+import { createProjectAPI, getUsersDropdownAPI } from "@/http/services/projects";
 import AddProjectForm from "../an/projects/AddProjectForm";
 import { getAllUsersAPI } from "@/http/services/team";
 import { toast } from "sonner";
@@ -56,6 +56,19 @@ function AddProject() {
     department: user.department?.name || "",
     image: user.profileImage,
   }));
+    const { data: usersDropdownData, isLoading: dropdownLoading } = useQuery({
+    queryKey: ["usersDropdown"],
+    queryFn: async () => {
+      const response = await getUsersDropdownAPI();
+      return response.data.data || [];
+    },
+  });
+  const userDropdown=(usersDropdownData || []).map((user: any) => ({
+    id: user.id,
+    name: user.full_name,
+    department: user.department?.name || "",
+    image: user.user_logo_url,
+  }))
 
   const mutation = useMutation({
     mutationFn: async (data: any) => {
@@ -353,6 +366,7 @@ function AddProject() {
       currentStep={currentStep}
       formData={formData}
       availableUsers={availableUsers}
+      userDropdown={userDropdown}
       onUpdateProject={updateProject}
       onAddTeamMember={addTeamMember}
       onRemoveTeamMember={removeTeamMember}

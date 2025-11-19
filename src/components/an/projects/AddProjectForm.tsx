@@ -18,6 +18,7 @@ function AddProjectForm({
   currentStep,
   formData,
   availableUsers,
+  userDropdown,
   onUpdateProject,
   onAddTeamMember,
   onRemoveTeamMember,
@@ -37,10 +38,6 @@ function AddProjectForm({
   const navigate = useNavigate();
   const backgroundImages = [screen1, screen2, screen3];
   const currentBg = backgroundImages[currentStep - 1] || screen1;
-
-  const teamMembers = availableUsers.filter(user =>
-    formData.team.members.some(member => member.userId === user.id)
-  );
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 bg-black/80">
@@ -130,7 +127,7 @@ function AddProjectForm({
             {currentStep === 2 && (
               <CrewArtists
                 formData={formData.team}
-                availableUsers={availableUsers}
+                userDropdown={userDropdown}
                 onAddTeamMember={onAddTeamMember}
                 onRemoveTeamMember={onRemoveTeamMember}
                 onUpdateTeamMember={onUpdateTeamMember}

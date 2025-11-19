@@ -16,7 +16,7 @@ export interface UsersTableProps {
     sorting: any;
     setSorting: (sorting: any) => void;
     isLoading: boolean;
-    departments: { id: string | number; name: string; count: number }[];
+    departments: { id: string | number; name: string; memberCount: number }[];
     onCreateDepartment: (name: string) => void;
     isCreatingDepartment: boolean;
     departmentError?: string | null;
@@ -46,6 +46,7 @@ export interface DepartmentResponse {
 export interface Department {
   id: number;
   name: string;
+  memberCount:number;
 }
 
 export interface DepartmentListData {
@@ -164,7 +165,7 @@ export interface FormData {
 export interface AddUserFormProps {
   currentStep: number;
   formData: FormData;
-  departments: { id: string | number; name: string; count: number }[];
+  departments: { id: string | number; name: string; memberCount: number }[];
   onUpdatePersonal: (updates: Partial<FormData["personal"]>) => void;
   onUpdateProfessional: (updates: Partial<FormData["professional"]>) => void;
   onUpdatePayment: (updates: Partial<FormData["payment"]>) => void;

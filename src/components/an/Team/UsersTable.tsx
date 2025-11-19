@@ -76,7 +76,6 @@ function UsersTable({
   const sidebarRef = useRef<HTMLDivElement>(null);
 
   const columns = createUserColumns();
-
   const handleDepartmentSelect = (deptId: string) => {
     setSelectedDepartment(deptId === "all" ? "" : deptId);
   };
@@ -244,7 +243,7 @@ function UsersTable({
                               <span className="font-normal">{dept.name}</span>
                             </div>
                             <span className="text-xs text-zinc-600 font-normal">
-                              {dept.count}
+                              {dept.memberCount}
                             </span>
                           </button>
                         </li>

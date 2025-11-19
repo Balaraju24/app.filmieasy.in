@@ -68,6 +68,7 @@ export interface AddProjectFormProps {
   currentStep: number;
   formData: FormData;
   availableUsers: { id: string; name: string; department: string; image?: string }[];
+  userDropdown:{id: string; name: string; department: string; image?: string}[];
   onUpdateProject: (updates: Partial<FormData["project"]>) => void;
   onAddTeamMember: (userId: string) => void;
   onRemoveTeamMember: (index: number) => void;

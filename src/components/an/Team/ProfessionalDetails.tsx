@@ -32,7 +32,7 @@ interface ProfessionalFormData {
 
 interface ProfessionalDetailsProps {
   formData: ProfessionalFormData;
-  departments: { id: string | number; name: string; count: number }[];
+  departments: { id: string | number; name: string; memberCount: number }[];
   onUpdate: (updates: Partial<ProfessionalFormData>) => void;
   errors: Record<string, string>;
 }
