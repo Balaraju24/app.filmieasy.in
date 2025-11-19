@@ -54,7 +54,7 @@ function ProjectDetails({
                     />
                     <label
                       htmlFor="image-upload"
-                      className="w-30 h-12 bg-zinc-700/30 rounded-lg border-zinc-800/50 flex items-center justify-center cursor-pointer hover:bg-zinc-700/50 "
+                      className="w-32 h-18 bg-zinc-700/30 rounded-lg border-zinc-800/50 flex items-center justify-center cursor-pointer hover:bg-zinc-700/50 "
                     >
                       {formData.profileImage ? (
                         <img src={formData.profileImage} alt="Project" className="w-full h-full object-cover rounded-lg" />
@@ -72,7 +72,7 @@ function ProjectDetails({
                     </Label>
                     <Input
                       value={formData.name}
-                      onChange={(e) => onUpdate({ name: e.target.value })}
+                      onChange={(e) => onUpdate({ name: e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1) })}
                       className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm !placeholder:text-zinc-300 focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-shadow-none focus-visible:border-zinc-700 focus-visible:shadow-none"
                       placeholder="Enter project name"
                     />
@@ -131,7 +131,7 @@ function ProjectDetails({
                     <Label className="text-xs text-zinc-300 mb-2 block">Description</Label>
                     <Input
                       value={formData.description}
-                      onChange={(e) => onUpdate({ description: e.target.value })}
+                      onChange={(e) => onUpdate({ description: e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1) })}
                       className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm !placeholder:text-zinc-300 focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-shadow-none focus-visible:border-zinc-700 focus-visible:shadow-none"
                       placeholder="Enter description"
                     />

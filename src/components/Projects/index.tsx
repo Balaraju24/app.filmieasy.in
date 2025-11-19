@@ -59,7 +59,7 @@ function ProjectsTableContainer() {
           ? `${project.start_date} - ${project.end_date}`
           : null,
       budget: project.estimated_budget
-        ? `${project.estimated_budget}/100CR`
+        ? `${project.estimated_budget}`
         : null,
       members:
         project.membersCount !== undefined

@@ -177,14 +177,12 @@ function UserTableContainer({ users: projectUsers, isProjectView = false }: User
     {
       id: "all",
       name: "All",
-      count: isProjectView ? allTransformedUsers.length : paginationInfo.total_records
+    memberCount: paginationInfo?.total_records ?? 0,
     },
     ...(departmentsData || []).map((dept) => ({
       id: dept.id,
       name: dept.name,
-      count: allTransformedUsers.filter(
-        (user: any) => user.department?.toLowerCase() === dept.name.toLowerCase()
-      ).length,
+      memberCount: dept.memberCount ??0,
     })),
   ];
 

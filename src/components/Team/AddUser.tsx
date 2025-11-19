@@ -95,7 +95,7 @@ function AddUserContainer() {
 
   const departments = (departmentsData || []).map((dept: any) => ({
     ...dept,
-    count: 0,
+    memberCount: 0,
   }));
 
   const { mutate: createUserProfile, isPending: isCreatePending } = useMutation(

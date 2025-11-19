@@ -8,16 +8,16 @@ interface TeamFormData {
   members: { userId: string }[];
 }
 
-interface AvailableUser {
+interface userDropdown {
   id: string;
   name: string;
   department: string;
-  image?: string;
+  profile_pic_url?: string;
 }
 
 interface CrewArtistsProps {
   formData: TeamFormData;
-  availableUsers: AvailableUser[];
+  userDropdown: userDropdown[];
   onAddTeamMember: (userId: string) => void;
   onRemoveTeamMember: (index: number) => void;
   onUpdateTeamMember: (
@@ -29,23 +29,20 @@ interface CrewArtistsProps {
 
 function CrewArtists({
   formData,
-  availableUsers,
+  userDropdown,
   onAddTeamMember,
   onRemoveTeamMember,
   errors,
 }: CrewArtistsProps) {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredUsers = availableUsers.filter((user) =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-7xl mx-auto h-full">
       <div className="space-y-4 h-full">
         <div className="border border-zinc-800/50 rounded-lg p-4 h-full flex flex-col">
           <h3 className="text-sm font-medium mb-4 text-zinc-300">
-            Available Users
+            Available Userss
           </h3>
 
           <div className="relative mb-3.5 flex-shrink-0">
@@ -59,7 +56,7 @@ function CrewArtists({
           </div>
 
           <ScrollArea className="h-[calc(100vh-45vh)]">
-            {filteredUsers.map((user) => {
+            {userDropdown.map((user) => {
               const isAdded = formData.members.some(
                 (m) => m.userId === user.id
               );
@@ -71,7 +68,15 @@ function CrewArtists({
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-zinc-600 flex items-center justify-center text-white text-sm font-medium">
-                      {user.name.charAt(0).toUpperCase()}
+                      {user.profile_pic_url ? (
+                        <img
+                          src={user.profile_pic_url}
+                          alt={user.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        user.name.charAt(0).toUpperCase()
+                      )}
                     </div>
 
                     <div>
@@ -120,7 +125,7 @@ function CrewArtists({
 
           <div className="flex-1 overflow-y-auto space-y-3">
             {formData.members.map((member, index) => {
-              const teamMember = availableUsers.find(
+              const teamMember = userDropdown.find(
                 (u) => u.id === member.userId
               );
 
@@ -130,7 +135,15 @@ function CrewArtists({
                   className="flex items-center gap-3 p-3 bg-black/40 border border-zinc-800/50 rounded"
                 >
                   <div className="w-10 h-10 rounded-full bg-zinc-600 flex items-center justify-center text-white text-sm font-medium">
-                    {teamMember?.name.charAt(0).toUpperCase()}
+                    {teamMember?.profile_pic_url ? (
+                      <img
+                        src={teamMember.profile_pic_url}
+                        alt={teamMember.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      teamMember?.name.charAt(0).toUpperCase()
+                    )}{" "}
                   </div>
 
                   <div className="flex-1">
@@ -146,7 +159,7 @@ function CrewArtists({
                     onClick={() => onRemoveTeamMember(index)}
                     variant="ghost"
                     size="sm"
-                    className="text-red-400 hover:text-red-300 h-8 px-3 text-xs"
+                    className="text-red-400 hover:text-red-300 h-4 px-3 text-xs"
                   >
                     ×
                   </Button>

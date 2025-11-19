@@ -49,7 +49,7 @@ function PersonalDetails({
               </Label>
               <Input
                 value={formData.fullName}
-                onChange={(e) => onUpdate({ fullName: e.target.value })}
+                onChange={(e) => onUpdate({ fullName: e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1) })}
                 className="bg-(--input-bg) border-zinc-800/50 !text-gray-300 h-10 text-sm placeholder:text-zinc-300 focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-shadow-none focus-visible:border-zinc-700 focus-visible:shadow-none"
                 placeholder="Enter full name"
               />
@@ -128,7 +128,7 @@ function PersonalDetails({
               </Label>
               <Input
                 value={formData.address}
-                onChange={(e) => onUpdate({ address: e.target.value })}
+                onChange={(e) => onUpdate({ address: e.target.value.charAt(0).toUpperCase()+e.target.value.slice(1) })}
                 className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm !placeholder:text-zinc-300 focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-shadow-none focus-visible:border-zinc-700 focus-visible:shadow-none"
                 placeholder="Enter address"
               />
