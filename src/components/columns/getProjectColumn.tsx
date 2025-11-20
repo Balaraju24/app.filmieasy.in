@@ -21,6 +21,7 @@ export default function createProjectColumns(): ColumnDef<Project>[] {
       header: "Project Name",
       cell: ({ row }) => {
         const project = row.original;
+        console.log(project.project_logo_url,project.name, "project");
         return (
           <div className="flex items-center">
             {project.project_logo_url ? (
@@ -55,7 +56,7 @@ export default function createProjectColumns(): ColumnDef<Project>[] {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <span className="text-sm cursor-help text-zinc-300 hover:underline">
+                <span className="text-sm text-zinc-300 ">
                   {trimmed}
                 </span>
               </TooltipTrigger>
