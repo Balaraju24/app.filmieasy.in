@@ -19,13 +19,21 @@ import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ProjectDetailsProps } from "@/lib/interfaces/Project";
+import { useEffect, useState } from "react";
 
 function ProjectDetails({
   formData,
   onUpdate,
   errors,
-  handleImageUpload
+  handleImageUpload,
 }: ProjectDetailsProps) {
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (formData.profileImage && !previewUrl) {
+      setPreviewUrl(formData.profileImage);
+    }
+  }, [formData.profileImage, previewUrl]);
   return (
     <div className="max-w-7xl mx-auto">
       <div className="flex justify-center">
@@ -35,31 +43,39 @@ function ProjectDetails({
               <div className="space-y-3.5">
                 <div>
                   <div className="relative">
+                    
                     <input
                       type="file"
                       accept="image/*"
                       onChange={async (e) => {
                         const file = e.target.files?.[0];
                         if (file) {
+                          e.target.value = ""; 
                           const reader = new FileReader();
                           reader.onloadend = () => {
-                            onUpdate({ profileImage: reader.result as string });
+                            setPreviewUrl(reader.result as string);
                           };
                           reader.readAsDataURL(file);
                           await handleImageUpload(file);
                         }
                       }}
-                      className="hidden bg-(--input-bg) border-zinc-800/50 text-white text-sm placeholder:text-zinc-300 "
+                      className="hidden bg-(--input-bg) border-zinc-800/50 text-white text-sm placeholder:text-zinc-300"
                       id="image-upload"
                     />
                     <label
                       htmlFor="image-upload"
-                      className="w-32 h-18 bg-zinc-700/30 rounded-lg border-zinc-800/50 flex items-center justify-center cursor-pointer hover:bg-zinc-700/50 "
+                      className="w-32 h-18 bg-zinc-700/30 rounded-lg border-zinc-800/50 flex items-center justify-center cursor-pointer hover:bg-zinc-700/50"
                     >
-                      {formData.profileImage ? (
-                        <img src={formData.profileImage} alt="Project" className="w-full h-full object-cover rounded-lg" />
+                      {previewUrl ? (
+                        <img
+                          src={previewUrl}
+                          alt="Project"
+                          className="w-full h-full object-cover rounded-lg"
+                        />
                       ) : (
-                        <span className="text-zinc-400 text-sm text-center justify-center font-medium">+ Upload Image</span>
+                        <span className="text-zinc-400 text-sm text-center justify-center font-medium">
+                          + Upload Image
+                        </span>
                       )}
                     </label>
                   </div>
@@ -72,74 +88,134 @@ function ProjectDetails({
                     </Label>
                     <Input
                       value={formData.name}
-                      onChange={(e) => onUpdate({ name: e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1) })}
+                      onChange={(e) =>
+                        onUpdate({
+                          name:
+                            e.target.value.charAt(0).toUpperCase() +
+                            e.target.value.slice(1),
+                        })
+                      }
                       className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm !placeholder:text-zinc-300 focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-shadow-none focus-visible:border-zinc-700 focus-visible:shadow-none"
                       placeholder="Enter project name"
                     />
-                    {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+                    {errors.name && (
+                      <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+                    )}
                   </div>
                   <div>
                     <Label className="text-xs text-zinc-300 mb-2 block w-full">
                       Project Status
                     </Label>
-                    <Select value={formData.status} onValueChange={(v) => onUpdate({ status: v })}>
+                    <Select
+                      value={formData.status}
+                      onValueChange={(v) => onUpdate({ status: v })}
+                    >
                       <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 w-full text-sm">
                         <SelectValue placeholder="Select status" />
                       </SelectTrigger>
                       <SelectContent className="bg-zinc-900 border-zinc-800">
-                        <SelectItem value="planning" className="text-white">Planning</SelectItem>
-                        <SelectItem value="production" className="text-white">Production</SelectItem>
-                        <SelectItem value="post-production" className="text-white">Post-Production</SelectItem>
+                        <SelectItem value="planning" className="text-white">
+                          Planning
+                        </SelectItem>
+                        <SelectItem value="production" className="text-white">
+                          Production
+                        </SelectItem>
+                        <SelectItem
+                          value="post-production"
+                          className="text-white"
+                        >
+                          Post-Production
+                        </SelectItem>
                       </SelectContent>
                     </Select>
-                    {errors.status && <p className="text-red-500 text-xs mt-1">{errors.status}</p>}
+                    {errors.status && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.status}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <Label className="text-xs text-zinc-300 mb-2 block">
                       Genre
                     </Label>
-                    <Select value={formData.genre} onValueChange={(v) => onUpdate({ genre: v })}>
+                    <Select
+                      value={formData.genre}
+                      onValueChange={(v) => onUpdate({ genre: v })}
+                    >
                       <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 w-full text-sm">
                         <SelectValue placeholder="Select genre" />
                       </SelectTrigger>
                       <SelectContent className="bg-zinc-900 border-zinc-800">
-                        <SelectItem value="action" className="text-white">Action</SelectItem>
-                        <SelectItem value="drama" className="text-white">Drama</SelectItem>
-                        <SelectItem value="comedy" className="text-white">Comedy</SelectItem>
+                        <SelectItem value="action" className="text-white">
+                          Action
+                        </SelectItem>
+                        <SelectItem value="drama" className="text-white">
+                          Drama
+                        </SelectItem>
+                        <SelectItem value="comedy" className="text-white">
+                          Comedy
+                        </SelectItem>
                       </SelectContent>
                     </Select>
-                    {errors.genre && <p className="text-red-500 text-xs mt-1">{errors.genre}</p>}
+                    {errors.genre && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.genre}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <Label className="text-xs text-zinc-300 mb-2 block">
                       Language
                     </Label>
-                    <Select value={formData.language} onValueChange={(v) => onUpdate({ language: v })}>
+                    <Select
+                      value={formData.language}
+                      onValueChange={(v) => onUpdate({ language: v })}
+                    >
                       <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 w-full text-sm">
                         <SelectValue placeholder="Select language" />
                       </SelectTrigger>
                       <SelectContent className="bg-zinc-900 border-zinc-800">
-                        <SelectItem value="english" className="text-white">English</SelectItem>
-                        <SelectItem value="hindi" className="text-white">Hindi</SelectItem>
-                        <SelectItem value="telugu" className="text-white">Telugu</SelectItem>
+                        <SelectItem value="english" className="text-white">
+                          English
+                        </SelectItem>
+                        <SelectItem value="hindi" className="text-white">
+                          Hindi
+                        </SelectItem>
+                        <SelectItem value="telugu" className="text-white">
+                          Telugu
+                        </SelectItem>
                       </SelectContent>
                     </Select>
-                    {errors.language && <p className="text-red-500 text-xs mt-1">{errors.language}</p>}
+                    {errors.language && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.language}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="w-full block">
-                    <Label className="text-xs text-zinc-300 mb-2 block">Description</Label>
-                    <Input
-                      value={formData.description}
-                      onChange={(e) => onUpdate({ description: e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1) })}
-                      className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm !placeholder:text-zinc-300 focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-shadow-none focus-visible:border-zinc-700 focus-visible:shadow-none"
-                      placeholder="Enter description"
-                    />
-                  </div>
+                  <Label className="text-xs text-zinc-300 mb-2 block">
+                    Description
+                  </Label>
+                  <Input
+                    value={formData.description}
+                    onChange={(e) =>
+                      onUpdate({
+                        description:
+                          e.target.value.charAt(0).toUpperCase() +
+                          e.target.value.slice(1),
+                      })
+                    }
+                    className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm !placeholder:text-zinc-300 focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-shadow-none focus-visible:border-zinc-700 focus-visible:shadow-none"
+                    placeholder="Enter description"
+                  />
+                </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label className="text-xs text-zinc-300 mb-2 block">Start Date</Label>
+                    <Label className="text-xs text-zinc-300 mb-2 block">
+                      Start Date
+                    </Label>
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button
@@ -149,24 +225,43 @@ function ProjectDetails({
                             !formData.startDate && "text-zinc-300"
                           )}
                         >
-                          {formData.startDate ? format(new Date(formData.startDate), "MM/dd/yyyy") : "Start Date"}
+                          {formData.startDate
+                            ? format(new Date(formData.startDate), "MM/dd/yyyy")
+                            : "Start Date"}
                           <CalendarIcon className="h-4 w-4 text-teal-400" />
                         </Button>
                       </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0 bg-zinc-900 border-zinc-800" align="start">
+                      <PopoverContent
+                        className="w-auto p-0 bg-zinc-900 border-zinc-800"
+                        align="start"
+                      >
                         <Calendar
                           mode="single"
-                          selected={formData.startDate ? new Date(formData.startDate) : undefined}
-                          onSelect={(date) => onUpdate({ startDate: date ? date.toLocaleDateString() : "" })}
+                          selected={
+                            formData.startDate
+                              ? new Date(formData.startDate)
+                              : undefined
+                          }
+                          onSelect={(date) =>
+                            onUpdate({
+                              startDate: date ? date.toLocaleDateString() : "",
+                            })
+                          }
                           initialFocus
                           className="bg-zinc-900 text-white"
                         />
                       </PopoverContent>
                     </Popover>
-                    {errors.startDate && <p className="text-red-500 text-xs mt-1">{errors.startDate}</p>}
+                    {errors.startDate && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.startDate}
+                      </p>
+                    )}
                   </div>
                   <div>
-                    <Label className="text-xs text-zinc-300 mb-2 block">End Date</Label>
+                    <Label className="text-xs text-zinc-300 mb-2 block">
+                      End Date
+                    </Label>
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button
@@ -176,32 +271,57 @@ function ProjectDetails({
                             !formData.endDate && "text-zinc-300"
                           )}
                         >
-                          {formData.endDate ? format(new Date(formData.endDate), "MM/dd/yyyy") : "End Date"}
+                          {formData.endDate
+                            ? format(new Date(formData.endDate), "MM/dd/yyyy")
+                            : "End Date"}
                           <CalendarIcon className="h-4 w-4 text-teal-400" />
                         </Button>
                       </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0 bg-zinc-900 border-zinc-800" align="start">
+                      <PopoverContent
+                        className="w-auto p-0 bg-zinc-900 border-zinc-800"
+                        align="start"
+                      >
                         <Calendar
                           mode="single"
-                          selected={formData.endDate ? new Date(formData.endDate) : undefined}
-                          onSelect={(date) => onUpdate({ endDate: date ? date.toLocaleDateString() : "" })}
+                          selected={
+                            formData.endDate
+                              ? new Date(formData.endDate)
+                              : undefined
+                          }
+                          onSelect={(date) =>
+                            onUpdate({
+                              endDate: date ? date.toLocaleDateString() : "",
+                            })
+                          }
                           initialFocus
                           className="bg-zinc-900 text-white"
                         />
                       </PopoverContent>
                     </Popover>
-                    {errors.endDate && <p className="text-red-500 text-xs mt-1">{errors.endDate}</p>}
+                    {errors.endDate && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.endDate}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div>
-                  <Label className="text-xs text-zinc-300 mb-2 block">Estimated Budget Details</Label>
+                  <Label className="text-xs text-zinc-300 mb-2 block">
+                    Estimated Budget Details
+                  </Label>
                   <Input
                     value={formData.estimatedBudget}
-                    onChange={(e) => onUpdate({ estimatedBudget: e.target.value })}
+                    onChange={(e) =>
+                      onUpdate({ estimatedBudget: e.target.value })
+                    }
                     className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm !placeholder:text-zinc-300 focus:outline-none focus:shadow-none focus-visible:outline-none focus-visible:shadow-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-shadow-none focus-visible:border-zinc-700 focus-visible:shadow-none"
                     placeholder="Enter estimated budget details"
                   />
-                  {errors.estimatedBudget && <p className="text-red-500 text-xs mt-1">{errors.estimatedBudget}</p>}
+                  {errors.estimatedBudget && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.estimatedBudget}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>

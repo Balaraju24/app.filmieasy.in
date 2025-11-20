@@ -225,37 +225,36 @@ function AddProject() {
     setErrors(newErrors);
   };
 
-  const handleFileUpload = async (file: File) => {
-    if (!file) return null;
-    const s3Data = {
-      name: file.name,
-      contentType: file.type,
-    };
-    try {
-      const response = await getS3UploadUrl(s3Data);
-      const signedUrl = response?.data?.data?.uploadUrl;
-      const fileKey = response?.data?.data?.path;
-      if (!signedUrl) throw new Error("Failed to get signed upload URL");
-      await uploadToPresignedUrl(signedUrl, file);
-      const resp = await getFileAPI(fileKey);
-      console.log(resp.data.data, "resp");
-      return resp?.data?.path || resp?.data?.fileKey || fileKey;
-    } catch (error: any) {
-      toast.error(error.message );
-      return null;
-    }
+const handleFileUpload = async (file: File) => {
+  if (!file) return null;
+  const s3Data = {
+    name: file.name,
+    contentType: file.type,
   };
+  try {
+    const response = await getS3UploadUrl(s3Data);
+    const signedUrl = response?.data?.data?.uploadUrl;
+    const fileKey = response?.data?.data?.path;
+    if (!signedUrl) throw new Error("Failed to get signed upload URL");
+    await uploadToPresignedUrl(signedUrl, file);
+    const resp = await getFileAPI(fileKey);
+    console.log(resp.data.data, "response");
+    return resp?.data?.path || resp?.data?.fileKey || fileKey;
+  } catch (error: any) {
+    return null;
+  }
+};
 
-  const handleImageUpload = async (file: File) => {
-    const path = await handleFileUpload(file);
-    if (path) {
-      clearFieldErrors(["profileImage"]);
-      updateFormData({
-        project: { ...formData.project, profileImage: path },
-      });
-    }
-    return path;
-  };
+const handleImageUpload = async (file: File) => {
+  const path = await handleFileUpload(file);
+  if (path) {
+    clearFieldErrors(["profileImage"]);
+    updateFormData({
+      project: { ...formData.project, profileImage: path },
+    });
+  }
+  return path;
+};
 
   const onUploadDocument = async (file: File) => {
     return await handleFileUpload(file);

@@ -42,7 +42,7 @@ function CrewArtists({
       <div className="space-y-4 h-full">
         <div className="border border-zinc-800/50 rounded-lg p-4 h-full flex flex-col">
           <h3 className="text-sm font-medium mb-4 text-zinc-300">
-            Available Userss
+            Available Users
           </h3>
 
           <div className="relative mb-3.5 flex-shrink-0">
@@ -55,7 +55,7 @@ function CrewArtists({
             />
           </div>
 
-          <ScrollArea className="h-[calc(100vh-45vh)]">
+          <ScrollArea className="h-[calc(100vh-38vh)]">
             {userDropdown.map((user) => {
               const isAdded = formData.members.some(
                 (m) => m.userId === user.id
@@ -64,7 +64,7 @@ function CrewArtists({
               return (
                 <div
                   key={user.id}
-                  className="flex items-center justify-between p-3 mb-3 bg-black/40 border border-zinc-800/50 rounded"
+                  className="flex items-center justify-between p-2 mb-1 bg-black/40 border border-zinc-800/50 rounded"
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-zinc-600 flex items-center justify-center text-white text-sm font-medium">
@@ -100,7 +100,7 @@ function CrewArtists({
                     }}
                     variant="ghost"
                     size="sm"
-                    className={`h-8 px-3 text-sm font-light transition
+                    className={`h-6 px-2 text-sm font-light transition
                     ${
                       isAdded
                         ? "bg-gray-700/50 text-gray-400 "
@@ -123,54 +123,56 @@ function CrewArtists({
             Project Team ({formData.members.length})
           </h3>
 
-          <div className="flex-1 overflow-y-auto space-y-3">
-            {formData.members.map((member, index) => {
-              const teamMember = userDropdown.find(
-                (u) => u.id === member.userId
-              );
+          <ScrollArea className="flex-1">
+            <div className="space-y-1">
+              {formData.members.map((member, index) => {
+                const teamMember = userDropdown.find(
+                  (u) => u.id === member.userId
+                );
 
-              return (
-                <div
-                  key={index}
-                  className="flex items-center gap-3 p-3 bg-black/40 border border-zinc-800/50 rounded"
-                >
-                  <div className="w-10 h-10 rounded-full bg-zinc-600 flex items-center justify-center text-white text-sm font-medium">
-                    {teamMember?.profile_pic_url ? (
-                      <img
-                        src={teamMember.profile_pic_url}
-                        alt={teamMember.name}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      teamMember?.name.charAt(0).toUpperCase()
-                    )}{" "}
-                  </div>
-
-                  <div className="flex-1">
-                    <p className="text-white text-sm font-medium">
-                      {teamMember?.name}
-                    </p>
-                    <p className="text-zinc-400 text-xs">
-                      {teamMember?.department}
-                    </p>
-                  </div>
-
-                  <Button
-                    onClick={() => onRemoveTeamMember(index)}
-                    variant="ghost"
-                    size="sm"
-                    className="text-red-400 hover:text-red-300 h-4 px-3 text-xs"
+                return (
+                  <div
+                    key={index}
+                    className="flex items-center gap-3 p-2 bg-black/40 border border-zinc-800/50 rounded"
                   >
-                    ×
-                  </Button>
-                </div>
-              );
-            })}
+                    <div className="w-10 h-10 rounded-full bg-zinc-600 flex items-center justify-center text-white text-sm font-medium">
+                      {teamMember?.profile_pic_url ? (
+                        <img
+                          src={teamMember.profile_pic_url}
+                          alt={teamMember.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        teamMember?.name.charAt(0).toUpperCase()
+                      )}
+                    </div>
 
-            {errors.team && (
-              <p className="px-1 text-red-500 text-xs">{errors.team}</p>
-            )}
-          </div>
+                    <div className="flex-1">
+                      <p className="text-white text-sm font-medium">
+                        {teamMember?.name}
+                      </p>
+                      <p className="text-zinc-400 text-xs">
+                        {teamMember?.department}
+                      </p>
+                    </div>
+
+                    <Button
+                      onClick={() => onRemoveTeamMember(index)}
+                      variant="ghost"
+                      size="sm"
+                      className="text-red-400 hover:text-red-300 h-6 px-2 text-xl"
+                    >
+                      ×
+                    </Button>
+                  </div>
+                );
+              })}
+
+              {errors.team && (
+                <p className="px-1 text-red-500 text-xs">{errors.team}</p>
+              )}
+            </div>
+          </ScrollArea>
         </div>
       </div>
     </div>
